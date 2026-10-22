@@ -285,6 +285,7 @@
     .manage-row button.del[data-armed="1"]{background:#a33040;color:#fff;font-size:.85rem}
     .manage-row button:disabled{opacity:.4}
     @media print{.plan-bar,.add-plan-link{display:none!important}#planSub{color:#444!important;font-size:10pt}}
+    .restore-start{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:1px dashed #c9c7ee;background:#f7f7ff;border-radius:12px;padding:12px 14px;font-size:.93rem;font-weight:700;color:#3d3b6e}
     .tools-row button.share{border-color:#d6d4f5;background:#f6f5ff;color:#44418c}
     .print-sign,.print-log{display:none}
     .log-list{list-style:none;margin:0;padding:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
@@ -569,7 +570,9 @@
     </section>
     <section class="set-sec">
       <h3>Moving to a new device</h3>
-      <p>Tap <strong>Back up</strong> here to save a file. On the other device, open the app and tap <strong>Restore</strong>. You can merge the two so nothing is lost.</p>
+      <p>Back up saves a file with all your plans, check-ins and ratings. Send it to your other device (AirDrop, email or iCloud Drive), open the app there and tap Restore. If that device already has entries, you can merge the two so nothing is lost.</p>
+      <div class="row-btns"><button type="button" class="btn" id="setBackup">↓ Back up</button><button type="button" class="btn" id="setRestore">↑ Restore from a file</button></div>
+      <p class="tiny">The backup file holds your whole plan in readable form. Keep it private and delete extra copies once you've restored it.</p>
       <button type="button" class="btn" id="setRerun">Run guided setup again</button>
     </section>
     <section class="set-sec">
@@ -647,7 +650,7 @@
     {key:'red',name:'Red zone',symbol:'×',description:'Feeling overwhelmed · How I can reduce risk and get support'}
   ];
   const emptyPlan = () => ({version:1, id:'', title:'My plan', icon:'🧭', meta:{name:'',focus:'',date:'',updated:''}, person:{name:'',phone:''}, crisis:{country:'',emergency:'',chat:'',lines:[]}, history:[], checkins:[], ratings:[], zones:Object.fromEntries(ZONES.map(z => [z.key,Object.fromEntries([...FIELDS.map(f=>[f[0],'']),['contacts','']])]))});
-  const hasContent = p => Object.values(p.meta).some(v=>v.trim()) || Object.values(p.zones).some(z=>Object.values(z).some(v=>v.trim()));
+  const hasContent = p => ['name','focus','date'].some(k=>(p.meta[k]||'').trim()) || (p.person&&p.person.name.trim()) || Object.values(p.zones).some(z=>Object.values(z).some(v=>v.trim()));
   const PREF_KEY = 'pocket-safety-plan-prefs';
   let prefs = {view:'quick', pick:'all', setupDone:false, lock:null};
   try{ Object.assign(prefs, JSON.parse(localStorage.getItem(PREF_KEY)||'{}')); }catch(e){}
@@ -1438,7 +1441,12 @@
       const w=node('div'),p=node('div',{class:'promise'});
       [['🔒','Your answers stay on this device. No account, no tracking. Nobody else can see them, including whoever shared this app with you.'],['🧭','Setup takes about 5 minutes. Tap examples or write your own. You can change anything later.'],['🤝','It works best alongside a clinician or people you trust. Consider filling it in together.']].forEach(([i,t])=>{const d=node('div');d.append(node('b',{'aria-hidden':'true'},i),node('span',{},t));p.append(d);});
       const n=node('div',{class:'note-box'});n.append(node('strong',{},'Need help right now? '),'You don\'t need to finish setup first.');n.append(buildCrisis(node('div',{class:'crisis'})));
-      w.append(p,n);return w;},next:'Start setup'},
+      const r=node('div',{class:'restore-start'});
+      r.append(node('span',{},'Already have a plan on another device?'));
+      const rb=node('button',{type:'button',class:'btn'},'↑ Restore from a backup file');
+      rb.addEventListener('click',()=>$('#importFile').click());
+      r.append(rb);
+      w.append(p,r,n);return w;},next:'Start setup'},
     {t:'Where are you?',s:'This sets the crisis lines your call and text buttons use.',b(){
       const w=node('div'),c=crisis();
       const l1=node('label');l1.append(node('span',{class:'field-label'},'Country or region'));const sel=node('select');countrySelect(sel,c.country);l1.append(sel);
@@ -1470,7 +1478,7 @@
       return chipField('red','environment',EX.redEnv,'What would help make my environment safer?','Many plans include asking someone you trust to hold onto anything risky for a while.');}},
     {t:'Your plan is ready 🎉',s:'You can open it any time, add to it, and update it as you learn what works.',b(){
       const w=node('div'),p=node('div',{class:'promise'});
-      [['🗂','Different settings bring up different things? You can add separate plans later, like work, family or social situations, from Edit or Settings. One plan is plenty for most people.'],['📱','Add it to your home screen so it opens like an app, even offline. iPhone/iPad: Safari → Share → Add to Home Screen. Android: menu ⋮ → Install app.'],['♡','Use Check in to name what you feel, and "Try it" to learn which skills help you most.'],['💾','Tap Back up now and then and keep the file somewhere private. It\'s how you move your plan to a new device.'],['🔒','Want privacy on a shared device? Set a passcode in Settings.']].forEach(([i,t])=>{const d=node('div');d.append(node('b',{'aria-hidden':'true'},i),node('span',{},t));p.append(d);});
+      [['🗂','Many people use one plan. If different settings bring up different things, like work, family or social situations, you can add a plan for each anytime from Edit or Settings.'],['📱','Add it to your home screen so it opens like an app, even offline. iPhone/iPad: Safari → Share → Add to Home Screen. Android: menu ⋮ → Install app.'],['♡','Use Check in to name what you feel, and "Try it" to learn which skills help you most.'],['💾','Tap Back up now and then and keep the file somewhere private. It\'s how you move your plan to a new device.'],['🔒','Want privacy on a shared device? Set a passcode in Settings.']].forEach(([i,t])=>{const d=node('div');d.append(node('b',{'aria-hidden':'true'},i),node('span',{},t));p.append(d);});
       w.append(p);return w;},next:'Go to my plan'}
   ];
   let setupStep=0;
@@ -1525,6 +1533,8 @@
   $('#setCountry').addEventListener('change',e=>{plan.crisis=crisisDefaults(e.target.value);store();$('#setEmergency').value=plan.crisis.emergency;renderLinesEditor();renderCrisisAll();addLog({area:'Crisis lines',note:'Set to '+COUNTRIES[e.target.value].name});});
   $('#setEmergency').addEventListener('input',e=>{plan.crisis.emergency=e.target.value.trim();store();renderCrisisAll();});
   $('#setAddLine').addEventListener('click',()=>{plan.crisis.lines.push({name:'',number:'',kind:'call'});store();renderLinesEditor();$('#setLines .line-row:last-child input').focus();});
+  $('#setBackup').addEventListener('click',()=>backup());
+  $('#setRestore').addEventListener('click',()=>{$('#settingsDialog').close();$('#importFile').click();});
   $('#setRerun').addEventListener('click',()=>{$('#settingsDialog').close();openSetup();});
   $('#settingsBtn').addEventListener('click',openSettings);
   $('#settingsHdrBtn').addEventListener('click',openSettings);
@@ -1640,7 +1650,7 @@
   }
   let pendingRestore=null;
   const closeRestore=()=>{pendingRestore=null;$('#restoreDialog').close();};
-  function afterRestore(note){addLog({area:'Plan',note});rerenderAll();prefs.setupDone=true;savePrefs();}
+  function afterRestore(note){if(!$('#setup').classList.contains('hidden')){$('#setup').classList.add('hidden');document.body.style.overflow='';}addLog({area:'Plan',note});rerenderAll();prefs.setupDone=true;savePrefs();}
   $('#restoreMerge').addEventListener('click',()=>{if(!pendingRestore)return;applyMerge(pendingRestore);closeRestore();afterRestore('Merged a backup file into this device');notify('Backup merged.');});
   $('#restoreReplace').addEventListener('click',()=>{if(!pendingRestore)return;applyReplace(pendingRestore);closeRestore();afterRestore('Replaced this device\'s plan with a backup file');notify('Backup restored.');});
   $('#restoreCancel').addEventListener('click',closeRestore);
@@ -1714,7 +1724,7 @@
     if(multi()&&book.plans.length<MAX_PLANS){const add=node('button',{type:'button',class:'plan-chip add'},'＋ New plan');add.addEventListener('click',openNewPlan);bar.append(add);}
     document.querySelectorAll('.add-plan-link').forEach(b=>b.classList.toggle('hidden',book.plans.length>=MAX_PLANS));
     $('#setManagePlans').classList.toggle('hidden',!multi());
-    $('#setPlansNote').textContent=multi()?`You have ${book.plans.length} plans. Switch between them at the top of the app.`:'Most people need just one plan. If different settings bring different signs or need different help, like work, family or social situations, you can add a plan for each.';
+    $('#setPlansNote').textContent=multi()?`You have ${book.plans.length} plans. Switch between them at the top of the app.`:'Many people use one plan. If different settings bring different signs or need different help, like work, family or social situations, you can add a plan for each.';
     if(multi()){const m=node('button',{type:'button',class:'plan-chip manage','aria-label':'Manage my plans',title:'Manage my plans'},'⋯');m.addEventListener('click',openManage);bar.append(m);}
     const sub=$('#planSub');sub.textContent=multi()?planLabel(plan)+' plan':'';sub.classList.toggle('hidden',!multi());
     const lh=$('#logHeading');if(lh)lh.textContent='Update log'+(multi()?' · '+planLabel(plan):'');
