@@ -335,12 +335,16 @@
        Theme: calm editorial (screen only; print keeps the paper layout)
        Dark by default, light available. Zone colours stay green/yellow/red.
        ===================================================================== */
-    @font-face{font-family:'Pocket Display';src:local('Anton'),local('Anton Regular'),local('Anton-Regular');font-display:swap}
+    /* Self-hosted fonts (fonts/ folder): Playfair Display for headlines, Inter for everything else.
+       Both are free under the SIL Open Font License from Google Fonts. Until the files are added,
+       similar built-in fonts are used. */
+    @font-face{font-family:'Playfair Display';src:local('Playfair Display'),local('PlayfairDisplay-Regular'),url('fonts/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');font-weight:400 900;font-style:normal;font-display:swap}
+    @font-face{font-family:'Inter';src:local('Inter'),local('Inter Variable'),url('fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
     @media screen{
       :root{
-        --font-display:'Pocket Display','Bebas Neue','Oswald','Avenir Next Condensed','Bahnschrift','Roboto Condensed','Arial Narrow','DejaVu Sans Condensed',sans-serif-condensed,Impact,sans-serif;
-        --font-body:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-        --font-mono:ui-monospace,'SF Mono',Menlo,Consolas,'Roboto Mono','DejaVu Sans Mono',monospace;
+        --font-display:'Playfair Display','Playfair',Georgia,'Times New Roman','DejaVu Serif',serif;
+        --font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+        --font-mono:var(--font-body); /* small labels use Inter too */
         --r-sm:4px;--r-md:6px;
         /* dark (default) */
         --bg:#141311;--surface:#1b1a17;--surface2:#23211d;--input:#100f0d;
@@ -379,7 +383,8 @@
 
       /* ---------- Base ---------- */
       html,body{background:var(--bg)}
-      body{color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+      body{color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;font-feature-settings:'cv11','ss01';font-variant-numeric:tabular-nums}
+      h1,h2,h3,.quick-top h2,.zone-heading h2,.result h2{font-variant-numeric:normal}
       body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:30;opacity:var(--grain);
         background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
       ::selection{background:var(--accent);color:var(--accent-ink)}
@@ -395,7 +400,7 @@
       header{background:var(--bg);color:var(--ink);border-bottom:1px solid var(--line);padding:calc(30px + env(safe-area-inset-top)) 0 26px}
       header:after{display:none}
       .eyebrow{font-family:var(--font-mono);font-weight:500;font-size:.72rem;letter-spacing:.2em;color:var(--muted)!important}
-      h1{font-family:var(--font-display);font-weight:800;font-stretch:condensed;text-transform:uppercase;letter-spacing:.005em;line-height:.95;font-size:clamp(2.7rem,7vw,4.6rem);margin:0 0 12px;color:var(--ink)}
+      h1{font-family:var(--font-display);font-weight:700;letter-spacing:-.01em;line-height:1.04;font-size:clamp(2.5rem,6.5vw,4.3rem);margin:0 0 12px;color:var(--ink)}
       h1 .dots{display:flex;gap:4px;margin-top:12px}
       h1 .dots i{display:block;width:30px;height:5px}
       h1 .dots i:nth-child(1){background:var(--g)}h1 .dots i:nth-child(2){background:var(--y)}h1 .dots i:nth-child(3){background:var(--r)}
@@ -404,11 +409,13 @@
       .privacy-pill{border:1px solid var(--line2);border-radius:var(--r-sm);color:var(--muted);font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
       .hdr-btn{border-radius:var(--r-sm);border:1px solid var(--line2);background:transparent;color:var(--ink)}
       .hdr-btn:hover{background:var(--surface2)}
+      header .header-main{padding-right:58px}
+      @media(min-width:900px){header .header-main{padding-right:64px}}
       @media(max-width:650px){body.mode-quick header{padding:calc(14px + env(safe-area-inset-top)) 0 14px}body.mode-quick h1{font-size:1.75rem;margin:0}body.mode-quick h1 .dots{margin-top:7px}body.mode-quick h1 .dots i{width:18px;height:3px}body.mode-quick #planSub{margin-top:4px}}
 
       /* ---------- Panels, toolbar, tabs ---------- */
       .top-panel,.quick-top,.check-card,.zone,.quick-zone,.log-list,.overlay-card,dialog{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:none}
-      .quick-top h2,.check-card h2,.overlay-card h2,dialog h2{font-family:var(--font-display);font-weight:800;font-stretch:condensed;text-transform:uppercase;letter-spacing:.01em;font-size:1.55rem;line-height:1.05;color:var(--ink)}
+      .quick-top h2,.check-card h2,.overlay-card h2,dialog h2{font-family:var(--font-display);font-weight:700;letter-spacing:.01em;font-size:1.55rem;line-height:1.05;color:var(--ink)}
       .quick-top p,.sub,.intro,.overlay-card .sub,dialog p{color:var(--muted)}
       .meta-foot{border-top-color:var(--line)}
       #saveStatus,.progress{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;color:var(--muted)}
@@ -448,7 +455,7 @@
       .zone,.quick-zone{overflow:hidden;border-top:3px solid var(--zm)}
       .zone.green,.quick-zone.green{--zm:var(--g)}.zone.yellow,.quick-zone.yellow{--zm:var(--y)}.zone.red,.quick-zone.red{--zm:var(--r)}
       .zone-heading{background:var(--zone-bg);border-bottom:1px solid var(--line)}
-      .zone-heading h2,.quick-zone h3{font-family:var(--font-display);font-weight:800;font-stretch:condensed;text-transform:uppercase;letter-spacing:.015em;font-size:1.7rem;color:var(--zone)}
+      .zone-heading h2,.quick-zone h3{font-family:var(--font-display);font-weight:700;letter-spacing:.015em;font-size:1.7rem;color:var(--zone)}
       .zone-heading p{color:var(--muted)}
       .zone-icon{background:var(--zm);border:0;color:var(--on-zone);border-radius:var(--r-sm);width:34px;height:34px;flex-basis:34px;font-size:1rem}
       .zone.yellow .zone-icon{color:#141311}
@@ -492,7 +499,7 @@
       .form-msg,.form-error{color:var(--rt)!important}
       .result{border:1px solid var(--line);border-left:4px solid var(--zm);background:var(--zone-bg);border-radius:var(--r-sm)}
       .result.green{--zm:var(--g)}.result.yellow{--zm:var(--y);--zone:var(--yt);--zone-bg:var(--y-tint)}.result.red{--zm:var(--r)}
-      .result h2{font-family:var(--font-display);font-weight:800;font-stretch:condensed;text-transform:uppercase;font-size:1.45rem;line-height:1.1;letter-spacing:.01em;color:var(--zone);margin-bottom:6px}
+      .result h2{font-family:var(--font-display);font-weight:700;font-size:1.45rem;line-height:1.1;letter-spacing:.01em;color:var(--zone);margin-bottom:6px}
       .result h3{font-family:var(--font-mono);color:var(--muted)}
       .result .skill-row{background:var(--surface);border-color:var(--line);border-radius:var(--r-sm)}
       .stat{border-bottom-color:var(--line)}
@@ -537,7 +544,7 @@
       /* ---------- Breathing (always calm and dark) ---------- */
       #breathe{background:radial-gradient(circle at 50% 38%,#1f2420,#121311 70%);color:#f1ede3}
       #bCircle{background:radial-gradient(circle at 50% 38%,#a9e8c6,#2f9d68 72%);box-shadow:0 0 80px rgba(82,209,143,.25)}
-      #bPhase{font-family:var(--font-display);font-weight:800;font-stretch:condensed;text-transform:uppercase;letter-spacing:.02em;font-size:2.4rem}
+      #bPhase{font-family:var(--font-display);font-weight:700;letter-spacing:.02em;font-size:2.4rem}
       #bSecs,#bStats{font-family:var(--font-mono)}
       .bmodes{border-radius:var(--r-sm);background:rgba(255,255,255,.06)}
       .bmodes button{border-radius:var(--r-sm);font-family:var(--font-mono);font-size:.74rem;letter-spacing:.06em}

@@ -6,6 +6,7 @@ WHAT'S IN THIS FOLDER
   manifest.webmanifest    lets phones install it like an app
   sw.js                   makes it work offline
   icons/                  the app icons
+  fonts/                  the app's fonts (add 2 files first: see fonts/ADD-FONTS-HERE.txt)
   README.md               the description people see on your GitHub page
   HOW-TO-PUBLISH.txt      this guide (you don't need to upload it)
 
@@ -28,12 +29,16 @@ Your link will look like:  https://YOUR-USERNAME.github.io/my-pocket-safety-plan
    - Leave "Add a README file" unticked (this folder already has one).
    - Click "Create repository".
 
+2b. Add the fonts (about 2 minutes, one time):
+   Open the fonts folder and follow ADD-FONTS-HERE.txt. You'll download Playfair
+   Display and Inter from Google Fonts and copy one file from each into that folder.
+
 3. Upload the app:
    - On the repository page, click the link that says "uploading an existing file".
      (If you don't see it: "Add file", then "Upload files".)
    - Open this folder on your computer. Select  index.html, manifest.webmanifest,
-     sw.js, README.md  AND the  icons  folder, and drag them all onto the upload area.
-     (Drag the icons FOLDER itself, not just the pictures inside it.)
+     sw.js, README.md  AND the  icons  and  fonts  folders, and drag them all onto
+     the upload area. (Drag the FOLDERS themselves, not just the files inside them.)
    - Click "Commit changes" at the bottom.
 
 4. Turn the website on:

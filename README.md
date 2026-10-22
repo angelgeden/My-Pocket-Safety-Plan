@@ -4,7 +4,7 @@
 
 My Pocket Safety Plan helps you build a personal safety plan in minutes, see your early warning signs, and reach support in one tap. Check in with your emotions, learn which coping skills help, and share how to support you. Private by design: no account, no tracking, answers stay on your own device. Free and works offline. Not an emergency service.
 
-👉 **Open the app:** https://angelgeden.github.io/my-pocket-safety-plan/
+👉 **Open the app:** https://YOUR-USERNAME.github.io/my-pocket-safety-plan/
 
 ---
 
@@ -54,10 +54,11 @@ My Pocket Safety Plan is a personal planning tool. It is **not** an emergency se
 | `manifest.webmanifest` | Lets phones and computers install it |
 | `sw.js` | Offline support |
 | `icons/` | App icons |
+| `fonts/` | Playfair Display and Inter font files (see `ADD-FONTS-HERE.txt`) |
 | `HOW-TO-PUBLISH.txt` | Step-by-step publishing guide |
 
 **Publishing an update:** replace `index.html`, then change `VERSION` in `sw.js` (for example `pocket-v1` → `pocket-v2`) so installed copies pick up the new version. People's saved answers are not affected.
 
-**Fonts.** Headlines use each device's built-in condensed font (Avenir Next Condensed on Apple, Roboto Condensed on Android, Bahnschrift on Windows), so nothing is loaded from other websites. For the exact same headline font on every device, download *Anton* (free, Open Font License) from Google Fonts, add `Anton-Regular.ttf` to a `fonts/` folder, and in `index.html` change `local('Anton-Regular');` in the `@font-face` rule to `local('Anton-Regular'),url('fonts/Anton-Regular.ttf') format('truetype');`. The offline cache picks it up automatically.
+**Fonts.** Headlines use *Playfair Display* and body text uses *Inter*, both free under the SIL Open Font License from Google Fonts. They're self-hosted from the `fonts/` folder, so the app never contacts Google and the fonts work offline. See `fonts/ADD-FONTS-HERE.txt` for the two files to add. Without them, similar built-in fonts are used.
 
 **Crisis numbers** live in the `COUNTRIES` list in `index.html`. Check them periodically against each service's official site.

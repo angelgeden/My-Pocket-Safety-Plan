@@ -1,0 +1,25 @@
+ADD THESE TWO FONT FILES TO THIS FOLDER
+=======================================
+
+The app uses Playfair Display for headlines and Inter for everything else.
+Both are free (SIL Open Font License). Until these files are here, the app
+uses similar built-in fonts, so it still works.
+
+1. Go to https://fonts.google.com/specimen/Playfair+Display
+   Click "Get font", then "Download all". Unzip it.
+   Copy this file into this fonts folder:
+       PlayfairDisplay-VariableFont_wght.ttf
+
+2. Go to https://fonts.google.com/specimen/Inter
+   Click "Get font", then "Download all". Unzip it.
+   Copy this file into this fonts folder:
+       Inter-VariableFont_opsz,wght.ttf
+   (Yes, the name really has a comma in it. Keep it exactly as is.)
+
+3. Also copy the OFL.txt license file from either download into this folder.
+   (The license asks that it travel with the fonts.)
+
+Keep the file names exactly as they are. The files are the ones at the top
+level of each download, not the ones inside the "static" folder.
+
+When you upload to GitHub, include this whole fonts folder.
