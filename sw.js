@@ -1,6 +1,6 @@
 // My Pocket Safety Plan — offline support.
 // Bump VERSION whenever you upload a new index.html so phones pick up the update.
-const VERSION = 'pocket-v4';
+const VERSION = 'pocket-v5';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
@@ -18,5 +18,9 @@ self.addEventListener('fetch', e => {
       .catch(() => caches.match('./index.html')));
     return;
   }
-  e.respondWith(caches.match(req).then(hit => hit || fetch(req)));
+  e.respondWith(caches.match(req).then(hit => hit || fetch(req).then(res => {
+    // Keep optional self-hosted fonts (fonts/ folder) for offline use
+    if (res.ok && new URL(req.url).pathname.includes('/fonts/')) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }
+    return res;
+  })));
 });

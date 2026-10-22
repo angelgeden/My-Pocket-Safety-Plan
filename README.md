@@ -4,7 +4,7 @@
 
 My Pocket Safety Plan helps you build a personal safety plan in minutes, see your early warning signs, and reach support in one tap. Check in with your emotions, learn which coping skills help, and share how to support you. Private by design: no account, no tracking, answers stay on your own device. Free and works offline. Not an emergency service.
 
-👉 **Open the app:** https://angelgeden.github.io/my-pocket-safety-plan/
+👉 **Open the app:** https://YOUR-USERNAME.github.io/my-pocket-safety-plan/
 
 ---
 
@@ -19,6 +19,7 @@ My Pocket Safety Plan helps you build a personal safety plan in minutes, see you
 - **Update log and printable plan.** Every change is dated. Print or save a PDF with signature and date lines.
 - **One plan, or a few.** Many people use one plan. If different settings bring different signs or need different help, add a separate plan for work, family, social situations or anything you name, and switch in one tap. Crisis lines, check-ins and skill ratings are shared across plans.
 - **Optional passcode** for privacy on a shared device.
+- **Easy on the eyes.** A calm dark theme by default with a light option (Settings → Appearance). Large tap targets, high contrast and minimal motion, so it stays usable when emotions run high.
 
 ## Privacy
 
@@ -56,5 +57,7 @@ My Pocket Safety Plan is a personal planning tool. It is **not** an emergency se
 | `HOW-TO-PUBLISH.txt` | Step-by-step publishing guide |
 
 **Publishing an update:** replace `index.html`, then change `VERSION` in `sw.js` (for example `pocket-v1` → `pocket-v2`) so installed copies pick up the new version. People's saved answers are not affected.
+
+**Fonts.** Headlines use each device's built-in condensed font (Avenir Next Condensed on Apple, Roboto Condensed on Android, Bahnschrift on Windows), so nothing is loaded from other websites. For the exact same headline font on every device, download *Anton* (free, Open Font License) from Google Fonts, add `Anton-Regular.ttf` to a `fonts/` folder, and in `index.html` change `local('Anton-Regular');` in the `@font-face` rule to `local('Anton-Regular'),url('fonts/Anton-Regular.ttf') format('truetype');`. The offline cache picks it up automatically.
 
 **Crisis numbers** live in the `COUNTRIES` list in `index.html`. Check them periodically against each service's official site.
