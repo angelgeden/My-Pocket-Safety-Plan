@@ -263,6 +263,28 @@
     .hdr-btn{position:absolute;z-index:2;right:max(14px,env(safe-area-inset-right));top:calc(12px + env(safe-area-inset-top));width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:1.25rem}
     .hdr-btn:hover{background:rgba(255,255,255,.16)}
     @media print{.hdr-btn{display:none!important}.metadata input::placeholder{color:transparent!important}.metadata input.empty{color:transparent!important}}
+    .plan-bar{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 6px;margin:0 0 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .plan-bar::-webkit-scrollbar{display:none}
+    .plan-chip{flex:0 0 auto;border:1px solid #d3d7e2;background:#fff;border-radius:30px;padding:9px 15px;font-weight:750;font-size:.92rem;color:#3c4458;min-height:42px;white-space:nowrap}
+    .plan-chip[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:#fff}
+    .plan-chip.add{border-style:dashed;color:var(--accent);background:#f7f7ff}
+    .plan-chip.manage{padding:9px 13px;font-size:1.05rem;line-height:1}
+    #planSub{margin:6px 0 0;color:#d2d0ff;font-weight:800;font-size:.9rem;letter-spacing:.02em}
+    .add-plan-link{border:0;background:none;color:var(--accent);font-weight:750;padding:6px 0;text-decoration:underline;text-underline-offset:3px}
+    .icon-grid{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}
+    .icon-pick{width:44px;height:44px;border-radius:12px;border:1px solid #d3d7e2;background:#fff;font-size:1.3rem}
+    .icon-pick[aria-pressed="true"]{border:2px solid var(--accent);background:#f1f0ff}
+    .start-opts{display:grid;gap:8px;margin:6px 0 4px}
+    .start-opts label{display:flex!important;gap:10px;align-items:flex-start;border:1px solid #e0e3ea;border-radius:12px;padding:11px 12px;margin:0!important;font-size:.93rem}
+    .start-opts input{width:20px!important;height:20px;min-height:auto!important;margin-top:1px;accent-color:var(--accent)}
+    .start-opts small{display:block;color:var(--muted);font-size:.8rem}
+    .manage-row{display:grid;grid-template-columns:62px 1fr 44px 58px;gap:6px;margin-bottom:8px;align-items:center}
+    .manage-row select,.manage-row input{min-height:44px!important;padding:8px!important;font-size:1rem!important}
+    .manage-row button{min-height:44px;border:1px solid #d3d7e2;background:#fff;border-radius:9px;font-weight:800;padding:0 10px}
+    .manage-row button.del{color:#a33040;border-color:#e5bdc2;font-size:1.05rem}
+    .manage-row button.del[data-armed="1"]{background:#a33040;color:#fff;font-size:.85rem}
+    .manage-row button:disabled{opacity:.4}
+    @media print{.plan-bar,.add-plan-link{display:none!important}#planSub{color:#444!important;font-size:10pt}}
     .tools-row button.share{border-color:#d6d4f5;background:#f6f5ff;color:#44418c}
     .print-sign,.print-log{display:none}
     .log-list{list-style:none;margin:0;padding:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
@@ -317,6 +339,7 @@
     <div>
       <p class="eyebrow">A plan for the moments that matter</p>
       <h1>My Pocket Safety Plan</h1>
+      <p id="planSub" class="hidden"></p>
       <p class="description">Notice your signals. Know what helps. Make your next step a little easier.</p>
     </div>
     <div class="privacy-pill" title="No online account or server is used">
@@ -334,6 +357,7 @@
     </div>
     <div class="meta-foot"><div id="saveStatus" role="status" aria-live="polite">Ready to edit · Changes save on this device</div><div id="progress" class="progress">0 of 18 prompts filled</div></div>
   </section>
+  <div class="plan-bar hidden" id="planBar" role="group" aria-label="My plans"></div>
   <div class="toolbar" role="group" aria-label="Plan tools">
     <div class="tabs" role="tablist" aria-label="Plan view">
       <button type="button" id="editTab" role="tab" aria-controls="editView" aria-selected="true">✎ Edit</button>
@@ -351,7 +375,7 @@
   </div>
   <input id="importFile" class="sr-only" type="file" accept=".json,application/json">
   <section id="editView" role="tabpanel" aria-labelledby="editTab">
-    <p class="intro">Your plan has three zones: green (steady), yellow (early warning signs) and red (overwhelmed). Write phrases or full sentences—whatever is easiest to recognize when you need it. Everything below is editable.</p>
+    <p class="intro">Your plan has three zones: green (steady), yellow (early warning signs) and red (overwhelmed). <button type="button" class="add-plan-link">＋ Add a plan for another setting</button> Write phrases or full sentences—whatever is easiest to recognize when you need it. Everything below is editable.</p>
     <div id="zones" class="zones"></div>
   </section>
   <section id="checkView" role="tabpanel" aria-labelledby="checkTab" class="hidden" hidden>
@@ -406,7 +430,7 @@
     <div class="check-card"><h2>Recent check-ins</h2><ol id="checkList" class="log-list flat"></ol></div>
   </section>
   <section id="logView" role="tabpanel" aria-labelledby="logTab" class="hidden" hidden>
-    <div class="quick-top"><h2>Update log</h2><p>Every change to your plan, newest first. Edits to the same box within 15 minutes are grouped together.</p></div>
+    <div class="quick-top"><h2 id="logHeading">Update log</h2><p>Every change to your plan, newest first. Edits to the same box within 15 minutes are grouped together.</p></div>
     <ol id="logList" class="log-list"></ol>
   </section>
   <section id="quickView" role="tabpanel" aria-labelledby="viewTab" class="hidden" hidden>
@@ -522,6 +546,11 @@
       <button type="button" class="btn" id="setAddLine">＋ Add a crisis line</button>
     </section>
     <section class="set-sec">
+      <h3>My plans</h3>
+      <p id="setPlansNote"></p>
+      <div class="row-btns"><button type="button" class="btn add-plan-link" style="text-decoration:none">＋ Add a plan for another setting</button><button type="button" class="btn hidden" id="setManagePlans">Rename, reorder or delete plans</button></div>
+    </section>
+    <section class="set-sec">
       <h3>Passcode</h3>
       <p id="setLockStatus"></p>
       <div id="setLockForm" class="hidden">
@@ -564,11 +593,37 @@
     </div>
   </form>
 </dialog>
+<dialog id="newPlanDialog" aria-labelledby="npTitle" class="wide">
+  <form method="dialog" id="newPlanForm" novalidate>
+    <h2 id="npTitle">Add a plan for another setting</h2>
+    <p>Different places can bring different warning signs and need different help. Your crisis lines, check-ins and skill ratings are shared across all your plans.</p>
+    <label><span class="field-label">Plan name</span><input id="npName" maxlength="40" placeholder="e.g., Work" autocomplete="off"></label>
+    <div class="chips" id="npPresets" style="margin-top:8px"></div>
+    <span class="field-label">Icon</span>
+    <div class="icon-grid" id="npIcons"></div>
+    <span class="field-label">How do you want to start?</span>
+    <div class="start-opts">
+      <label><input type="radio" name="npStart" value="guided" id="npStartGuided" checked><span>Guided setup<small>Walk through the zones with examples</small></span></label>
+      <label><input type="radio" name="npStart" value="copy"><span id="npCopyLabel">Copy my current plan, then adjust it</span></label>
+      <label><input type="radio" name="npStart" value="blank"><span>Blank<small>Fill it in yourself in Edit</small></span></label>
+    </div>
+    <p class="form-error hidden" id="npError"></p>
+    <div class="dialog-actions"><span></span><button type="button" class="btn" id="npCancel">Cancel</button><button type="submit" class="btn primary">Create plan</button></div>
+  </form>
+</dialog>
+<dialog id="managePlansDialog" aria-labelledby="mpTitle" class="wide">
+  <form method="dialog">
+    <h2 id="mpTitle">My plans</h2>
+    <p>Rename, change the icon, reorder or delete. Deleting removes that plan's answers and log from this device.</p>
+    <div id="manageList"></div>
+    <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="manageDone">Done</button></div>
+  </form>
+</dialog>
 <dialog id="restoreDialog" aria-labelledby="restoreTitle">
   <form method="dialog">
     <h2 id="restoreTitle">Restore backup</h2>
     <p>How should this backup combine with the plan already on this device?</p>
-    <button type="button" class="btn primary big" id="restoreMerge">Merge (recommended)<br><small style="font-weight:500">Keeps the newest version of each answer and every check-in, rating and log entry from both</small></button>
+    <button type="button" class="btn primary big" id="restoreMerge">Merge (recommended)<br><small style="font-weight:500">Keeps the newest version of each answer, combines plans with the same name, adds any new plans, and keeps every check-in, rating and log entry</small></button>
     <button type="button" class="btn big" id="restoreReplace">Replace<br><small style="font-weight:500">Use only the backup. What's on this device now is removed.</small></button>
     <div class="dialog-actions"><span></span><button type="button" class="btn" id="restoreCancel">Cancel</button></div>
   </form>
@@ -591,13 +646,14 @@
     {key:'yellow',name:'Yellow zone',symbol:'!',description:'Early warning signs · What can help before I escalate'},
     {key:'red',name:'Red zone',symbol:'×',description:'Feeling overwhelmed · How I can reduce risk and get support'}
   ];
-  const emptyPlan = () => ({version:1, meta:{name:'',focus:'',date:'',updated:''}, person:{name:'',phone:''}, crisis:{country:'',emergency:'',chat:'',lines:[]}, history:[], checkins:[], ratings:[], zones:Object.fromEntries(ZONES.map(z => [z.key,Object.fromEntries([...FIELDS.map(f=>[f[0],'']),['contacts','']])]))});
+  const emptyPlan = () => ({version:1, id:'', title:'My plan', icon:'🧭', meta:{name:'',focus:'',date:'',updated:''}, person:{name:'',phone:''}, crisis:{country:'',emergency:'',chat:'',lines:[]}, history:[], checkins:[], ratings:[], zones:Object.fromEntries(ZONES.map(z => [z.key,Object.fromEntries([...FIELDS.map(f=>[f[0],'']),['contacts','']])]))});
   const hasContent = p => Object.values(p.meta).some(v=>v.trim()) || Object.values(p.zones).some(z=>Object.values(z).some(v=>v.trim()));
   const PREF_KEY = 'pocket-safety-plan-prefs';
   let prefs = {view:'quick', pick:'all', setupDone:false, lock:null};
   try{ Object.assign(prefs, JSON.parse(localStorage.getItem(PREF_KEY)||'{}')); }catch(e){}
   const savePrefs = () => { try{ localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); }catch(e){} };
   let plan = emptyPlan();
+  let book = {version:2, activeId:'', plans:[], shared:{name:'',crisis:null,checkins:[],ratings:[]}};
   let toastTimeout;
   let savedAvailable = true;
   const $ = (selector,el=document)=>el.querySelector(selector);
@@ -619,6 +675,9 @@
     const clean=emptyPlan();
     if(!source || typeof source!=='object')throw new Error('This does not look like a safety-plan backup.');
     for(const key of ['name','focus','date','updated'])if(typeof source.meta?.[key]==='string')clean.meta[key]=source.meta[key].slice(0,2000);
+    if(typeof source.id==='string')clean.id=source.id.slice(0,40);
+    if(typeof source.title==='string'&&source.title.trim())clean.title=source.title.slice(0,40);
+    if(typeof source.icon==='string'&&source.icon)clean.icon=source.icon.slice(0,8);
     for(const key of ['name','phone'])if(typeof source.person?.[key]==='string')clean.person[key]=source.person[key].slice(0,80);
     for(const z of ZONES)for(const f of [...FIELDS.map(x=>x[0]),'contacts'])if(typeof source.zones?.[z.key]?.[f]==='string')clean.zones[z.key][f]=source.zones[z.key][f].slice(0,20000);
     if(Array.isArray(source.history))clean.history=source.history.filter(h=>h&&typeof h.at==='string').slice(-500).map(h=>{
@@ -636,14 +695,15 @@
     const n010=x=>typeof x==='number'&&isFinite(x)?Math.max(0,Math.min(10,Math.round(x))):null;
     if(Array.isArray(source.checkins))clean.checkins=source.checkins.filter(c=>c&&typeof c.at==='string'&&n010(c.intensity)!==null).slice(-1000).map(c=>({
       at:c.at.slice(0,40),cores:strArr(c.cores),feelings:strArr(c.feelings),body:strArr(c.body),sens:strArr(c.sens),urges:strArr(c.urges),
-      intensity:n010(c.intensity),zone:['green','yellow','red'].includes(c.zone)?c.zone:'yellow',note:typeof c.note==='string'?c.note.slice(0,5000):''}));
+      planId:typeof c.planId==='string'?c.planId.slice(0,40):'',plan:typeof c.plan==='string'?c.plan.slice(0,60):'',intensity:n010(c.intensity),zone:['green','yellow','red'].includes(c.zone)?c.zone:'yellow',note:typeof c.note==='string'?c.note.slice(0,5000):''}));
     if(Array.isArray(source.ratings))clean.ratings=source.ratings.filter(r=>r&&typeof r.at==='string'&&typeof r.skill==='string'&&n010(r.before)!==null&&n010(r.after)!==null).slice(-1000).map(r=>({at:r.at.slice(0,40),skill:r.skill.slice(0,200),before:n010(r.before),after:n010(r.after)}));
     return clean;
   }
   function store(){
     plan.meta.updated=new Date().toLocaleDateString('en-CA');
     try{
-      localStorage.setItem(STORAGE_KEY,JSON.stringify(plan));
+      syncBook();
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(book));
       savedAvailable=true;
       $('#saveStatus').textContent='✓ Saved on this device · '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
     }catch(err){
@@ -655,7 +715,12 @@
   function load(){
     try{
       const raw=localStorage.getItem(STORAGE_KEY);
-      if(raw){plan=normalize(JSON.parse(raw));return;}
+      if(raw){
+        const parsed=parseAny(JSON.parse(raw));
+        if(parsed.kind==='book'){book=parsed.data;plan=fullPlan(book.plans.find(p=>p.id===book.activeId),book.shared);}
+        else{plan=parsed.data;book=bookFromSingle(plan);}
+        return;
+      }
     }catch(err){
       $('#saveStatus').textContent='⚠ Could not read previous browser save; restore your backup if needed';
     }
@@ -826,7 +891,7 @@
   }
   function backup(){
     const date=new Date().toISOString().slice(0,10);
-    downloadBlob(JSON.stringify({...plan,exportedAt:new Date().toISOString()},null,2),`pocket-safety-plan-${date}.json`,'application/json');
+    syncBook();downloadBlob(JSON.stringify({...book,exportedAt:new Date().toISOString()},null,2),`pocket-safety-plan-${date}.json`,'application/json');
     notify('Backup downloaded. Keep it somewhere private.');
   }
   function importBackup(file){
@@ -835,8 +900,8 @@
     const reader=new FileReader();
     reader.onload=()=>{
       try{
-        const parsed=normalize(JSON.parse(String(reader.result)));
-        if(!hasContent(plan)&&!plan.checkins.length){plan=parsed;afterRestore('Restored from a backup file');notify('Backup restored.');}
+        const parsed=parseAny(JSON.parse(String(reader.result)));
+        if(book.plans.length<=1&&!hasContent(plan)&&!plan.checkins.length){applyReplace(parsed);afterRestore('Restored from a backup file');notify('Backup restored.');}
         else{pendingRestore=parsed;const d=$('#restoreDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');}
       }catch(err){notify('Could not restore file: '+err.message);}
       $('#importFile').value='';
@@ -887,8 +952,9 @@
     window.print();
   });
   $('#clearBtn').addEventListener('click',()=>{
-    if(!confirm('Clear all answers in this safety plan? Back up first if you want to keep them.'))return;
-    const keep=plan;plan=emptyPlan();plan.history=keep.history;plan.checkins=keep.checkins;plan.ratings=keep.ratings;renderEditor();renderQuick();renderPerson();addLog({area:'Plan',note:'Cleared all answers'});notify('Plan cleared.');
+    if(!confirm('Clear all answers in '+(multi()?'your '+planLabel(plan)+' plan':'this safety plan')+'? Back up first if you want to keep them.'))return;
+    const blank=emptyPlan();plan.zones=blank.zones;plan.person=blank.person;plan.meta.focus='';plan.meta.date='';
+    renderEditor();renderQuick();renderPerson();addLog({area:'Plan',note:'Cleared all answers'});notify('Plan cleared.');
   });
   // Phones can send texts; on computers, text buttons switch to online chat where a service offers it
   const isPhone=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Mac/i.test(navigator.platform||''));
@@ -1178,6 +1244,7 @@
     e.preventDefault();
     if(!ci.touched){$('#checkMsg').classList.remove('hidden');$('#intensity').focus();return;}
     const c={at:new Date().toISOString(),cores:[...ci.cores],feelings:[...ci.feelings],body:[...ci.body],sens:[...ci.sens],urges:[...ci.urges],intensity:Number($('#intensity').value),note:$('#checkNote').value.trim()};
+    c.planId=plan.id;c.plan=planLabel(plan);
     c.zone=suggestZone(c).zone;
     plan.checkins.push(c);if(plan.checkins.length>1000)plan.checkins.splice(0,plan.checkins.length-1000);
     store();resetCheckForm();showResult(c);renderCheckSide();
@@ -1188,7 +1255,7 @@
     const {matched}=suggestZone(c),z=c.zone;
     const card=node('div',{class:'result '+z,role:'status'});
     card.append(node('h2',{},'Sounds like the '+ZNAME[z]));
-    card.append(node('p',{},'This is a suggestion. You know yourself best.'));
+    card.append(node('p',{},(multi()?'Using your '+planLabel(plan)+' plan. ':'')+'This is a suggestion. You know yourself best.'));
     const pick=node('div',{class:'chips'});
     pick.append(node('span',{class:'sub',style:'margin:8px 4px 0 0'},'Not right?'));
     ['green','yellow','red'].filter(k=>k!==z).forEach(k=>{
@@ -1238,7 +1305,7 @@
     return [...m.entries()].sort((a,b)=>b[1]-a[1]).slice(0,n).map(([k,v])=>`${k} (${v})`).join(', ');
   }
   function describeCheck(c){
-    let t=(c.cores.join(' + ')||'Feeling')+(c.feelings.length?' → '+c.feelings.join(', '):'')+` · ${c.intensity}/10`;
+    let t=(multi()&&c.plan?c.plan+' · ':'')+(c.cores.join(' + ')||'Feeling')+(c.feelings.length?' → '+c.feelings.join(', '):'')+` · ${c.intensity}/10`;
     const body=c.body.map(b=>BODYNAME[b]||b).join(', ');
     if(body||c.sens.length)t+='\n'+[body,c.sens.join(', ').toLowerCase()].filter(Boolean).join(' · ');
     const u=c.urges.filter(x=>x!=='None right now');if(u.length)t+='\nUrges: '+u.join(', ');
@@ -1259,7 +1326,8 @@
         ['Where I feel it',countTop(recent.flatMap(c=>c.body.map(b=>BODYNAME[b]||b)))],
         ['How it feels',countTop(recent.flatMap(c=>c.sens))],
         ['Urges',countTop(recent.flatMap(c=>c.urges.filter(u=>u!=='None right now')))],
-        ['Zones',`Green ${zc.green} · Yellow ${zc.yellow} · Red ${zc.red}`]
+        ['Zones',`Green ${zc.green} · Yellow ${zc.yellow} · Red ${zc.red}`],
+        ['Settings',multi()?countTop(recent.map(c=>c.plan).filter(Boolean)):'']
       ];
       const best=[...skillStats().values()].filter(s=>s.avg>0).sort((a,b)=>b.avg-a.avg)[0];
       if(best)rows.push(['Most helpful skill',`${best.name} (↓${best.avg.toFixed(1)})`]);
@@ -1402,7 +1470,7 @@
       return chipField('red','environment',EX.redEnv,'What would help make my environment safer?','Many plans include asking someone you trust to hold onto anything risky for a while.');}},
     {t:'Your plan is ready 🎉',s:'You can open it any time, add to it, and update it as you learn what works.',b(){
       const w=node('div'),p=node('div',{class:'promise'});
-      [['📱','Add it to your home screen so it opens like an app, even offline. iPhone/iPad: Safari → Share → Add to Home Screen. Android: menu ⋮ → Install app.'],['♡','Use Check in to name what you feel, and "Try it" to learn which skills help you most.'],['💾','Tap Back up now and then and keep the file somewhere private. It\'s how you move your plan to a new device.'],['🔒','Want privacy on a shared device? Set a passcode in Settings.']].forEach(([i,t])=>{const d=node('div');d.append(node('b',{'aria-hidden':'true'},i),node('span',{},t));p.append(d);});
+      [['🗂','Different settings bring up different things? You can add separate plans later, like work, family or social situations, from Edit or Settings. One plan is plenty for most people.'],['📱','Add it to your home screen so it opens like an app, even offline. iPhone/iPad: Safari → Share → Add to Home Screen. Android: menu ⋮ → Install app.'],['♡','Use Check in to name what you feel, and "Try it" to learn which skills help you most.'],['💾','Tap Back up now and then and keep the file somewhere private. It\'s how you move your plan to a new device.'],['🔒','Want privacy on a shared device? Set a passcode in Settings.']].forEach(([i,t])=>{const d=node('div');d.append(node('b',{'aria-hidden':'true'},i),node('span',{},t));p.append(d);});
       w.append(p);return w;},next:'Go to my plan'}
   ];
   let setupStep=0;
@@ -1522,7 +1590,7 @@
   const HEADS={notice:'When I\'m starting to struggle, you might notice:',signs:'My warning signs:',helps:'What helps me:',skills:'What I\'ll try to do for myself:',help:'If you\'re worried about my safety:'};
   function buildShareText(){
     const name=plan.meta.name.trim();
-    const out=['How to support me'+(name?' — '+name:''),''];
+    const out=['How to support me'+(name?' — '+name:'')+(multi()?' ('+(plan.title||'')+')':''),''];
     SHARE_PARTS.forEach(p=>{if(!shareOn[p.k])return;const items=p.get();if(!items.length)return;out.push(HEADS[p.k]);items.forEach(i=>out.push('• '+i));out.push('');});
     out.push('Thank you for being someone I trust.');
     return out.join('\n');
@@ -1572,16 +1640,173 @@
   }
   let pendingRestore=null;
   const closeRestore=()=>{pendingRestore=null;$('#restoreDialog').close();};
-  function afterRestore(note){renderEditor();renderQuick();renderPerson();renderCrisisAll();addLog({area:'Plan',note});prefs.setupDone=true;savePrefs();}
-  $('#restoreMerge').addEventListener('click',()=>{if(!pendingRestore)return;plan=mergePlans(plan,pendingRestore);closeRestore();afterRestore('Merged a backup file into this device');notify('Backup merged.');});
-  $('#restoreReplace').addEventListener('click',()=>{if(!pendingRestore)return;plan=pendingRestore;closeRestore();afterRestore('Replaced this device\'s plan with a backup file');notify('Backup restored.');});
+  function afterRestore(note){addLog({area:'Plan',note});rerenderAll();prefs.setupDone=true;savePrefs();}
+  $('#restoreMerge').addEventListener('click',()=>{if(!pendingRestore)return;applyMerge(pendingRestore);closeRestore();afterRestore('Merged a backup file into this device');notify('Backup merged.');});
+  $('#restoreReplace').addEventListener('click',()=>{if(!pendingRestore)return;applyReplace(pendingRestore);closeRestore();afterRestore('Replaced this device\'s plan with a backup file');notify('Backup restored.');});
   $('#restoreCancel').addEventListener('click',closeRestore);
 
   // Installable / offline (needs https or localhost)
   if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
     window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
   }
-  load();renderEditor();renderPerson();renderCrisisAll();setView(prefs.view);renderPending();
+  // =====================================================================
+  //  Multiple plans ("book"): each plan has its own zones, safety person
+  //  and log; name, crisis lines, check-ins and ratings are shared.
+  // =====================================================================
+  const PRESETS=[['Everyday','🧭'],['Work','💼'],['Family','🏡'],['Social situations','🎉'],['School','🎒'],['Relationships','💞'],['Health','🩺'],['Travel','✈️'],['Online','📱']];
+  const ICONS=['🧭','💼','🏡','🎉','🎒','💞','🩺','✈️','📱','🌿','⭐','🛟','🎨','⚽','🙏','🐾'];
+  const MAX_PLANS=12;
+  const uid=()=>'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+  const multi=()=>book.plans.length>1;
+  const planLabel=p=>(p.icon?p.icon+' ':'')+(p.title||'My plan');
+  function splitPlan(p){return {id:p.id,title:p.title,icon:p.icon,meta:{focus:p.meta.focus,date:p.meta.date,updated:p.meta.updated},person:{...p.person},zones:JSON.parse(JSON.stringify(p.zones)),history:p.history.slice()};}
+  function fullPlan(item,shared){
+    const p=normalize({...item,meta:{...item.meta,name:shared.name||''},crisis:shared.crisis,checkins:shared.checkins,ratings:shared.ratings});
+    p.id=item.id;p.title=item.title;p.icon=item.icon;return p;
+  }
+  function syncBook(){
+    book.shared={name:plan.meta.name,crisis:plan.crisis,checkins:plan.checkins,ratings:plan.ratings};
+    if(!plan.id)plan.id=uid();
+    const i=book.plans.findIndex(x=>x.id===plan.id),item=splitPlan(plan);
+    if(i<0)book.plans.push(item);else book.plans[i]=item;
+    book.activeId=plan.id;
+  }
+  function normalizeBook(src){
+    if(!src||typeof src!=='object'||!Array.isArray(src.plans))throw new Error('This does not look like a safety-plan backup.');
+    const sh=normalize({meta:{name:typeof src.shared?.name==='string'?src.shared.name:''},crisis:src.shared?.crisis,checkins:src.shared?.checkins,ratings:src.shared?.ratings});
+    const shared={name:sh.meta.name,crisis:sh.crisis,checkins:sh.checkins,ratings:sh.ratings};
+    const seen=new Set(),plans=[];
+    src.plans.slice(0,MAX_PLANS).forEach(it=>{
+      if(!it||typeof it!=='object')return;
+      const p=normalize({...it,meta:{...(it.meta||{}),name:''}});
+      let id=typeof it.id==='string'&&/^[\w-]{1,40}$/.test(it.id)?it.id:uid();if(seen.has(id))id=uid();seen.add(id);
+      p.id=id;p.title=typeof it.title==='string'&&it.title.trim()?it.title.slice(0,40):'My plan';p.icon=typeof it.icon==='string'?it.icon.slice(0,8):'🧭';
+      plans.push(splitPlan(p));
+    });
+    if(!plans.length)throw new Error('This backup has no plans in it.');
+    const activeId=plans.some(p=>p.id===src.activeId)?src.activeId:plans[0].id;
+    return {version:2,activeId,plans,shared};
+  }
+  // Wrap an older single-plan save or backup as a book
+  function bookFromSingle(p){p.id=p.id||uid();p.title=p.title||'My plan';p.icon=p.icon||'🧭';return {version:2,activeId:p.id,plans:[splitPlan(p)],shared:{name:p.meta.name,crisis:p.crisis,checkins:p.checkins,ratings:p.ratings}};}
+  function parseAny(obj){return obj&&Array.isArray(obj.plans)?{kind:'book',data:normalizeBook(obj)}:{kind:'plan',data:normalize(obj)};}
+  function rerenderAll(){
+    renderEditor();renderPerson();renderCrisisAll();renderPlans();
+    setView(prefs.view);
+  }
+  function switchPlan(id){
+    if(id===plan.id)return;
+    flushActive&&flushActive();
+    store();
+    const item=book.plans.find(x=>x.id===id);if(!item)return;
+    plan=fullPlan(item,book.shared);book.activeId=id;store();
+    $('#checkResult')&&$('#checkResult').replaceChildren();
+    rerenderAll();notify('Switched to your '+planLabel(plan)+' plan.');
+  }
+  function renderPlans(){
+    const bar=$('#planBar');if(!bar)return;bar.replaceChildren();
+    // One plan = no switcher at all; it appears only once a second plan exists
+    bar.classList.toggle('hidden',!multi());
+    if(multi())book.plans.forEach(p=>{
+      const b=node('button',{type:'button',class:'plan-chip','aria-pressed':String(p.id===plan.id)},planLabel(p));
+      b.addEventListener('click',()=>switchPlan(p.id));bar.append(b);
+    });
+    if(multi()&&book.plans.length<MAX_PLANS){const add=node('button',{type:'button',class:'plan-chip add'},'＋ New plan');add.addEventListener('click',openNewPlan);bar.append(add);}
+    document.querySelectorAll('.add-plan-link').forEach(b=>b.classList.toggle('hidden',book.plans.length>=MAX_PLANS));
+    $('#setManagePlans').classList.toggle('hidden',!multi());
+    $('#setPlansNote').textContent=multi()?`You have ${book.plans.length} plans. Switch between them at the top of the app.`:'Most people need just one plan. If different settings bring different signs or need different help, like work, family or social situations, you can add a plan for each.';
+    if(multi()){const m=node('button',{type:'button',class:'plan-chip manage','aria-label':'Manage my plans',title:'Manage my plans'},'⋯');m.addEventListener('click',openManage);bar.append(m);}
+    const sub=$('#planSub');sub.textContent=multi()?planLabel(plan)+' plan':'';sub.classList.toggle('hidden',!multi());
+    const lh=$('#logHeading');if(lh)lh.textContent='Update log'+(multi()?' · '+planLabel(plan):'');
+  }
+  // ----- New plan
+  let newIcon='🧭';
+  function openNewPlan(){
+    $('#npName').value='';newIcon='🧭';
+    const pre=$('#npPresets');pre.replaceChildren();
+    PRESETS.filter(([t])=>!book.plans.some(p=>p.title.toLowerCase()===t.toLowerCase())).forEach(([t,i])=>{
+      const b=node('button',{type:'button',class:'chip'},i+' '+t);
+      b.addEventListener('click',()=>{$('#npName').value=t;newIcon=i;paintIcons();pre.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
+      pre.append(b);
+    });
+    paintIcons();
+    $('#npCopyLabel').textContent='Copy my '+planLabel(plan)+' plan, then adjust it';
+    $('#npStartGuided').checked=true;$('#npError').classList.add('hidden');
+    const d=$('#newPlanDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
+    setTimeout(()=>$('#npName').focus(),30);
+  }
+  function paintIcons(){
+    const box=$('#npIcons');box.replaceChildren();
+    ICONS.forEach(i=>{const b=node('button',{type:'button',class:'icon-pick','aria-pressed':String(i===newIcon),'aria-label':'Icon '+i},i);b.addEventListener('click',()=>{newIcon=i;paintIcons();});box.append(b);});
+  }
+  $('#npCancel').addEventListener('click',()=>$('#newPlanDialog').close());
+  $('#newPlanForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const title=$('#npName').value.trim().slice(0,40);
+    if(!title){$('#npError').textContent='Give this plan a name, like "Work".';$('#npError').classList.remove('hidden');return;}
+    if(book.plans.some(p=>p.title.toLowerCase()===title.toLowerCase())){$('#npError').textContent='You already have a plan with that name.';$('#npError').classList.remove('hidden');return;}
+    const start=document.querySelector('input[name="npStart"]:checked').value;
+    store();
+    const src=plan,np=emptyPlan();
+    np.id=uid();np.title=title;np.icon=newIcon;
+    np.meta.name=src.meta.name;np.crisis=src.crisis;np.checkins=src.checkins;np.ratings=src.ratings;
+    if(start==='copy'){np.zones=JSON.parse(JSON.stringify(src.zones));np.person={...src.person};np.meta.focus=src.meta.focus;}
+    np.history=[{at:new Date().toISOString(),area:'Plan',note:start==='copy'?'Plan created as a copy of '+planLabel(src):'Plan created'}];
+    plan=np;store();
+    $('#newPlanDialog').close();
+    rerenderAll();
+    if(start==='guided'){openSetup();setupStep=2;renderSetup();}
+    else{setView('edit');notify('Created your '+planLabel(np)+' plan.');}
+  });
+  // ----- Manage plans
+  function openManage(){renderManage();const d=$('#managePlansDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');}
+  function renderManage(){
+    const box=$('#manageList');box.replaceChildren();
+    book.plans.forEach((p,idx)=>{
+      const live=p.id===plan.id?plan:p;
+      const row=node('div',{class:'manage-row'});
+      const ic=node('select',{'aria-label':'Icon for '+live.title});ICONS.forEach(i=>ic.append(node('option',{value:i},i)));if(!ICONS.includes(live.icon))ic.append(node('option',{value:live.icon},live.icon));ic.value=live.icon;
+      const nm=node('input',{maxlength:'40','aria-label':'Plan name'});nm.value=live.title;
+      const up=node('button',{type:'button','aria-label':'Move up',title:'Move up'},'↑');up.disabled=idx===0;
+      const del=node('button',{type:'button',class:'del','aria-label':'Delete '+live.title,title:'Delete'},'🗑');
+      del.disabled=book.plans.length<2;
+      ic.addEventListener('change',()=>{live.icon=ic.value;if(live!==plan)p.icon=ic.value;store();renderPlans();});
+      nm.addEventListener('change',()=>{const v=nm.value.trim().slice(0,40);if(!v){nm.value=live.title;return;}const old=live.title;live.title=v;if(live!==plan)p.title=v;else addLog({area:'Plan',note:'Renamed from '+old+' to '+v});store();renderPlans();});
+      up.addEventListener('click',()=>{store();const [it]=book.plans.splice(idx,1);book.plans.splice(idx-1,0,it);store();renderManage();renderPlans();});
+      del.addEventListener('click',()=>{
+        if(del.dataset.armed!=='1'){del.dataset.armed='1';del.textContent='Sure?';del.setAttribute('aria-label','Tap again to delete '+live.title);return;}
+        store();book.plans.splice(idx,1);
+        if(p.id===plan.id){plan=fullPlan(book.plans[0],book.shared);}
+        store();renderManage();rerenderAll();notify('Deleted the '+(p.icon||'')+' '+p.title+' plan.');
+      });
+      row.append(ic,nm,up,del);box.append(row);
+    });
+  }
+  $('#manageDone').addEventListener('click',()=>$('#managePlansDialog').close());
+  $('#setManagePlans').addEventListener('click',()=>{$('#settingsDialog').close();openManage();});
+  document.querySelectorAll('.add-plan-link').forEach(b=>b.addEventListener('click',()=>{const d=$('#settingsDialog');if(d.open)d.close();openNewPlan();}));
+
+  // ----- Restore with several plans
+  function uniqBy(x,y,key){const m=new Map();[...x,...y].forEach(i=>m.set(key(i),i));return [...m.values()].sort((p,q)=>Date.parse(p.at)-Date.parse(q.at));}
+  function applyReplace(parsed){
+    if(parsed.kind==='book')book=parsed.data;else book=bookFromSingle(parsed.data);
+    plan=fullPlan(book.plans.find(p=>p.id===book.activeId)||book.plans[0],book.shared);
+  }
+  function applyMerge(parsed){
+    store();
+    if(parsed.kind==='plan'){plan=mergePlans(plan,parsed.data);return;}
+    const inc=parsed.data,cur=book.shared;
+    const shared={name:cur.name||inc.shared.name,crisis:cur.crisis&&cur.crisis.country?cur.crisis:inc.shared.crisis,
+      checkins:uniqBy(cur.checkins,inc.shared.checkins,c=>c.at).slice(-1000),ratings:uniqBy(cur.ratings,inc.shared.ratings,r=>r.at+'|'+r.skill).slice(-1000)};
+    inc.plans.forEach(ip=>{
+      const i=book.plans.findIndex(cp=>cp.id===ip.id||cp.title.toLowerCase()===ip.title.toLowerCase());
+      if(i>=0){const cp=book.plans[i];const m=mergePlans(fullPlan(cp,cur),fullPlan(ip,inc.shared));m.id=cp.id;m.title=cp.title;m.icon=cp.icon;book.plans[i]=splitPlan(m);}
+      else if(book.plans.length<MAX_PLANS)book.plans.push(ip);
+    });
+    book.shared=shared;
+    plan=fullPlan(book.plans.find(p=>p.id===plan.id)||book.plans[0],shared);
+  }
+  load();syncBook();renderEditor();renderPerson();renderCrisisAll();renderPlans();setView(prefs.view);renderPending();
   if(!prefs.setupDone&&!hasContent(plan))openSetup();
   showLock();
 })();

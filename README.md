@@ -17,6 +17,7 @@ My Pocket Safety Plan helps you build a personal safety plan in minutes, see you
 - **Breathe with me.** A guided breathing pacer (in 4, out 6, or box breathing).
 - **Share with my support person.** Builds a short "how to support me" message you can review and send.
 - **Update log and printable plan.** Every change is dated. Print or save a PDF with signature and date lines.
+- **One plan, or a few (optional).** Most people need one. If different settings bring different signs or need different help, add a separate plan for work, family, social situations or anything you name, and switch in one tap. Crisis lines, check-ins and skill ratings are shared across plans.
 - **Optional passcode** for privacy on a shared device.
 
 ## Privacy
