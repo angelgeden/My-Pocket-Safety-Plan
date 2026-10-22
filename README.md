@@ -4,7 +4,7 @@
 
 My Pocket Safety Plan helps you build a personal safety plan in minutes, see your early warning signs, and reach support in one tap. Check in with your emotions, learn which coping skills help, and share how to support you. Private by design: no account, no tracking, answers stay on your own device. Free and works offline. Not an emergency service.
 
-👉 **Open the app:** https://YOUR-USERNAME.github.io/my-pocket-safety-plan/
+👉 **Open the app:** https://angelgeden.github.io/my-pocket-safety-plan/
 
 ---
 
