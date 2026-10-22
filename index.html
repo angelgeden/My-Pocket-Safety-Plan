@@ -556,6 +556,21 @@
       .fine-print strong{color:var(--ink)}
       .footer-row{border-top-color:var(--line);color:var(--dim);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
 
+      /* ---------- Learning ---------- */
+      .guide-row{display:flex;justify-content:flex-end;margin:-4px 0 12px}
+      .fam-info{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--surface2);padding:10px 12px;margin:4px 0 10px}
+      .fam-info summary,.guide-item summary{cursor:pointer;font-weight:700;color:var(--ink);list-style-position:inside}
+      .fam-info p{margin:8px 0 4px;color:var(--muted);font-size:.93rem}
+      .fam-info p strong,.guide-item p strong{color:var(--ink)}
+      .learn-box{border-top:1px dashed var(--line2);margin-top:10px;padding-top:6px}
+      .learn-hint{background:var(--accent-tint);border-radius:var(--r-sm);padding:10px 12px;font-size:.9rem;color:var(--ink);margin:0 0 12px}
+      .guide-h{font-family:var(--font-body);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:16px 0 8px}
+      .guide-item{border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:8px;background:var(--surface2)}
+      .guide-item.fam{border-left:4px solid var(--c)}
+      .guide-item[open] summary{margin-bottom:6px}
+      .guide-item p{margin:6px 0;color:var(--muted);font-size:.94rem;line-height:1.55}
+      .toggle-row{display:flex!important;align-items:center;gap:10px;margin:4px 0 8px;color:var(--ink)}
+      .toggle-row input{width:22px!important;height:22px;min-height:auto!important;accent-color:var(--accent)}
       /* ---------- Gentle on the senses ---------- */
       @media (prefers-reduced-motion:reduce){*:not(#bCircle){transition:none!important;animation:none!important}html{scroll-behavior:auto}}
     }
@@ -610,13 +625,19 @@
   </section>
   <section id="checkView" role="tabpanel" aria-labelledby="checkTab" class="hidden" hidden>
     <div class="pending-slot"></div>
+    <div class="guide-row"><button type="button" class="btn" id="guideBtn">📚 Emotion guide</button></div>
     <div id="checkResult"></div>
     <form id="checkForm" novalidate>
       <div class="check-card">
         <h2><span class="step">1</span> What am I feeling?</h2>
-        <p class="sub">Start with the core emotion. Pick more than one if they're mixed, or "Not sure." Then tap any feelings that fit.</p>
-        <div class="chips core" id="coreChips" role="group" aria-label="Core emotions"></div>
+        <p class="sub">Pick the emotion family that fits best. Pick more than one if they're mixed, or "Not sure." Then tap any feelings that fit.</p>
+        <div class="chips core" id="coreChips" role="group" aria-label="Emotion families"></div>
+        <div id="famInfo"></div>
         <div class="chips" id="feelingChips" role="group" aria-label="Feelings"></div>
+        <div id="primaryBox" class="learn-box hidden">
+          <div class="setup-q">Which came first?<small>Sometimes one emotion sits underneath another, like shame about feeling angry. The first one is often the core emotion. Skip if you're not sure.</small></div>
+          <div class="chips" id="primaryChips" role="group" aria-label="Which emotion came first"></div>
+        </div>
       </div>
       <div class="check-card">
         <h2><span class="step">2</span> Where do I feel it?</h2>
@@ -650,13 +671,25 @@
       <div class="check-card">
         <h2><span class="step">4</span> Any urges?</h2>
         <p class="sub">Noticing an urge isn't acting on it. Naming it gives you a choice.</p>
+        <p class="learn-hint hidden" id="urgeHint"></p>
         <div class="chips" id="urgeChips" role="group" aria-label="Urges"></div>
         <label class="note"><span class="field-label">Anything else? (optional)</span><textarea id="checkNote" rows="2" placeholder="What happened, what I'm telling myself…"></textarea></label>
+      </div>
+      <div class="check-card hidden" id="factsCard">
+        <h2><span class="step">5</span> Check the facts</h2>
+        <p class="sub">Optional. A quick way to notice whether the emotion matches what happened.</p>
+        <p class="learn-hint hidden" id="factsStrong">This is a lot right now. Skip this step and use your plan, slow breathing or your support person first. You can come back to it when things feel calmer.</p>
+        <div id="factsQs">
+          <div class="setup-q">Does the emotion, and how strong it is, fit the facts of what happened?</div>
+          <div class="chips" id="fitsChips" role="group" aria-label="Does it fit the facts"></div>
+          <div class="setup-q">Would acting on the urge help you in the long run?</div>
+          <div class="chips" id="effChips" role="group" aria-label="Would acting on the urge help"></div>
+        </div>
       </div>
       <p class="form-msg hidden" id="checkMsg">Slide the bar in step 3 to rate how strong it is.</p>
       <button class="btn primary big" type="submit">Save check-in &amp; see what helps</button>
     </form>
-    <div class="check-card"><h2>My patterns <span class="sub" style="margin:0;font-weight:500">· last 30 days</span></h2><div id="patterns"></div></div>
+    <div class="check-card"><h2>My patterns</h2><p class="sub">Last 30 days</p><div id="patterns"></div></div>
     <div class="check-card"><h2>Recent check-ins</h2><ol id="checkList" class="log-list flat"></ol></div>
   </section>
   <section id="logView" role="tabpanel" aria-labelledby="logTab" class="hidden" hidden>
@@ -781,6 +814,12 @@
       <label><span class="field-label">Theme</span><select id="setTheme"><option value="auto">Automatic</option><option value="dark">Dark</option><option value="light">Light</option></select></label>
     </section>
     <section class="set-sec">
+      <h3>Learning</h3>
+      <p>Short tips in check-ins: what each emotion is for, which emotion came first, common urges, and an optional "check the facts" step.</p>
+      <label class="toggle-row"><input type="checkbox" id="setLearn"> <span>Show learning tips in check-ins</span></label>
+      <div class="row-btns"><button type="button" class="btn" id="setGuide">📚 Open the emotion guide</button></div>
+    </section>
+    <section class="set-sec">
       <h3>My plans</h3>
       <p id="setPlansNote"></p>
       <div class="row-btns"><button type="button" class="btn add-plan-link" style="text-decoration:none">＋ Add a plan for another setting</button><button type="button" class="btn hidden" id="setManagePlans">Rename, reorder or delete plans</button></div>
@@ -854,6 +893,15 @@
     <p>Rename, change the icon, reorder or delete. Deleting removes that plan's answers and log from this device.</p>
     <div id="manageList"></div>
     <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="manageDone">Done</button></div>
+  </form>
+</dialog>
+<dialog id="guideDialog" aria-labelledby="guideTitle" class="wide">
+  <form method="dialog">
+    <h2 id="guideTitle">Emotion guide</h2>
+    <p>Short reminders of ideas from DBT emotion regulation. Tap any topic to open it.</p>
+    <div id="guideBody"></div>
+    <p class="tiny" style="margin-top:14px">This guide is a quick reference for skills taught in DBT and related therapies. It isn't therapy and doesn't replace your therapist, skills group or treatment team. Bring your questions to them.</p>
+    <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="guideClose">Close</button></div>
   </form>
 </dialog>
 <dialog id="restoreDialog" aria-labelledby="restoreTitle">
@@ -932,7 +980,7 @@
     const n010=x=>typeof x==='number'&&isFinite(x)?Math.max(0,Math.min(10,Math.round(x))):null;
     if(Array.isArray(source.checkins))clean.checkins=source.checkins.filter(c=>c&&typeof c.at==='string'&&n010(c.intensity)!==null).slice(-1000).map(c=>({
       at:c.at.slice(0,40),cores:strArr(c.cores),feelings:strArr(c.feelings),body:strArr(c.body),sens:strArr(c.sens),urges:strArr(c.urges),
-      planId:typeof c.planId==='string'?c.planId.slice(0,40):'',plan:typeof c.plan==='string'?c.plan.slice(0,60):'',intensity:n010(c.intensity),zone:['green','yellow','red'].includes(c.zone)?c.zone:'yellow',note:typeof c.note==='string'?c.note.slice(0,5000):''}));
+      planId:typeof c.planId==='string'?c.planId.slice(0,40):'',plan:typeof c.plan==='string'?c.plan.slice(0,60):'',...(typeof c.primary==='string'&&c.primary?{primary:c.primary.slice(0,40)}:{}),...(typeof c.fits==='string'&&c.fits?{fits:c.fits.slice(0,20)}:{}),...(typeof c.effective==='string'&&c.effective?{effective:c.effective.slice(0,20)}:{}),intensity:n010(c.intensity),zone:['green','yellow','red'].includes(c.zone)?c.zone:'yellow',note:typeof c.note==='string'?c.note.slice(0,5000):''}));
     if(Array.isArray(source.ratings))clean.ratings=source.ratings.filter(r=>r&&typeof r.at==='string'&&typeof r.skill==='string'&&n010(r.before)!==null&&n010(r.after)!==null).slice(-1000).map(r=>({at:r.at.slice(0,40),skill:r.skill.slice(0,200),before:n010(r.before),after:n010(r.after)}));
     return clean;
   }
@@ -1386,17 +1434,73 @@
   // =====================================================================
   //  Emotion check-in
   // =====================================================================
+  // =====================================================================
+  //  DBT emotion families (plain-language summaries; not a substitute for treatment)
+  // =====================================================================
   const CORES=[
-    {k:'Mad',c:'#b93a3a',f:['Frustrated','Irritated','Angry','Furious / rage','Resentful','Jealous','Critical','Disrespected']},
-    {k:'Sad',c:'#3d6fb3',f:['Lonely','Hurt','Disappointed','Grieving','Ashamed','Guilty','Empty','Depleted']},
-    {k:'Scared',c:'#7a5bb5',f:['Anxious','Worried','Overwhelmed','Insecure','Rejected','Embarrassed','Helpless','Confused']},
-    {k:'Joyful',c:'#9a6a08',f:['Excited','Playful','Hopeful','Amused','Energized','Delighted','Creative','Grateful']},
-    {k:'Powerful',c:'#b8501a',f:['Confident','Proud','Capable','Respected','Valued','Brave','Focused','Appreciated']},
-    {k:'Peaceful',c:'#2f8a6b',f:['Calm','Content','Relaxed','Safe','Loved','Connected','Thoughtful','Rested']},
-    {k:'Numb',c:'#5f6673',f:['Shut down','Blank','Disconnected','Checked out','Flat','Frozen']},
-    {k:'Not sure',c:'#4b5563',f:[]}
+    {k:'Fear',c:'#7a5bb5',f:['Anxious','Nervous','Worried','Panicky','On edge','Overwhelmed','Insecure','Dread','Terrified'],
+      fn:'Gets your body ready to respond to danger, threat or feeling vulnerable.',
+      body:'Racing heart, fast or shallow breathing, tense muscles, butterflies, shaky.',
+      urge:'Run, avoid, freeze or hide.',
+      opp:'Approach what you\'re afraid of, a little at a time, as long as it\'s actually safe. Do things that build confidence. Steady your breathing and stand or sit tall.'},
+    {k:'Anger',c:'#b93a3a',f:['Frustrated','Irritated','Annoyed','Resentful','Bitter','Furious / rage','Hostile','Defensive'],
+      fn:'Mobilizes you when a goal is blocked, you\'re treated unfairly, or a boundary is crossed.',
+      body:'Hot face, clenched jaw or fists, tight chest, louder voice.',
+      urge:'Attack, yell, argue or lash out.',
+      opp:'Gently step away instead of attacking. Do something small and kind, or try to understand the other person\'s side. Unclench your hands and soften your face and voice.'},
+    {k:'Sadness',c:'#3d6fb3',f:['Disappointed','Hurt','Lonely','Grieving','Discouraged','Heartbroken','Empty','Depleted','Homesick'],
+      fn:'Helps you register a loss or an unmet hope, and signals to others that you need support.',
+      body:'Heavy body, low energy, lump in your throat, tearful.',
+      urge:'Withdraw, isolate or stay in bed.',
+      opp:'Get active and stay engaged. Move your body, reach out to someone, and do one small thing that gives you a sense of accomplishment.'},
+    {k:'Shame',c:'#9a4d8a',f:['Embarrassed','Humiliated','Exposed','Self-conscious','Unworthy','Inadequate'],
+      fn:'Pushes you to hide when you believe you\'ve fallen short of a standard, to protect your place with others.',
+      body:'Hot face, looking down, slumped shoulders, wanting to shrink.',
+      urge:'Hide, avoid people, cover up, or be hard on yourself.',
+      opp:'If it doesn\'t fit the facts: share it with someone you trust, keep your head up and make eye contact, and keep doing what you were doing. If you did act against your values, guilt and repair may fit better.'},
+    {k:'Guilt',c:'#8a6a2a',f:['Regretful','Remorseful','Sorry','Responsible','Like I let someone down'],
+      fn:'Signals that you acted against your own values, and motivates you to repair.',
+      body:'Heavy or sick feeling in your stomach, restless, can\'t stop replaying it.',
+      urge:'Over-apologize, punish yourself, or try to make it right.',
+      opp:'If it fits: make amends, repair what you can, then let it go. If it doesn\'t fit: stop apologizing and keep doing what you were doing. It\'s okay.'},
+    {k:'Joy',c:'#946200',f:['Happy','Content','Excited','Proud','Relieved','Hopeful','Playful','Grateful','Peaceful'],
+      fn:'Signals that things are going well, helps you connect with others, and helps you recover from hard emotions.',
+      body:'Lightness, energy, warmth, easy breathing, smiling.',
+      urge:'Keep doing it, share it, smile.',
+      opp:'Usually there\'s nothing to change. Savor it. If acting on it would be unsafe or out of place, slow down and stay grounded.'},
+    {k:'Love',c:'#c04a7a',f:['Caring','Affectionate','Close','Connected','Warm','Tender','Compassionate','Safe with someone'],
+      fn:'Builds attachment and bonding, and protects the people and communities you care about.',
+      body:'Warmth in your chest, relaxed, drawn toward someone.',
+      urge:'Get close, show affection, protect.',
+      opp:'If loving someone isn\'t good for you: step back, limit contact, and remind yourself why the relationship doesn\'t fit your life.'},
+    {k:'Disgust',c:'#5d7a2a',f:['Grossed out','Repulsed','Revolted','Contempt','Disdain','Turned off'],
+      fn:'Moves you away from things that feel toxic, contaminated or offensive.',
+      body:'Nausea, wrinkled nose, pulling back.',
+      urge:'Push away, reject or avoid.',
+      opp:'If it doesn\'t fit the facts: move toward it with curiosity, be kind, and try to understand.'},
+    {k:'Envy',c:'#2f7a6b',f:['Wanting what they have','Left out','Inferior','Comparing myself','Resentful of their success'],
+      fn:'Shows up when someone has something you want, and can motivate you to work toward it.',
+      body:'Tight chest, stomach knot, restless.',
+      urge:'Compete, put the other person down, or try to take what they have.',
+      opp:'Stop comparing and notice what you do have. Be genuinely kind to the other person, and put that energy toward your own goals.'},
+    {k:'Jealousy',c:'#a0522d',f:['Threatened','Possessive','Suspicious','Insecure','Afraid of being replaced','Protective'],
+      fn:'Focuses you on protecting a relationship or something you value that you fear losing.',
+      body:'Tight chest, racing thoughts, on alert.',
+      urge:'Control, check up on, guard, or accuse.',
+      opp:'Let go of controlling. Share the relationship rather than guarding it, and talk about your fear calmly.'},
+    {k:'Not sure',c:'#4b5563',extra:true,f:[],
+      fn:'That\'s okay. Emotions often show up in the body before we can name them. Try step 2 first, then come back.'}
   ];
-  const PLEASANT=new Set(['Joyful','Powerful','Peaceful']);
+  const FAM=Object.fromEntries(CORES.map(c=>[c.k,c]));
+  const PLEASANT=new Set(['Joy','Love']);
+  const CONCEPTS=[
+    ['Primary and secondary emotions','The primary emotion is your first reaction to what happened. Secondary emotions are reactions to that feeling, like feeling ashamed that you got angry, or anxious about feeling sad. They can pile on and make everything feel bigger. Naming the one underneath helps you choose what will actually help.'],
+    ['Action urges','Every emotion comes with an urge to do something. Anger urges you to attack, fear urges you to run or freeze, sadness urges you to withdraw. An urge isn\'t a command. Noticing it gives you a choice.'],
+    ['Check the facts','Ask yourself: What actually happened, just the facts? What am I telling myself about it? Does my emotion, and how strong it is, fit those facts? Emotions can fit the facts, partly fit, or be mostly about our interpretation.'],
+    ['Opposite action','When an emotion doesn\'t fit the facts, or acting on it won\'t help you, try doing the opposite of the urge, all the way: what you do, your posture, your voice and your thoughts. Over time this can change the emotion. When the emotion does fit, problem solving is usually the better path.'],
+    ['When emotions are very strong','At very high intensity it\'s hard to think things through, and that\'s normal. Use your safety plan, calming skills and support first. Come back to learning when you\'re calmer.']
+  ];
+  const learnOn=()=>prefs.learn!==false;
   const BODY=[['head','Head'],['jaw','Jaw & face'],['throat','Throat'],['shoulders','Shoulders & neck'],['chest','Chest'],['stomach','Stomach'],['arms','Arms & hands'],['back','Back'],['legs','Legs & feet'],['whole','Whole body']];
   const BODYNAME=Object.fromEntries(BODY);
   const SENS_POS=['Relaxed','Loose','Warm','Light','Open','Soft','Steady breathing','Calm heartbeat','Grounded','Settled stomach','Energized','Tingly','Strong','Smiling','Rested','Easy to breathe'];
@@ -1410,7 +1514,7 @@
     groups.forEach(([label,list,color])=>{box.append(node('div',{class:'feel-group'},label));list.forEach(x=>box.append(chip(x,ci.sens,null,color)));});
   }
   const URGES=['Yell or argue','Swear','Say every thought','Shut down','Leave / escape','Isolate','Cry','Drink','Drive','Hurt myself','None right now'];
-  const ci={cores:new Set(),feelings:new Set(),body:new Set(),sens:new Set(),urges:new Set(),touched:false};
+  const ci={cores:new Set(),feelings:new Set(),body:new Set(),sens:new Set(),urges:new Set(),touched:false,primary:'',fits:'',effective:''};
 
   function chip(label,set,onToggle,color){
     const b=node('button',{type:'button',class:'chip','aria-pressed':String(set.has(label))},label);
@@ -1420,7 +1524,7 @@
   }
   function renderCores(){
     const box=$('#coreChips');box.replaceChildren();
-    CORES.forEach(c=>box.append(chip(c.k,ci.cores,()=>{renderFeelings();renderSens();},c.c)));
+    CORES.forEach(c=>box.append(chip(c.k,ci.cores,()=>{renderFeelings();renderSens();renderLearn();},c.c)));
   }
   function renderFeelings(){
     const box=$('#feelingChips');box.replaceChildren();
@@ -1456,13 +1560,14 @@
       if(label==='None right now'&&ci.urges.has(label)){ci.urges.clear();ci.urges.add(label);}
       else if(label!=='None right now')ci.urges.delete('None right now');
       box.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',String(ci.urges.has(b.textContent))));
+      renderLearn();
     })));
   }
   $('#intensity').addEventListener('input',e=>{ci.touched=true;const o=$('#intensityOut');o.textContent=e.target.value;o.classList.remove('unset');$('#checkMsg').classList.add('hidden');});
   function resetCheckForm(){
-    ['cores','feelings','body','sens','urges'].forEach(k=>ci[k].clear());ci.touched=false;
+    ['cores','feelings','body','sens','urges'].forEach(k=>ci[k].clear());ci.touched=false;ci.primary='';ci.fits='';ci.effective='';
     $('#intensity').value=5;const o=$('#intensityOut');o.textContent='Slide to rate';o.classList.add('unset');
-    $('#checkNote').value='';renderCores();renderFeelings();renderBody();renderUrges();
+    $('#checkNote').value='';renderCores();renderFeelings();renderBody();renderUrges();renderLearn();
   }
   function suggestZone(c){
     const negSens=c.sens.filter(x=>!SENS_POS_SET.has(x));
@@ -1482,6 +1587,7 @@
     if(!ci.touched){$('#checkMsg').classList.remove('hidden');$('#intensity').focus();return;}
     const c={at:new Date().toISOString(),cores:[...ci.cores],feelings:[...ci.feelings],body:[...ci.body],sens:[...ci.sens],urges:[...ci.urges],intensity:Number($('#intensity').value),note:$('#checkNote').value.trim()};
     c.planId=plan.id;c.plan=planLabel(plan);
+    if(ci.primary)c.primary=ci.primary;if(ci.fits)c.fits=ci.fits;if(ci.effective)c.effective=ci.effective;
     c.zone=suggestZone(c).zone;
     plan.checkins.push(c);if(plan.checkins.length>1000)plan.checkins.splice(0,plan.checkins.length-1000);
     store();resetCheckForm();showResult(c);renderCheckSide();
@@ -1527,6 +1633,7 @@
       if(c.urges.includes('Hurt myself')){const cs=crisisSummary();card.append(node('p',{},'You named an urge to hurt yourself. Please reach out now'+(cs.support?': '+cs.support:'')+', or call '+cs.emergency+' if you are in danger.'));}
       card.append(crisisButtons());
     }
+    learnResult(c,card);
     const safe=plan.zones[z].safe.trim();
     card.append(node('h3',{},'Things to do in this zone'));
     if(safe)card.append(skillList(safe,c.intensity));else card.append(node('p',{},'Nothing listed yet. Add some in Edit.'));
@@ -1542,7 +1649,7 @@
     return [...m.entries()].sort((a,b)=>b[1]-a[1]).slice(0,n).map(([k,v])=>`${k} (${v})`).join(', ');
   }
   function describeCheck(c){
-    let t=(multi()&&c.plan?c.plan+' · ':'')+(c.cores.join(' + ')||'Feeling')+(c.feelings.length?' → '+c.feelings.join(', '):'')+` · ${c.intensity}/10`;
+    let t=(multi()&&c.plan?c.plan+' · ':'')+(c.cores.join(' + ')||'Feeling')+(c.primary&&c.cores.length>1?' (underneath: '+c.primary+')':'')+(c.feelings.length?' → '+c.feelings.join(', '):'')+` · ${c.intensity}/10`+(c.fits?' · fits the facts: '+c.fits.replace('Yes, it fits','yes').toLowerCase():'');
     const body=c.body.map(b=>BODYNAME[b]||b).join(', ');
     if(body||c.sens.length)t+='\n'+[body,c.sens.join(', ').toLowerCase()].filter(Boolean).join(' · ');
     const u=c.urges.filter(x=>x!=='None right now');if(u.length)t+='\nUrges: '+u.join(', ');
@@ -1558,7 +1665,8 @@
       const zc={green:0,yellow:0,red:0};recent.forEach(c=>zc[c.zone]=(zc[c.zone]||0)+1);
       const rows=[
         ['Check-ins',`${recent.length} · average ${avg}/10`],
-        ['Core emotions',countTop(recent.flatMap(c=>c.cores))],
+        ['Emotions',countTop(recent.flatMap(c=>c.cores))],
+        ['Often underneath',countTop(recent.map(c=>c.primary).filter(Boolean))],
         ['Feelings',countTop(recent.flatMap(c=>c.feelings))],
         ['Where I feel it',countTop(recent.flatMap(c=>c.body.map(b=>BODYNAME[b]||b)))],
         ['How it feels',countTop(recent.flatMap(c=>c.sens))],
@@ -1580,6 +1688,88 @@
     });
   }
   function renderCheck(){renderCheckSide();renderPending();}
+  // =====================================================================
+  //  Learning supports in the check-in (optional, short, skippable)
+  // =====================================================================
+  const realFams=()=>[...ci.cores].filter(k=>FAM[k]&&!FAM[k].extra);
+  const crisisLevel=()=>Number($('#intensity').value)>=8&&ci.touched||ci.urges.has('Hurt myself');
+  function singleChips(box,options,get,set){
+    box.replaceChildren();
+    options.forEach(o=>{
+      const b=node('button',{type:'button',class:'chip','aria-pressed':String(get()===o)},o);
+      b.addEventListener('click',()=>{set(get()===o?'':o);box.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',String(get()===x.textContent)));});
+      box.append(b);
+    });
+  }
+  function renderLearn(){
+    const on=learnOn(),fams=[...ci.cores].filter(k=>FAM[k]);
+    // About this emotion
+    const info=$('#famInfo');info.replaceChildren();
+    if(on)fams.forEach(k=>{
+      const f=FAM[k],d=node('details',{class:'fam-info'});
+      d.append(node('summary',{},'About '+k.toLowerCase()));
+      d.append(node('p',{},f.fn));
+      if(f.urge){const p=node('p');p.append(node('strong',{},'Common urge: '),f.urge);d.append(p);}
+      const g=node('button',{type:'button',class:'add-plan-link'},'Open the emotion guide');g.addEventListener('click',()=>openGuide(k));d.append(g);
+      info.append(d);
+    });
+    // Which came first? (primary vs secondary)
+    const rf=realFams(),pb=$('#primaryBox');
+    if(ci.primary&&!rf.includes(ci.primary))ci.primary='';
+    pb.classList.toggle('hidden',!(on&&rf.length>=2));
+    if(on&&rf.length>=2)singleChips($('#primaryChips'),rf,()=>ci.primary,v=>{ci.primary=v;});
+    // Urge hint
+    const uh=$('#urgeHint');uh.replaceChildren();
+    if(on&&rf.length){uh.append(node('strong',{},'Common urges: '),rf.map(k=>k+': '+FAM[k].urge.replace(/\.$/,'').toLowerCase()).join(' · '));}
+    uh.classList.toggle('hidden',!(on&&rf.length));
+    // Check the facts (optional)
+    const fc=$('#factsCard');fc.classList.toggle('hidden',!(on&&rf.length));
+    const strong=crisisLevel();
+    $('#factsStrong').classList.toggle('hidden',!strong);
+    $('#factsQs').classList.toggle('hidden',strong);
+    if(!strong){
+      singleChips($('#fitsChips'),['Yes, it fits','Partly','No','Not sure'],()=>ci.fits,v=>{ci.fits=v;});
+      singleChips($('#effChips'),['Yes','No','Not sure'],()=>ci.effective,v=>{ci.effective=v;});
+    }
+  }
+  function learnResult(c,card){
+    if(!learnOn()||!c.fits&&!c.effective)return;
+    if(c.intensity>=8||c.urges.includes('Hurt myself'))return;
+    const fam=FAM[c.primary]||FAM[c.cores.find(k=>FAM[k]&&!FAM[k].extra&&!PLEASANT.has(k))]||FAM[c.cores.find(k=>FAM[k]&&!FAM[k].extra)];
+    if(!fam)return;
+    const notFit=['Partly','No','Not sure'].includes(c.fits)||c.effective==='No';
+    if(notFit){
+      card.append(node('h3',{},'Try opposite action · '+fam.k));
+      card.append(node('p',{},'The urge with '+fam.k.toLowerCase()+' is to '+fam.urge.replace(/\.$/,'').toLowerCase()+'. '+fam.opp));
+    }else{
+      card.append(node('h3',{},'Your emotion fits the facts'));
+      card.append(node('p',{},'That makes sense. When an emotion fits, problem solving often helps most: what is one small step toward changing the situation? Your skills below can bring the intensity down first.'));
+    }
+    const g=node('button',{type:'button',class:'add-plan-link'},'Learn more in the emotion guide');g.addEventListener('click',()=>openGuide(fam.k));card.append(g);
+  }
+  // ----- Emotion guide
+  function openGuide(focus){
+    const box=$('#guideBody');box.replaceChildren();
+    box.append(node('h3',{class:'guide-h'},'Key ideas'));
+    CONCEPTS.forEach(([t,b])=>{const d=node('details',{class:'guide-item'});d.append(node('summary',{},t),node('p',{},b));box.append(d);});
+    box.append(node('h3',{class:'guide-h'},'The emotion families'));
+    CORES.filter(c=>c.fn).forEach(c=>{
+      const d=node('details',{class:'guide-item fam','data-k':c.k});d.style.setProperty('--c',c.c);
+      d.append(node('summary',{},c.k));
+      d.append(node('p',{},c.fn));
+      const rows=[['Often feels like',c.body],['Common urge',c.urge],[c.extra?'What can help':'Opposite action (when it doesn\'t fit the facts)',c.opp],['Related feelings',c.f.join(', ')]];
+      rows.filter(r=>r[1]).forEach(([h,t])=>{const p=node('p');p.append(node('strong',{},h+': '),t);d.append(p);});
+      if(c.k===focus)d.open=true;
+      box.append(d);
+    });
+    const dlg=$('#guideDialog');if(typeof dlg.showModal==='function')dlg.showModal();else dlg.setAttribute('open','');
+    if(focus){const el=box.querySelector(`[data-k="${CSS.escape(focus)}"]`);if(el)setTimeout(()=>el.scrollIntoView({block:'start'}),50);}
+  }
+  $('#guideClose').addEventListener('click',()=>$('#guideDialog').close());
+  $('#guideBtn').addEventListener('click',()=>openGuide());
+  $('#setGuide').addEventListener('click',()=>{$('#settingsDialog').close();openGuide();});
+  $('#setLearn').addEventListener('change',e=>{prefs.learn=e.target.checked;savePrefs();renderLearn();});
+  $('#intensity').addEventListener('input',renderLearn);
   resetCheckForm();
   // =====================================================================
   //  Crisis lines by country (editable in Settings)
@@ -1761,7 +1951,7 @@
   function openSettings(){
     if(!plan.crisis||!plan.crisis.country){plan.crisis=crisisDefaults(guessCountry());store();}
     countrySelect($('#setCountry'),plan.crisis.country);$('#setEmergency').value=plan.crisis.emergency;
-    renderLinesEditor();renderLockSettings();$('#setTheme').value=prefs.theme||'auto';
+    renderLinesEditor();renderLockSettings();$('#setTheme').value=prefs.theme||'auto';$('#setLearn').checked=learnOn();
     const d=$('#settingsDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
   }
   $('#setCountry').addEventListener('change',e=>{plan.crisis=crisisDefaults(e.target.value);store();$('#setEmergency').value=plan.crisis.emergency;renderLinesEditor();renderCrisisAll();addLog({area:'Crisis lines',note:'Set to '+COUNTRIES[e.target.value].name});});

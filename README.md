@@ -12,7 +12,8 @@ My Pocket Safety Plan helps you build a personal safety plan in minutes, see you
 
 - **Guided setup.** A five-minute walkthrough with tap-to-add examples covers three zones: 🟢 green (steady), 🟡 yellow (early warning signs) and 🔴 red (overwhelmed). For each zone you note what helps, what to avoid and who to contact.
 - **Right now.** One tap to call or text a crisis line, call your local emergency number, or reach your own safety person. These buttons also work from the lock screen.
-- **Check in.** Name the emotion and feeling, mark where you feel it in your body, rate how strong it is, and note any urges. The app suggests which zone you're in and shows that part of your plan.
+- **Check in.** Pick from the 10 DBT emotion families (fear, anger, sadness, shame, guilt, joy, love, disgust, envy, jealousy), plus "not sure." Mark where you feel it in your body, rate how strong it is, and note any urges. The app suggests which zone you're in and shows that part of your plan.
+- **Learn as you go (optional).** Short notes on what each emotion is for and its usual urge, a "which came first?" prompt for primary vs. secondary emotions, and an optional check-the-facts step that suggests opposite action when an emotion doesn't fit. At very high intensity these step aside so the plan and support come first. An Emotion guide collects it all. Tips can be turned off in Settings.
 - **Did it help?** Rate how you feel before and after a coping skill. The skills that help you most move to the top.
 - **Breathe with me.** A guided breathing pacer (in 4, out 6, or box breathing).
 - **Share with my support person.** Builds a short "how to support me" message you can review and send.
