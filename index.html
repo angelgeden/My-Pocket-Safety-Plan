@@ -1,0 +1,1590 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#28283c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Safety Plan">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="description" content="A private, offline safety plan for your phone: know your signs, know what helps, and reach support fast.">
+  <title>My Pocket Safety Plan</title>
+  <style>
+    :root {
+      --ink:#263043; --muted:#617083; --line:#dbe1e7; --paper:#ffffff;
+      --page:#f5f6f8; --deep:#28283c; --accent:#5653a4;
+      --green:#247157; --green-bg:#eef8f1; --green-rule:#bcdcc5;
+      --yellow:#805a0a; --yellow-bg:#fff8e8; --yellow-rule:#efd598;
+      --red:#a63445; --red-bg:#fff1f0; --red-rule:#edb5b3;
+      --shadow:0 12px 34px rgba(33,42,55,.07);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;line-height:1.47}
+    button,textarea,input{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit}
+    button:focus-visible,textarea:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #6466de;outline-offset:3px}
+    .skip{position:absolute;top:-100px;left:8px;padding:12px;background:white;z-index:10}
+    .skip:focus{top:8px}
+    .shell{width:min(1312px,calc(100% - 44px));margin:auto}
+    header{background:var(--deep);color:white;padding:38px 0 30px;position:relative;overflow:hidden}
+    header:after{content:"";position:absolute;width:330px;height:330px;right:-60px;top:-180px;border:62px solid rgba(255,255,255,.055);border-radius:50%;pointer-events:none}
+    .eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#d2d0ff;margin:0 0 10px}
+    h1{font-size:clamp(2rem,3.5vw,3.25rem);letter-spacing:-.045em;line-height:1.1;margin:0 0 10px}
+    header p.description{color:#e4e5ef;font-size:1.04rem;margin:0;max-width:720px}
+    .header-main{display:flex;justify-content:space-between;gap:20px;align-items:end;flex-wrap:wrap}
+    .privacy-pill{display:flex;align-items:center;gap:8px;border:1px solid #6c6c80;border-radius:30px;padding:9px 14px;font-size:.86rem;color:#ebedf6;white-space:nowrap}
+    .privacy-pill svg{width:16px;height:16px}
+    main{padding:26px 0 72px}
+    .top-panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 24px;margin-bottom:18px}
+    .metadata{display:grid;grid-template-columns:1.1fr 1.4fr .72fr;gap:14px}
+    label.field-label{display:block;font-size:.76rem;letter-spacing:.04em;color:#566275;font-weight:800;margin-bottom:8px}
+    .metadata input{display:block;width:100%;border:1px solid #cbd4dc;border-radius:9px;background:#fff;padding:12px 13px;color:var(--ink);min-height:45px}
+    .meta-foot{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:17px;border-top:1px solid #eef0f2;padding-top:17px}
+    #saveStatus{font-size:.84rem;color:var(--muted)}
+    .progress{font-size:.83rem;font-weight:700;color:#545877}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+    .tabs{display:flex;background:#e9eaef;border:1px solid #dcdee7;padding:4px;border-radius:11px;gap:2px}
+    .tabs button{background:transparent;border:0;color:#464d60;border-radius:8px;padding:10px 17px;font-weight:750;font-size:.91rem}
+    .tabs button[aria-selected="true"]{background:white;box-shadow:0 2px 7px rgba(22,24,42,.08);color:#252b45}
+    .actions{display:flex;flex-wrap:wrap;gap:8px}
+    .btn{border:1px solid #cbd1df;border-radius:9px;padding:10px 13px;background:white;color:#353d53;font-weight:720;font-size:.84rem;min-height:42px;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+    .btn:hover{background:#f0f0fb}
+    .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+    .btn.primary:hover{background:#44418c}
+    .btn.danger{color:#a33040;border-color:#e5bdc2}
+    .intro{font-size:.93rem;color:#607084;margin:0 0 22px}
+    .zones{display:flex;flex-direction:column;gap:26px}
+    .zone{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:white;box-shadow:var(--shadow)}
+    .zone.green{--zone:var(--green);--zone-bg:var(--green-bg);--zone-rule:var(--green-rule)}
+    .zone.yellow{--zone:var(--yellow);--zone-bg:var(--yellow-bg);--zone-rule:var(--yellow-rule)}
+    .zone.red{--zone:var(--red);--zone-bg:var(--red-bg);--zone-rule:var(--red-rule)}
+    .zone-heading{padding:20px 23px;background:var(--zone-bg);border-bottom:1px solid var(--zone-rule);display:flex;align-items:center;gap:13px}
+    .zone-icon{flex:0 0 42px;width:42px;height:42px;border:2px solid var(--zone);color:var(--zone);border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:1.13rem;background:#fff}
+    .zone-heading h2{font-size:1.38rem;line-height:1.1;letter-spacing:-.035em;margin:0;color:var(--zone)}
+    .zone-heading p{margin:5px 0 0;color:#565e67;font-size:.89rem}
+    .zone-grid{padding:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .prompt-card{min-width:0;background:#fff;border:1px solid #e0e4e7;border-radius:12px;padding:15px}
+    .prompt-card label{display:block;color:#384456;font-weight:800;line-height:1.25;font-size:.92rem;margin-bottom:6px}
+    .hint{min-height:30px;color:#7a8492;font-size:.76rem;line-height:1.35;margin-bottom:9px}
+    textarea{width:100%;display:block;resize:vertical;min-height:122px;line-height:1.62;padding:11px 12px;border:1px solid #d8dde2;border-radius:8px;color:#253044;background:repeating-linear-gradient(to bottom,#fff,#fff 30px,#f0f2f4 31px,#fff 32px);font-size:.95rem}
+    textarea::placeholder{color:#9a9faa}
+    textarea:hover,.metadata input:hover{border-color:#aaaec0}
+    textarea:focus,.metadata input:focus{background:white}
+    .contacts{padding:0 18px 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .contact-card{background:#fafafa;border-radius:12px;padding:16px;border:1px solid #dfe3e9}
+    .contact-card label{display:block;font-size:.89rem;font-weight:800;margin-bottom:7px}
+    .contact-card textarea{min-height:75px}
+    .emergency-bar{margin:0 18px 18px;background:#fff5f4;border:1px solid #eed1d0;border-radius:10px;padding:13px 15px;font-size:.85rem;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .emergency-bar strong{color:#8e2234}
+    .emergency-bar a{color:#862c3a;font-weight:800}
+    .fine-print{margin-top:24px;color:#5e6a7a;font-size:.82rem}
+    .fine-print strong{color:#364052}
+    .footer-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;margin-top:30px;border-top:1px solid #dedfe3;padding-top:16px;color:#637084;font-size:.78rem}
+    .quick-top{background:white;border-radius:15px;border:1px solid #dce2e9;padding:18px 22px;margin-bottom:20px}
+    .quick-top h2{font-size:1.28rem;margin:0 0 7px}
+    .quick-top p{margin:0;color:#5a6677}
+    .quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .quick-zone{background:#fff;border:1px solid #dfe1e6;border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+    .quick-zone h3{font-size:1.17rem;margin:0;padding:18px;background:var(--zone-bg);color:var(--zone);border-bottom:1px solid var(--zone-rule)}
+    .quick-inner{padding:16px}
+    .quick-entry{padding:0 0 13px;margin-bottom:13px;border-bottom:1px solid #e9ebee}
+    .quick-entry:last-child{border:0;padding-bottom:0;margin-bottom:0}
+    .quick-entry h4{font-size:.74rem;text-transform:uppercase;letter-spacing:.055em;color:#6b7280;margin:0 0 7px}
+    .quick-entry .quick-value{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.93rem;color:#303a4b}
+    .empty{font-style:italic;color:#a2a6ad!important;font-size:.85rem!important}
+    .quick-zone.green{--zone:var(--green);--zone-bg:var(--green-bg);--zone-rule:var(--green-rule)}
+    .quick-zone.yellow{--zone:var(--yellow);--zone-bg:var(--yellow-bg);--zone-rule:var(--yellow-rule)}
+    .quick-zone.red{--zone:var(--red);--zone-bg:var(--red-bg);--zone-rule:var(--red-rule)}
+    .quick-help{border-left:4px solid #b5414b;background:#fff4f3;border-radius:10px;padding:13px 17px;font-size:.9rem;margin-top:18px}
+    .print-answer{display:none}
+    header{padding-top:calc(38px + env(safe-area-inset-top))}
+    .crisis{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+    .crisis a{flex:1 1 140px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:12px;font-weight:800;text-decoration:none;font-size:1rem;border:1px solid #e3b4b8;background:#fff;color:#8e2234}
+    .crisis a.call988{background:#a63445;border-color:#a63445;color:#fff}
+    .zone-pick{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+    .zone-pick button{border:1px solid #d3d7e2;background:#fff;border-radius:30px;padding:9px 16px;font-weight:750;font-size:.9rem;color:#3c4458;min-height:42px}
+    .zone-pick button[aria-pressed="true"]{color:#fff;border-color:transparent}
+    .zone-pick button[data-pick="all"][aria-pressed="true"]{background:#3c4458}
+    .zone-pick button[data-pick="green"][aria-pressed="true"]{background:var(--green)}
+    .zone-pick button[data-pick="yellow"][aria-pressed="true"]{background:#b07d12}
+    .zone-pick button[data-pick="red"][aria-pressed="true"]{background:var(--red)}
+    .quick-grid.single{grid-template-columns:minmax(0,640px)}
+    .quick-entry.lead .quick-value{font-size:1.05rem;font-weight:600;line-height:1.7}
+    .quick-value a{color:#5653a4;font-weight:800}
+    .verify{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;background:#f1f0ff;border:1px solid #d6d4f5;border-radius:12px;padding:12px 15px;margin-bottom:18px;font-size:.88rem;color:#3d3b6e}
+    body.mode-quick .top-panel{display:none}
+    @media(max-width:650px){body.mode-quick header{padding:calc(16px + env(safe-area-inset-top)) 0 14px}body.mode-quick .eyebrow,body.mode-quick header p.description,body.mode-quick .privacy-pill{display:none}body.mode-quick h1{font-size:1.6rem;margin:0}body.mode-quick .actions{display:none}}
+    .person{display:flex;gap:8px;flex-wrap:wrap;margin:-8px 0 18px}
+    .person a,.person button{flex:1 1 140px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:12px;font-weight:800;text-decoration:none;font-size:1rem;border:1px solid #c9c7ee;background:#fff;color:#44418c}
+    .person a.call-person{background:var(--accent);border-color:var(--accent);color:#fff}
+    .person button.add-person{border-style:dashed;background:#f7f7ff}
+    .person button.edit-person{flex:0 0 52px;font-size:1.1rem}
+    dialog{border:0;border-radius:16px;padding:22px;width:min(420px,calc(100% - 32px));box-shadow:0 20px 50px rgba(20,22,40,.25);color:var(--ink)}
+    dialog::backdrop{background:rgba(30,32,48,.45)}
+    dialog h2{margin:0 0 4px;font-size:1.25rem}
+    dialog p{margin:0 0 14px;color:var(--muted);font-size:.9rem}
+    dialog label{display:block;margin-bottom:12px}
+    dialog input{display:block;width:100%;border:1px solid #cbd4dc;border-radius:9px;padding:12px 13px;min-height:46px;font-size:1rem}
+    .dialog-actions{display:flex;gap:8px;align-items:center;margin-top:6px}
+    .dialog-actions span{flex:1}
+    .form-error{color:#a33040!important}
+    .verify button{border:0;background:transparent;color:#5653a4;font-weight:800;white-space:nowrap;padding:4px}
+    .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    .hidden{display:none!important}
+    .toast{position:fixed;bottom:24px;right:24px;z-index:12;max-width:350px;background:#293348;color:white;padding:13px 17px;border-radius:10px;box-shadow:0 10px 26px #24293844;font-size:.9rem}
+    @media(max-width:1000px){.zone-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-grid{grid-template-columns:1fr}.metadata{grid-template-columns:1fr 1fr}.metadata label:last-child{grid-column:1 / -1}}
+    @media(max-width:650px){.shell{width:min(100% - 24px,1312px)}header{padding:29px 0 25px}header .privacy-pill{font-size:.75rem}.top-panel{padding:17px}.metadata{grid-template-columns:1fr}.metadata label:last-child{grid-column:auto}.toolbar{align-items:stretch}.tabs{width:100%}.tabs button{flex:1;padding:10px 8px}.actions{width:100%}.actions .btn{flex:1}.zone-grid{grid-template-columns:1fr;padding:12px;gap:10px}.zone-heading{padding:17px}.contacts{padding:0 12px 12px;grid-template-columns:1fr}.emergency-bar{margin:0 12px 12px}.prompt-card{padding:13px}textarea{min-height:100px}.footer-row{line-height:1.55}}
+    @page{size:landscape;margin:9mm}
+    /* ---------- Tools row, pending banner, skill rows ---------- */
+    .tools-row{display:flex;gap:8px;flex-wrap:wrap;margin:-8px 0 18px}
+    .tools-row button{flex:1 1 140px;min-height:50px;border-radius:12px;border:1px solid #c6e2d2;background:#f1faf5;color:#1f5e48;font-weight:800;font-size:.98rem}
+    .pending-slot:empty{display:none}
+    .pending{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#fffbea;border:1px solid #f0d98c;border-radius:12px;padding:12px 15px;margin-bottom:16px;font-size:.92rem;color:#5c4708}
+    .pending span{flex:1 1 200px}
+    .pending button{border:1px solid #d9bf6a;background:#fff;border-radius:9px;padding:8px 13px;font-weight:800;color:#5c4708;min-height:40px}
+    .pending button.go{background:#805a0a;border-color:#805a0a;color:#fff}
+    .skill-row{display:flex;align-items:center;gap:8px;padding:2px 0}
+    .skill-row .nm{flex:1;min-width:0}
+    .badge{font-size:.74rem;font-weight:800;border-radius:20px;padding:2px 8px;white-space:nowrap;color:#1f6a4f;background:#e3f3ea}
+    .badge.flat{color:#5d6470;background:#eceef1}
+    .badge.up{color:#8e2234;background:#fbe9ea}
+    .skill-row button{border:1px solid #d3d7e2;background:#fff;border-radius:20px;padding:4px 12px;font-size:.8rem;font-weight:800;color:#5653a4;min-height:34px;white-space:nowrap}
+    .works{margin-top:18px}
+    .works-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #eceef1;font-size:.93rem}
+    .works-row:last-child{border-bottom:0}
+    .works-row small{color:var(--muted)}
+    /* ---------- Check-in ---------- */
+    .check-card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px}
+    .check-card h2{font-size:1.12rem;margin:0 0 6px;display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+    .step{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:.82rem}
+    .sub{color:var(--muted);font-size:.88rem;margin:0 0 12px}
+    .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+    .chips:empty{display:none}
+    .chip{--c:var(--accent);border:1px solid #d3d7e2;background:#fff;border-radius:30px;padding:8px 14px;font-weight:700;font-size:.9rem;color:#3c4458;min-height:40px}
+    .chip[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff}
+    .core .chip{font-size:1rem;padding:10px 17px;border-color:color-mix(in srgb,var(--c) 45%,#fff);color:var(--c)}
+    .core .chip[aria-pressed="true"]{color:#fff}
+    .feel-group{font-size:.74rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:6px 0 6px;width:100%}
+    .body-wrap{display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:start}
+    #bodyMap{width:100%;height:auto}
+    #bodyMap .part{fill:#eef0f4;stroke:#b8bfcc;stroke-width:1.2;cursor:pointer;transition:fill .15s}
+    #bodyMap .part.on{fill:#a63445;fill-opacity:.7;stroke:#a63445}
+    #bodyMap .part:focus-visible{outline:none;stroke:#6466de;stroke-width:3}
+    .intensity{display:flex;align-items:center;gap:16px}
+    .intensity input{flex:1;accent-color:var(--accent);height:40px}
+    .intensity output{font-size:2.1rem;font-weight:900;min-width:2.2ch;text-align:center;color:#2c3350}
+    .intensity output.unset{font-size:.95rem;font-weight:700;color:var(--muted);min-width:auto}
+    .scale-labels{display:flex;justify-content:space-between;font-size:.76rem;color:var(--muted)}
+    .check-card .note{display:block;margin-top:6px}
+    .check-card .note textarea{min-height:70px}
+    .btn.big{width:100%;min-height:54px;font-size:1.02rem;margin-bottom:18px}
+    .form-msg{color:#a33040;font-weight:700;font-size:.9rem;margin:0 0 10px}
+    .result{--zone:var(--accent);--zone-bg:#f4f4ff;border:2px solid var(--zone);background:var(--zone-bg);border-radius:16px;padding:18px 20px;margin-bottom:16px}
+    .result.green{--zone:var(--green);--zone-bg:var(--green-bg)}
+    .result.yellow{--zone:#a8740c;--zone-bg:var(--yellow-bg)}
+    .result.red{--zone:var(--red);--zone-bg:var(--red-bg)}
+    .result h2{margin:0 0 4px;color:var(--zone);font-size:1.35rem;letter-spacing:-.02em}
+    .result h3{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:#5d6470;margin:16px 0 6px}
+    .result p{margin:4px 0;font-size:.93rem;white-space:pre-line}
+    .result .chips{margin:6px 0 0}
+    .result .chip{font-size:.82rem;min-height:34px;padding:5px 12px}
+    .result .skill-row{background:#fff;border-radius:10px;padding:8px 10px;margin-bottom:6px;border:1px solid #e6e8ec}
+    .result .crisis{margin:10px 0 0}
+    .result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .result-actions .btn{flex:1 1 150px;min-height:46px}
+    .stat{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #eef0f2;font-size:.92rem}
+    .stat:last-child{border-bottom:0}
+    .stat b{text-align:right}
+    .log-list.flat{box-shadow:none;border-radius:10px}
+    .zdot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+    .zdot.green{background:var(--green)}.zdot.yellow{background:#d4a017}.zdot.red{background:var(--red)}
+    @media(max-width:650px){.body-wrap{grid-template-columns:104px 1fr;gap:12px}.check-card{padding:16px}.tabs button{font-size:.8rem;padding:10px 4px}}
+    /* ---------- Breathing ---------- */
+    #breathe{position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 35%,#2d3350,#191b2b);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:calc(24px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));text-align:center}
+    .bstage{width:min(66vw,300px);aspect-ratio:1;display:grid;place-items:center}
+    #bCircle{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 50% 38%,#b5e6cf,#3f8f74 70%);box-shadow:0 0 60px rgba(120,210,170,.35);transform:scale(.55);transition-property:transform;transition-timing-function:ease-in-out}
+    #bPhase{font-size:1.8rem;font-weight:800;letter-spacing:-.02em;min-height:2.2rem}
+    #bSecs{font-size:1.1rem;opacity:.75;min-height:1.4rem}
+    #bStats{font-size:.88rem;opacity:.65}
+    .bmodes{display:flex;gap:6px;background:rgba(255,255,255,.08);padding:4px;border-radius:30px}
+    .bmodes button{border:0;background:transparent;color:#dfe3f3;border-radius:30px;padding:8px 14px;font-weight:700;font-size:.88rem}
+    .bmodes button[aria-pressed="true"]{background:#fff;color:#22263b}
+    #bDone{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:30px;padding:12px 28px;font-weight:800;font-size:1rem;min-height:48px}
+    #rateDialog output{display:block;text-align:center;font-size:2.6rem;font-weight:900;color:#2c3350;margin:4px 0}
+    #rateDialog input[type=range]{width:100%;accent-color:var(--accent);height:40px;padding:0;border:0;min-height:auto}
+    /* ---------- Pocket: overlays, setup, lock, settings, share ---------- */
+    .overlay{position:fixed;inset:0;z-index:40;background:rgba(28,30,46,.55);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:calc(20px + env(safe-area-inset-top)) 14px calc(20px + env(safe-area-inset-bottom))}
+    .overlay.lock{background:var(--deep);z-index:60;align-items:center}
+    .overlay-card{background:#fff;color:var(--ink);border-radius:20px;box-shadow:0 24px 60px rgba(10,12,30,.35);width:min(620px,100%);padding:24px 22px;margin:auto 0}
+    .overlay-card h2{margin:0 0 6px;font-size:1.45rem;letter-spacing:-.025em;line-height:1.2}
+    .overlay-actions{display:flex;gap:8px;align-items:center;margin-top:20px;flex-wrap:wrap}
+    .overlay-actions span{flex:1}
+    .btn.link{border-color:transparent;background:transparent;color:var(--muted);text-decoration:underline}
+    .setup-progress{display:flex;align-items:center;gap:12px;font-size:.78rem;font-weight:800;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+    .setup-progress .bar{flex:1;height:6px;background:#eceef3;border-radius:6px;overflow:hidden}
+    .setup-progress i{display:block;height:100%;background:var(--accent);border-radius:6px;transition:width .25s}
+    .setup-q{margin:16px 0 4px;font-weight:800;font-size:1rem}
+    .setup-q small{display:block;font-weight:500;color:var(--muted);font-size:.84rem;margin-top:2px}
+    #setupBody textarea{min-height:96px;margin-top:4px}
+    #setupBody input,#setupBody select,dialog select{display:block;width:100%;border:1px solid #cbd4dc;border-radius:9px;padding:12px 13px;min-height:46px;font-size:1rem;background:#fff;color:var(--ink)}
+    #setupBody label{display:block;margin-top:12px}
+    .promise{display:grid;gap:10px;margin:16px 0}
+    .promise div{display:flex;gap:12px;align-items:flex-start;background:#f6f6fb;border-radius:12px;padding:12px 14px;font-size:.93rem}
+    .promise b{font-size:1.2rem;line-height:1.2}
+    .note-box{background:#fff5f4;border:1px solid #eed1d0;border-radius:12px;padding:12px 14px;font-size:.9rem;margin-top:12px}
+    .note-box .crisis{margin:10px 0 0}
+    .lock .overlay-card{text-align:center;max-width:420px}
+    .lock-icon{font-size:2rem}
+    .lock input{display:block;width:100%;text-align:center;font-size:1.6rem;letter-spacing:.4em;border:1px solid #cbd4dc;border-radius:12px;padding:12px;margin:8px 0 12px}
+    .lock .crisis{margin:10px 0}
+    .forgot{text-align:left;background:#f6f6fb;border-radius:12px;padding:12px 14px;font-size:.88rem;margin-top:8px}
+    dialog.wide{width:min(620px,calc(100% - 24px));max-height:calc(100dvh - 32px);overflow-y:auto}
+    .set-sec{border-top:1px solid #eceef1;padding-top:14px;margin-top:14px}
+    .set-sec h3{margin:0 0 4px;font-size:1rem}
+    .set-sec p{margin:0 0 10px}
+    .tiny{font-size:.8rem!important;color:var(--muted)}
+    .row-btns{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+    .line-row{display:grid;grid-template-columns:1fr 1fr 92px 40px;gap:6px;margin-bottom:8px}
+    .line-row input,.line-row select{min-height:42px!important;padding:8px 10px!important;font-size:.92rem!important}
+    .line-row button{border:1px solid #e5bdc2;background:#fff;color:#a33040;border-radius:9px;font-weight:800}
+    @media(max-width:520px){.line-row{grid-template-columns:1fr 1fr}.line-row select{grid-column:1}.line-row button{grid-column:2}}
+    .share-opts{display:grid;gap:6px;margin:4px 0 12px}
+    .share-opts label{display:flex!important;gap:10px;align-items:center;margin:0!important;font-size:.93rem}
+    .share-opts input{width:20px!important;height:20px;min-height:auto!important;accent-color:var(--accent)}
+    #shareText{min-height:220px;font-size:.92rem;line-height:1.5}
+    #restoreDialog .btn.big{display:block;text-align:left;margin:10px 0 0;min-height:auto;padding:12px 14px;line-height:1.35}
+    .hdr-btn{position:absolute;z-index:2;right:max(14px,env(safe-area-inset-right));top:calc(12px + env(safe-area-inset-top));width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:1.25rem}
+    .hdr-btn:hover{background:rgba(255,255,255,.16)}
+    @media print{.hdr-btn{display:none!important}.metadata input::placeholder{color:transparent!important}.metadata input.empty{color:transparent!important}}
+    .tools-row button.share{border-color:#d6d4f5;background:#f6f5ff;color:#44418c}
+    .print-sign,.print-log{display:none}
+    .log-list{list-style:none;margin:0;padding:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+    .log-list li{padding:14px 18px;border-bottom:1px solid #eceef1;display:grid;grid-template-columns:150px 1fr;gap:4px 16px}
+    .log-list li:last-child{border-bottom:0}
+    .log-when{color:var(--muted);font-size:.84rem;font-variant-numeric:tabular-nums}
+    .log-area{font-weight:800;font-size:.9rem;color:#384456}
+    .log-what{grid-column:2;font-size:.9rem;color:#4a5466;white-space:pre-wrap;overflow-wrap:anywhere}
+    .log-empty{padding:18px;color:var(--muted);font-style:italic}
+    @media(max-width:650px){.log-list li{grid-template-columns:1fr}.log-what{grid-column:1}}
+    @media print{
+      main.shell{zoom:.88}
+      .print-sign{display:grid!important;grid-template-columns:1fr 1.25fr;gap:28px;margin-top:10px;break-inside:avoid;font-size:8pt;color:#333}
+      .sig-row{display:flex;align-items:flex-end;gap:8px;margin-bottom:5px;white-space:nowrap}
+      .sig-row .cap{font-weight:700;font-size:7.5pt;color:#444}
+      .sig-row .line{flex:1;border-bottom:1px solid #222;min-height:15px;padding:0 4px 1px;font-size:8.5pt;color:#111}
+      .sig-row .line.date{flex:0 0 78px}
+      .print-log{display:block!important;break-before:page;font-size:8pt}
+      .print-log h2{font-size:13pt;margin:0 0 6px}
+      .print-log table{width:100%;border-collapse:collapse}
+      .print-log th,.print-log td{text-align:left;vertical-align:top;border-bottom:1px solid #ccd;padding:4px 6px;white-space:pre-wrap}
+      .print-log th{font-size:7pt;text-transform:uppercase;letter-spacing:.04em;color:#555;border-bottom:1.5px solid #333}
+      .print-log td:first-child{white-space:nowrap;width:110px}.print-log td:nth-child(2){width:220px;font-weight:700}
+      .crisis,.person,.verify,.zone-pick,dialog{display:none!important}
+      #editView{display:block!important}#quickView,#logView,#checkView,#breathe,.tools-row,.pending-slot,.overlay{display:none!important}
+      .metadata label:last-child{grid-column:auto!important}
+      input[type=date]::-webkit-calendar-picker-indicator{display:none}
+      .contact-card p{font-size:7.5pt!important;margin:2px 0!important}
+      .zone-grid .prompt-card{min-height:40px}
+      body.mode-quick .top-panel,.top-panel{display:block!important}
+      .eyebrow,header p.description{display:none!important}
+      .zones{gap:6px!important}.zone-heading{padding:4px 10px!important}.zone-heading p{display:none}
+      .zone-icon{width:20px!important;height:20px!important;flex-basis:20px!important;font-size:9pt!important}
+      .emergency-bar{display:none!important}
+      .print-sign{margin-top:16px!important}
+      header{padding:0 0 6px!important}h1{font-size:16pt!important;margin:0 0 2px}
+      body{background:white;font-size:9pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .shell{width:100%;max-width:none}header{padding:8px 0 11px;background:white;color:#1c2735;border-bottom:2px solid #303449}header:after,.privacy-pill,.toolbar,.intro,.fine-print,.footer-row,.btn,.toast{display:none!important}
+      .eyebrow{color:#333!important;font-size:7pt}h1{font-size:19pt!important;color:#1e2734}header p.description{color:#535d69;font-size:8pt}
+      main{padding:8px 0}.top-panel{box-shadow:none;border:0;padding:7px 0;margin-bottom:5px}.metadata{display:grid;grid-template-columns:1fr 1.5fr .75fr;gap:10px}.metadata input{font-size:9pt;border:0;border-bottom:1px solid #999;border-radius:0;padding:2px 0;min-height:auto}.metadata .field-label{margin-bottom:1px;font-size:7pt}.meta-foot{display:none}
+      .zones{gap:10px}.zone{border:1px solid #bbc1c9;box-shadow:none;border-radius:8px;break-inside:avoid}.zone-heading{padding:6px 10px;gap:8px}.zone-icon{width:26px;height:26px;flex-basis:26px;font-size:11pt;border-width:1px}.zone-heading h2{font-size:12pt}.zone-heading p{font-size:7pt;margin:2px 0 0}
+      .zone-grid{grid-template-columns:repeat(6,minmax(0,1fr));padding:6px;gap:5px}.prompt-card{padding:6px;border-radius:5px;border-color:#cfd5dd;min-height:70px}.prompt-card label{font-size:7pt;margin-bottom:4px}.hint{display:none}.prompt-card textarea{display:none}.print-answer{display:block!important;white-space:pre-wrap;overflow-wrap:anywhere;font-size:7.5pt;line-height:1.28;min-height:42px}
+      .contacts{padding:0 6px 6px;grid-template-columns:1fr 1fr}.contact-card{padding:4px 7px}.contact-card label{font-size:7pt}.contact-card textarea{display:none}.contact-card .print-answer{min-height:19px}.emergency-bar{padding:5px 8px;font-size:7pt;margin:0 6px 6px}.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.quick-zone{box-shadow:none;break-inside:avoid}.quick-zone h3{font-size:10pt;padding:9px}.quick-inner{padding:8px}.quick-entry{margin-bottom:7px;padding-bottom:7px}.quick-entry h4{font-size:6pt}.quick-entry .quick-value{font-size:8pt}.quick-top{padding:5px;border:0}.quick-help{font-size:8pt}
+    }
+  </style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to my plan</a>
+<header>
+  <button type="button" class="hdr-btn" id="settingsHdrBtn" aria-label="Settings" title="Settings">⚙</button>
+  <div class="shell header-main">
+    <div>
+      <p class="eyebrow">A plan for the moments that matter</p>
+      <h1>My Pocket Safety Plan</h1>
+      <p class="description">Notice your signals. Know what helps. Make your next step a little easier.</p>
+    </div>
+    <div class="privacy-pill" title="No online account or server is used">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      Private on this device
+    </div>
+  </div>
+</header>
+<main id="main" class="shell">
+  <section class="top-panel" aria-label="Plan information">
+    <div class="metadata">
+      <label><span class="field-label">My name</span><input data-meta="name" autocomplete="name" placeholder="Name (optional)"></label>
+      <label><span class="field-label">Focus of this plan</span><input data-meta="focus" placeholder="e.g., managing big emotions"></label>
+      <label><span class="field-label">Last reviewed</span><input data-meta="date" type="date"></label>
+    </div>
+    <div class="meta-foot"><div id="saveStatus" role="status" aria-live="polite">Ready to edit · Changes save on this device</div><div id="progress" class="progress">0 of 18 prompts filled</div></div>
+  </section>
+  <div class="toolbar" role="group" aria-label="Plan tools">
+    <div class="tabs" role="tablist" aria-label="Plan view">
+      <button type="button" id="editTab" role="tab" aria-controls="editView" aria-selected="true">✎ Edit</button>
+      <button type="button" id="viewTab" role="tab" aria-controls="quickView" aria-selected="false">◎ Right now</button>
+      <button type="button" id="checkTab" role="tab" aria-controls="checkView" aria-selected="false">♡ Check in</button>
+      <button type="button" id="logTab" role="tab" aria-controls="logView" aria-selected="false">🕘 Log</button>
+    </div>
+    <div class="actions">
+      <button class="btn" id="exportBtn" type="button">↓ Back up</button>
+      <button class="btn" id="importBtn" type="button">↑ Restore</button>
+      <button class="btn primary" id="printBtn" type="button">⎙ Print / PDF</button>
+      <button class="btn" id="settingsBtn" type="button">⚙ Settings</button>
+      <button class="btn danger" id="clearBtn" type="button">Clear</button>
+    </div>
+  </div>
+  <input id="importFile" class="sr-only" type="file" accept=".json,application/json">
+  <section id="editView" role="tabpanel" aria-labelledby="editTab">
+    <p class="intro">Your plan has three zones: green (steady), yellow (early warning signs) and red (overwhelmed). Write phrases or full sentences—whatever is easiest to recognize when you need it. Everything below is editable.</p>
+    <div id="zones" class="zones"></div>
+  </section>
+  <section id="checkView" role="tabpanel" aria-labelledby="checkTab" class="hidden" hidden>
+    <div class="pending-slot"></div>
+    <div id="checkResult"></div>
+    <form id="checkForm" novalidate>
+      <div class="check-card">
+        <h2><span class="step">1</span> What am I feeling?</h2>
+        <p class="sub">Start with the core emotion. Pick more than one if they're mixed, or "Not sure." Then tap any feelings that fit.</p>
+        <div class="chips core" id="coreChips" role="group" aria-label="Core emotions"></div>
+        <div class="chips" id="feelingChips" role="group" aria-label="Feelings"></div>
+      </div>
+      <div class="check-card">
+        <h2><span class="step">2</span> Where do I feel it?</h2>
+        <p class="sub">Tap the body or the list. Then pick what it feels like.</p>
+        <div class="body-wrap">
+          <svg id="bodyMap" viewBox="0 0 120 262" role="group" aria-label="Body map">
+            <circle class="part" data-part="head" cx="60" cy="24" r="19" tabindex="0" role="button" aria-label="Head"><title>Head</title></circle>
+            <ellipse class="part" data-part="jaw" cx="60" cy="36" rx="12" ry="6.5" tabindex="0" role="button" aria-label="Jaw and face"><title>Jaw &amp; face</title></ellipse>
+            <rect class="part" data-part="throat" x="52" y="44" width="16" height="13" rx="4" tabindex="0" role="button" aria-label="Throat"><title>Throat</title></rect>
+            <rect class="part" data-part="shoulders" x="25" y="58" width="70" height="14" rx="7" tabindex="0" role="button" aria-label="Shoulders and neck"><title>Shoulders &amp; neck</title></rect>
+            <path class="part" data-part="arms" d="M22 74h14v86a7 7 0 0 1-14 0zM84 74h14v86a7 7 0 0 1-14 0z" tabindex="0" role="button" aria-label="Arms and hands"><title>Arms &amp; hands</title></path>
+            <rect class="part" data-part="chest" x="38" y="74" width="44" height="36" rx="8" tabindex="0" role="button" aria-label="Chest"><title>Chest</title></rect>
+            <rect class="part" data-part="stomach" x="40" y="112" width="40" height="38" rx="8" tabindex="0" role="button" aria-label="Stomach"><title>Stomach</title></rect>
+            <path class="part" data-part="legs" d="M40 153h18v100a5 5 0 0 1-5 5h-8a5 5 0 0 1-5-5zM62 153h18v100a5 5 0 0 1-5 5h-8a5 5 0 0 1-5-5z" tabindex="0" role="button" aria-label="Legs and feet"><title>Legs &amp; feet</title></path>
+          </svg>
+          <div>
+            <div class="chips" id="bodyChips" role="group" aria-label="Body areas"></div>
+            <p class="sub" style="margin-top:6px">What does it feel like?</p>
+            <div class="chips" id="sensChips" role="group" aria-label="Sensations"></div>
+          </div>
+        </div>
+      </div>
+      <div class="check-card">
+        <h2><span class="step">3</span> How strong is it?</h2>
+        <div class="intensity">
+          <input type="range" id="intensity" min="0" max="10" step="1" value="5" aria-label="Intensity from 0 to 10">
+          <output id="intensityOut" class="unset" for="intensity">Slide to rate</output>
+        </div>
+        <div class="scale-labels"><span>0 · barely there</span><span>5</span><span>10 · the most ever</span></div>
+      </div>
+      <div class="check-card">
+        <h2><span class="step">4</span> Any urges?</h2>
+        <p class="sub">Noticing an urge isn't acting on it. Naming it gives you a choice.</p>
+        <div class="chips" id="urgeChips" role="group" aria-label="Urges"></div>
+        <label class="note"><span class="field-label">Anything else? (optional)</span><textarea id="checkNote" rows="2" placeholder="What happened, what I'm telling myself…"></textarea></label>
+      </div>
+      <p class="form-msg hidden" id="checkMsg">Slide the bar in step 3 to rate how strong it is.</p>
+      <button class="btn primary big" type="submit">Save check-in &amp; see what helps</button>
+    </form>
+    <div class="check-card"><h2>My patterns <span class="sub" style="margin:0;font-weight:500">· last 30 days</span></h2><div id="patterns"></div></div>
+    <div class="check-card"><h2>Recent check-ins</h2><ol id="checkList" class="log-list flat"></ol></div>
+  </section>
+  <section id="logView" role="tabpanel" aria-labelledby="logTab" class="hidden" hidden>
+    <div class="quick-top"><h2>Update log</h2><p>Every change to your plan, newest first. Edits to the same box within 15 minutes are grouped together.</p></div>
+    <ol id="logList" class="log-list"></ol>
+  </section>
+  <section id="quickView" role="tabpanel" aria-labelledby="viewTab" class="hidden" hidden>
+    <div class="crisis" id="crisisRow" aria-label="Crisis support"></div>
+    <div class="person" id="person" aria-label="My safety person"></div>
+    <div class="tools-row"><button type="button" id="breatheBtn">🫁 Breathe with me</button><button type="button" id="checkBtn">♡ Check in</button><button type="button" id="shareBtn" class="share">🤝 Share with my support person</button></div>
+    <div class="pending-slot"></div>
+    <dialog id="personDialog" aria-labelledby="personTitle">
+      <form method="dialog" id="personForm">
+        <h2 id="personTitle">My safety person</h2>
+        <p>Someone you trust to call or text when you need support.</p>
+        <label><span class="field-label">Name</span><input id="personName" autocomplete="off" maxlength="80" placeholder="e.g., Sam"></label>
+        <label><span class="field-label">Phone number</span><input id="personPhone" type="tel" inputmode="tel" autocomplete="off" maxlength="30" placeholder="e.g., 555-123-4567"></label>
+        <p class="form-error hidden" id="personError">Please add a name and a phone number.</p>
+        <div class="dialog-actions">
+          <button type="button" class="btn danger" id="personRemove">Remove</button>
+          <span></span>
+          <button type="button" class="btn" id="personCancel">Cancel</button>
+          <button type="submit" class="btn primary" value="save">Save</button>
+        </div>
+      </form>
+    </dialog>
+    <div class="quick-top"><h2>Which zone am I in?</h2><p>Tap a zone to see just what helps there. Things to do come first.</p>
+      <div class="zone-pick" role="group" aria-label="Show zone">
+        <button type="button" data-pick="all" aria-pressed="true">All</button>
+        <button type="button" data-pick="green" aria-pressed="false">Green</button>
+        <button type="button" data-pick="yellow" aria-pressed="false">Yellow</button>
+        <button type="button" data-pick="red" aria-pressed="false">Red</button>
+      </div>
+    </div>
+    <div class="quick-grid" id="quickGrid"></div>
+    <div class="quick-top works" id="works"></div>
+    <p class="quick-help" id="quickHelp"></p>
+  </section>
+  <section class="print-sign" aria-hidden="true">
+    <div>
+      <div class="sig-row"><span class="cap">Signature:</span><span class="line"></span></div>
+      <div class="sig-row"><span class="cap">Date signed:</span><span class="line date"></span></div>
+    </div>
+    <div id="printUpdates"></div>
+  </section>
+  <section class="print-log" id="printLog" aria-hidden="true"></section>
+  <p class="fine-print"><strong>Your privacy:</strong> Your answers are saved only in this browser on this device. They are never sent to a server, not even to whoever shared this app with you. Anyone who can use this device and browser could open them, so consider a passcode (Settings). Clearing browser data erases them, so tap <strong>Back up</strong> now and then and keep the file somewhere private. To move to another device, Back up here and Restore there.</p>
+  <div class="footer-row"><span>My Pocket Safety Plan · Works offline · No account · Your answers stay on your device</span><span>A planning tool, not an emergency service. Best used alongside a clinician and people you trust.</span></div>
+</main>
+<div id="breathe" class="hidden" role="dialog" aria-modal="true" aria-label="Breathe with me">
+  <div class="bmodes" role="group" aria-label="Breathing pattern">
+    <button type="button" data-bmode="calm" aria-pressed="true">Calm · in 4, out 6</button>
+    <button type="button" data-bmode="box" aria-pressed="false">Box · 4-4-4-4</button>
+  </div>
+  <div class="bstage"><div id="bCircle"></div></div>
+  <div id="bPhase" aria-live="polite">Breathe in</div>
+  <div id="bSecs"></div>
+  <div id="bStats">0 breaths · 0:00</div>
+  <button type="button" id="bDone">I'm done</button>
+</div>
+<dialog id="rateDialog" aria-labelledby="rateTitle">
+  <form method="dialog" id="rateForm">
+    <h2 id="rateTitle">Before</h2>
+    <p id="rateSub">How strong is the feeling right now?</p>
+    <output id="rateOut">5</output>
+    <input type="range" id="rateRange" min="0" max="10" step="1" value="5" aria-label="Intensity from 0 to 10">
+    <div class="scale-labels"><span>0 · barely there</span><span>10 · the most ever</span></div>
+    <div class="dialog-actions" style="margin-top:16px">
+      <span></span>
+      <button type="button" class="btn" id="rateCancel">Cancel</button>
+      <button type="submit" class="btn primary" id="rateSave">Start</button>
+    </div>
+  </form>
+</dialog>
+<div id="setup" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
+  <div class="overlay-card">
+    <div class="setup-progress"><span id="setupStepLabel"></span><div class="bar"><i id="setupBar"></i></div></div>
+    <h2 id="setupTitle"></h2>
+    <p class="sub" id="setupSub"></p>
+    <div id="setupBody"></div>
+    <div class="overlay-actions">
+      <button type="button" class="btn" id="setupBack">Back</button>
+      <button type="button" class="btn link" id="setupSkip">Skip setup</button>
+      <span></span>
+      <button type="button" class="btn primary" id="setupNext">Next</button>
+    </div>
+  </div>
+</div>
+<div id="lock" class="overlay lock hidden" role="dialog" aria-modal="true" aria-labelledby="lockTitle">
+  <div class="overlay-card">
+    <div class="lock-icon" aria-hidden="true">🔒</div>
+    <h2 id="lockTitle">My Pocket Safety Plan</h2>
+    <form id="lockForm">
+      <label class="field-label" for="lockInput">Enter your passcode</label>
+      <input id="lockInput" type="password" inputmode="numeric" autocomplete="off" maxlength="12">
+      <p class="form-error hidden" id="lockError">That passcode didn't match. Try again.</p>
+      <button type="submit" class="btn primary big">Unlock</button>
+    </form>
+    <p class="sub" style="margin-top:4px">Need help now? These work without unlocking:</p>
+    <div class="crisis" id="lockCrisis"></div>
+    <button type="button" class="btn link" id="lockForgot">Forgot passcode?</button>
+    <div id="lockForgotBox" class="hidden forgot">
+      <p>For your privacy, passcodes can't be recovered. You can erase the plan on this device and start over, then restore it from a backup file if you have one.</p>
+      <button type="button" class="btn danger" id="lockErase">Erase this device's plan</button>
+    </div>
+  </div>
+</div>
+<dialog id="settingsDialog" aria-labelledby="settingsTitle" class="wide">
+  <form method="dialog" id="settingsForm">
+    <h2 id="settingsTitle">Settings</h2>
+    <section class="set-sec">
+      <h3>Crisis lines</h3>
+      <p>These power the call and text buttons. Pick your country, or edit them to match your local services.</p>
+      <label><span class="field-label">Country or region</span><select id="setCountry"></select></label>
+      <label><span class="field-label">Emergency number</span><input id="setEmergency" inputmode="tel" maxlength="12"></label>
+      <div id="setLines"></div>
+      <button type="button" class="btn" id="setAddLine">＋ Add a crisis line</button>
+    </section>
+    <section class="set-sec">
+      <h3>Passcode</h3>
+      <p id="setLockStatus"></p>
+      <div id="setLockForm" class="hidden">
+        <label><span class="field-label">New passcode (4–12 digits)</span><input id="setPass1" type="password" inputmode="numeric" maxlength="12" autocomplete="new-password"></label>
+        <label><span class="field-label">Type it again</span><input id="setPass2" type="password" inputmode="numeric" maxlength="12" autocomplete="new-password"></label>
+        <p class="form-error hidden" id="setPassError"></p>
+        <button type="button" class="btn primary" id="setPassSave">Save passcode</button>
+      </div>
+      <div class="row-btns"><button type="button" class="btn" id="setPassToggle">Set a passcode</button><button type="button" class="btn danger hidden" id="setPassRemove">Remove passcode</button></div>
+      <p class="tiny">The passcode is a privacy screen for this device. It keeps casual eyes out. It isn't encryption. Call and text buttons always work on the lock screen.</p>
+    </section>
+    <section class="set-sec">
+      <h3>Install on your phone</h3>
+      <p><strong>iPhone / iPad:</strong> open this page in Safari, tap Share <span aria-hidden="true">⎋</span>, then <em>Add to Home Screen</em>.<br><strong>Android:</strong> open the browser menu ⋮ and tap <em>Install app</em> or <em>Add to Home screen</em>.<br><strong>Computer:</strong> in Chrome or Edge, use the install icon in the address bar.</p>
+      <p class="tiny">Once installed it opens like an app and works offline. On iPhone and iPad, installing also protects your answers from being cleared after a week of not visiting.</p>
+    </section>
+    <section class="set-sec">
+      <h3>Moving to a new device</h3>
+      <p>Tap <strong>Back up</strong> here to save a file. On the other device, open the app and tap <strong>Restore</strong>. You can merge the two so nothing is lost.</p>
+      <button type="button" class="btn" id="setRerun">Run guided setup again</button>
+    </section>
+    <section class="set-sec">
+      <h3>About</h3>
+      <p class="tiny">My Pocket Safety Plan is a personal planning tool, not an emergency service or medical advice. It works best alongside care from a clinician and the people you trust. If you are in danger, call your local emergency number.</p>
+    </section>
+    <div class="dialog-actions"><span></span><button type="submit" class="btn primary">Done</button></div>
+  </form>
+</dialog>
+<dialog id="shareDialog" aria-labelledby="shareTitle" class="wide">
+  <form method="dialog" id="shareForm">
+    <h2 id="shareTitle">Share with my support person</h2>
+    <p>Choose what to include. You can edit the message before sending it.</p>
+    <div id="shareOpts" class="share-opts"></div>
+    <textarea id="shareText" rows="12" aria-label="Message to share"></textarea>
+    <div class="dialog-actions">
+      <button type="button" class="btn" id="shareCancel">Close</button>
+      <span></span>
+      <button type="button" class="btn" id="shareCopy">Copy</button>
+      <button type="button" class="btn primary" id="shareSend">Share…</button>
+    </div>
+  </form>
+</dialog>
+<dialog id="restoreDialog" aria-labelledby="restoreTitle">
+  <form method="dialog">
+    <h2 id="restoreTitle">Restore backup</h2>
+    <p>How should this backup combine with the plan already on this device?</p>
+    <button type="button" class="btn primary big" id="restoreMerge">Merge (recommended)<br><small style="font-weight:500">Keeps the newest version of each answer and every check-in, rating and log entry from both</small></button>
+    <button type="button" class="btn big" id="restoreReplace">Replace<br><small style="font-weight:500">Use only the backup. What's on this device now is removed.</small></button>
+    <div class="dialog-actions"><span></span><button type="button" class="btn" id="restoreCancel">Cancel</button></div>
+  </form>
+</dialog>
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const STORAGE_KEY = 'pocket-safety-plan-v1';
+  const FIELDS = [
+    ['signs','Behaviors & signs','What do I feel, do, or notice in myself?'],
+    ['noticed','What others notice','What might another person recognize?'],
+    ['avoid','Things to avoid','What might make this zone harder?'],
+    ['safe','Things to do to stay safe','Actions that help me in this zone'],
+    ['others','Things others can do','What kind of help is actually helpful?'],
+    ['environment','Make my environment safe','What changes would help me feel safer?']
+  ];
+  const ZONES = [
+    {key:'green',name:'Green zone',symbol:'✓',description:'I am regulated · What helps me stay steady'},
+    {key:'yellow',name:'Yellow zone',symbol:'!',description:'Early warning signs · What can help before I escalate'},
+    {key:'red',name:'Red zone',symbol:'×',description:'Feeling overwhelmed · How I can reduce risk and get support'}
+  ];
+  const emptyPlan = () => ({version:1, meta:{name:'',focus:'',date:'',updated:''}, person:{name:'',phone:''}, crisis:{country:'',emergency:'',chat:'',lines:[]}, history:[], checkins:[], ratings:[], zones:Object.fromEntries(ZONES.map(z => [z.key,Object.fromEntries([...FIELDS.map(f=>[f[0],'']),['contacts','']])]))});
+  const hasContent = p => Object.values(p.meta).some(v=>v.trim()) || Object.values(p.zones).some(z=>Object.values(z).some(v=>v.trim()));
+  const PREF_KEY = 'pocket-safety-plan-prefs';
+  let prefs = {view:'quick', pick:'all', setupDone:false, lock:null};
+  try{ Object.assign(prefs, JSON.parse(localStorage.getItem(PREF_KEY)||'{}')); }catch(e){}
+  const savePrefs = () => { try{ localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); }catch(e){} };
+  let plan = emptyPlan();
+  let toastTimeout;
+  let savedAvailable = true;
+  const $ = (selector,el=document)=>el.querySelector(selector);
+  const node = (tag,attrs={},txt)=>{
+    const el=document.createElement(tag);
+    for(const [key,val] of Object.entries(attrs)){
+      if(key==='class')el.className=val;
+      else if(key==='dataset')Object.assign(el.dataset,val);
+      else el.setAttribute(key,String(val));
+    }
+    if(txt!==undefined)el.textContent=txt;
+    return el;
+  };
+  function notify(message){
+    const t=$('#toast');t.textContent=message;t.classList.remove('hidden');
+    clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>t.classList.add('hidden'),4500);
+  }
+  function normalize(source){
+    const clean=emptyPlan();
+    if(!source || typeof source!=='object')throw new Error('This does not look like a safety-plan backup.');
+    for(const key of ['name','focus','date','updated'])if(typeof source.meta?.[key]==='string')clean.meta[key]=source.meta[key].slice(0,2000);
+    for(const key of ['name','phone'])if(typeof source.person?.[key]==='string')clean.person[key]=source.person[key].slice(0,80);
+    for(const z of ZONES)for(const f of [...FIELDS.map(x=>x[0]),'contacts'])if(typeof source.zones?.[z.key]?.[f]==='string')clean.zones[z.key][f]=source.zones[z.key][f].slice(0,20000);
+    if(Array.isArray(source.history))clean.history=source.history.filter(h=>h&&typeof h.at==='string').slice(-500).map(h=>{
+      const o={at:h.at.slice(0,40)};
+      for(const k of ['key','area','note','from','to'])if(typeof h[k]==='string')o[k]=h[k].slice(0,20000);
+      if(h.single===true)o.single=true;if(h.dateOnly===true)o.dateOnly=true;
+      return o;
+    });
+    if(source.crisis&&typeof source.crisis==='object'&&typeof source.crisis.country==='string'){
+      const c=source.crisis,str=(x,n)=>typeof x==='string'?x.slice(0,n):'';
+      clean.crisis={country:str(c.country,8),emergency:str(c.emergency,20),chat:/^https:\/\//.test(c.chat||'')?str(c.chat,300):'',
+        lines:Array.isArray(c.lines)?c.lines.slice(0,12).filter(l=>l&&typeof l==='object').map(l=>({name:str(l.name,40),number:str(l.number,20),kind:l.kind==='text'?'text':'call',...(l.body?{body:str(l.body,20)}:{})})):[]};
+    }
+    const strArr=(a,n=40)=>Array.isArray(a)?a.filter(x=>typeof x==='string').slice(0,n).map(x=>x.slice(0,200)):[];
+    const n010=x=>typeof x==='number'&&isFinite(x)?Math.max(0,Math.min(10,Math.round(x))):null;
+    if(Array.isArray(source.checkins))clean.checkins=source.checkins.filter(c=>c&&typeof c.at==='string'&&n010(c.intensity)!==null).slice(-1000).map(c=>({
+      at:c.at.slice(0,40),cores:strArr(c.cores),feelings:strArr(c.feelings),body:strArr(c.body),sens:strArr(c.sens),urges:strArr(c.urges),
+      intensity:n010(c.intensity),zone:['green','yellow','red'].includes(c.zone)?c.zone:'yellow',note:typeof c.note==='string'?c.note.slice(0,5000):''}));
+    if(Array.isArray(source.ratings))clean.ratings=source.ratings.filter(r=>r&&typeof r.at==='string'&&typeof r.skill==='string'&&n010(r.before)!==null&&n010(r.after)!==null).slice(-1000).map(r=>({at:r.at.slice(0,40),skill:r.skill.slice(0,200),before:n010(r.before),after:n010(r.after)}));
+    return clean;
+  }
+  function store(){
+    plan.meta.updated=new Date().toLocaleDateString('en-CA');
+    try{
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(plan));
+      savedAvailable=true;
+      $('#saveStatus').textContent='✓ Saved on this device · '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+    }catch(err){
+      savedAvailable=false;
+      $('#saveStatus').textContent='⚠ Browser saving unavailable — use Back up to save your plan';
+    }
+    updateProgress();
+  }
+  function load(){
+    try{
+      const raw=localStorage.getItem(STORAGE_KEY);
+      if(raw){plan=normalize(JSON.parse(raw));return;}
+    }catch(err){
+      $('#saveStatus').textContent='⚠ Could not read previous browser save; restore your backup if needed';
+    }
+  }
+  function renderEditor(){
+    const root=$('#zones');root.replaceChildren();
+    ZONES.forEach(z=>{
+      const section=node('section',{class:'zone '+z.key,'aria-labelledby':'zone-'+z.key});
+      const heading=node('div',{class:'zone-heading'});
+      heading.append(node('div',{class:'zone-icon','aria-hidden':'true'},z.symbol));
+      const titleWrap=node('div');titleWrap.append(node('h2',{id:'zone-'+z.key},z.name),node('p',{},z.description));
+      heading.append(titleWrap);section.append(heading);
+      const grid=node('div',{class:'zone-grid'});
+      FIELDS.forEach(f=>{
+        const card=node('div',{class:'prompt-card'}),id=z.key+'-'+f[0];
+        const label=node('label',{for:id},f[1]);
+        const hint=node('div',{class:'hint'},f[2]);
+        const ta=node('textarea',{id,rows:'4','data-zone':z.key,'data-field':f[0],placeholder:'Type here…'});
+        ta.value=plan.zones[z.key][f[0]];
+        const printText=node('div',{class:'print-answer'});printText.textContent=ta.value;
+        ta.addEventListener('input',()=>{plan.zones[z.key][f[0]]=ta.value;printText.textContent=ta.value;store()});
+        trackField(ta,z.key+'.'+f[0],z.name+' · '+f[1]);
+        card.append(label,hint,ta,printText);grid.append(card);
+      });
+      section.append(grid);
+      if(z.key!=='green'){
+        const contacts=node('div',{class:'contacts'}),card=node('div',{class:'contact-card'});
+        const label=node('label',{for:z.key+'-contacts'},'Who to contact in the '+z.name.toLowerCase());
+        const ta=node('textarea',{id:z.key+'-contacts','data-zone':z.key,'data-field':'contacts',rows:'2',placeholder:'Names, phone numbers, or instructions…'});
+        ta.value=plan.zones[z.key].contacts;
+        const printText=node('div',{class:'print-answer'});printText.textContent=ta.value;
+        ta.addEventListener('input',()=>{plan.zones[z.key].contacts=ta.value;printText.textContent=ta.value;store()});
+        trackField(ta,z.key+'.contacts',z.name+' · Who to contact');
+        card.append(label,ta,printText);contacts.append(card);
+        if(z.key==='red'){
+          const reminder=node('div',{class:'contact-card'});
+          reminder.append(node('label',{},'Emergency support'));
+          const cs=crisisSummary();
+          const p=node('p',{},cs.emergency+' for immediate danger'+(cs.support?' · Crisis support: '+cs.support:''));
+          p.style.fontSize='.9rem';p.style.margin='8px 0';
+          reminder.append(p);contacts.append(reminder);
+        } else {
+          const reminder=node('div',{class:'contact-card'});
+          reminder.append(node('label',{},'A helpful reminder'));
+          const p=node('p',{},'Small, early adjustments count. Reach out before things feel unmanageable.');
+          p.style.fontSize='.9rem';p.style.margin='8px 0';
+          reminder.append(p);contacts.append(reminder);
+        }
+        section.append(contacts);
+      }
+      if(z.key==='red'){
+        const bar=node('div',{class:'emergency-bar'});
+        bar.append(node('strong',{},'If I am in immediate danger, call '+crisis().emergency+'.'));
+        section.append(bar);
+      }
+      root.append(section);
+    });
+    document.querySelectorAll('[data-meta]').forEach(input=>{
+      input.value=plan.meta[input.dataset.meta]||'';
+    });
+    updateProgress();
+  }
+  function updateProgress(){
+    const filled=ZONES.reduce((n,z)=>n+FIELDS.reduce((m,f)=>m+(plan.zones[z.key][f[0]].trim()?1:0),0),0);
+    $('#progress').textContent=filled+' of 18 prompts filled';
+  }
+  // Turn phone numbers (and short emergency/crisis numbers) into tap-to-call links, safely
+  function withLinks(text){
+    const frag=document.createDocumentFragment();
+    const re=/(\+?\d[\d\s().-]{5,}\d|\b(?:911|988|999|000|111|112|1737)\b)/g;let last=0,m;
+    while((m=re.exec(text))){
+      frag.append(text.slice(last,m.index));
+      const digits=m[0].replace(/[^\d+]/g,'');
+      frag.append(node('a',{href:'tel:'+digits},m[0]));last=m.index+m[0].length;
+    }
+    frag.append(text.slice(last));return frag;
+  }
+  const QUICK_ORDER=['safe','contacts','others','avoid','environment','signs','noticed'];
+  const LABELS=Object.fromEntries([...FIELDS.map(f=>[f[0],f[1]]),['contacts','Who to contact']]);
+  function renderQuick(){
+    renderWorks();renderPending();
+    const root=$('#quickGrid');root.replaceChildren();
+    const pick=prefs.pick||'all';
+    root.classList.toggle('single',pick!=='all');
+    document.querySelectorAll('[data-pick]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.pick===pick)));
+    ZONES.filter(z=>pick==='all'||z.key===pick).forEach(z=>{
+      const zone=node('article',{class:'quick-zone '+z.key});zone.append(node('h3',{},z.name));
+      const inner=node('div',{class:'quick-inner'});
+      QUICK_ORDER.forEach(key=>{
+        if(key==='contacts'&&z.key==='green')return;
+        const value=plan.zones[z.key][key].trim();
+        if(!value&&pick!=='all')return; // single-zone view: show only what's filled in
+        const entry=node('div',{class:'quick-entry'+(key==='safe'?' lead':'')});entry.append(node('h4',{},LABELS[key]));
+        const v=node('div',{class:'quick-value'+(!value?' empty':'')});
+        if(value)v.append(key==='contacts'?withLinks(value):key==='safe'?skillList(value):value);else v.textContent='Not filled in yet';
+        entry.append(v);inner.append(entry);
+      });
+      zone.append(inner);root.append(zone);
+    });
+  }
+  document.querySelectorAll('[data-pick]').forEach(b=>b.addEventListener('click',()=>{prefs.pick=b.dataset.pick;savePrefs();renderQuick();}));
+  // ---------- Update log ----------
+  const lines=t=>t.split('\n').map(x=>x.trim()).filter(Boolean);
+  function addLog(entry){
+    const now=new Date().toISOString(),last=plan.history[plan.history.length-1];
+    if(entry.key&&last&&last.key===entry.key&&Date.now()-Date.parse(last.at)<15*60*1000){
+      last.to=entry.to;last.at=now;
+      if(last.from===last.to)plan.history.pop();
+    }else plan.history.push({at:now,...entry});
+    if(plan.history.length>500)plan.history.splice(0,plan.history.length-500);
+    store();if(!$('#logView').hidden)renderLog();
+  }
+  function trackField(el,key,area,single){
+    el.dataset.before=el.value;
+    el.addEventListener('focus',()=>{el.dataset.before=el.value;});
+    el.addEventListener('change',()=>logField(el,key,area,single));
+    el._log=()=>logField(el,key,area,single);
+  }
+  function logField(el,key,area,single){
+    const from=el.dataset.before??'',to=el.value;
+    if(from===to)return;
+    el.dataset.before=to;
+    addLog(single?{key,area,from,to,single:true}:{key,area,from,to});
+  }
+  // catch edits if the app is closed while a box is still being typed in
+  const flushActive=()=>{const a=document.activeElement;if(a&&a._log)a._log();};
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flushActive();});
+  window.addEventListener('pagehide',flushActive);
+  function describe(h){
+    if(h.note)return h.note;
+    if(h.single)return (h.from?'Changed from “'+h.from+'” to “'+h.to+'”':'Set to “'+h.to+'”');
+    const a=lines(h.to||''),r=lines(h.from||'');
+    const added=a.filter(x=>!r.includes(x)),removed=r.filter(x=>!a.includes(x)),out=[];
+    if(added.length)out.push('Added: '+added.join(', '));
+    if(removed.length)out.push('Removed: '+removed.join(', '));
+    return out.join('\n')||'Edited wording';
+  }
+  function fmtWhen(h){
+    const d=new Date(h.at);if(isNaN(d))return h.at;
+    const day=d.toLocaleDateString([], {month:'numeric',day:'numeric',year:'2-digit'});
+    return h.dateOnly?day:day+' · '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+  }
+  function renderLog(){
+    const list=$('#logList');list.replaceChildren();
+    if(!plan.history.length){list.append(node('li',{class:'log-empty'},'No updates logged yet.'));return;}
+    [...plan.history].reverse().forEach(h=>{
+      const li=node('li');
+      li.append(node('div',{class:'log-when'},fmtWhen(h)),node('div',{class:'log-area'},h.area||'Plan'),node('div',{class:'log-what'},describe(h)));
+      list.append(li);
+    });
+  }
+  const VIEWS={edit:['#editView','#editTab'],quick:['#quickView','#viewTab'],check:['#checkView','#checkTab'],log:['#logView','#logTab']};
+  function setView(mode){
+    if(!VIEWS[mode])mode='quick';
+    for(const [k,[v,t]] of Object.entries(VIEWS)){const on=k===mode;$(v).hidden=!on;$(v).classList.toggle('hidden',!on);$(t).setAttribute('aria-selected',String(on));}
+    document.body.classList.toggle('mode-quick',mode!=='edit');
+    if(mode==='quick')renderQuick();
+    if(mode==='log')renderLog();
+    if(mode==='check')renderCheck();
+    prefs.view=mode;savePrefs();
+  }
+
+  function downloadBlob(contents,filename,type){
+    const blob=new Blob([contents],{type});
+    const url=URL.createObjectURL(blob);
+    const a=node('a',{href:url,download:filename});document.body.append(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1200);
+  }
+  function backup(){
+    const date=new Date().toISOString().slice(0,10);
+    downloadBlob(JSON.stringify({...plan,exportedAt:new Date().toISOString()},null,2),`pocket-safety-plan-${date}.json`,'application/json');
+    notify('Backup downloaded. Keep it somewhere private.');
+  }
+  function importBackup(file){
+    if(!file)return;
+    if(file.size>2*1024*1024){notify('The backup file is too large.');return;}
+    const reader=new FileReader();
+    reader.onload=()=>{
+      try{
+        const parsed=normalize(JSON.parse(String(reader.result)));
+        if(!hasContent(plan)&&!plan.checkins.length){plan=parsed;afterRestore('Restored from a backup file');notify('Backup restored.');}
+        else{pendingRestore=parsed;const d=$('#restoreDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');}
+      }catch(err){notify('Could not restore file: '+err.message);}
+      $('#importFile').value='';
+    };
+    reader.onerror=()=>notify('Could not read the selected file.');
+    reader.readAsText(file);
+  }
+  const META_LABELS={name:'My name',focus:'Focus of this plan',date:'Last reviewed'};
+  document.querySelectorAll('[data-meta]').forEach(input=>{input.dataset.before=input.value;trackField(input,'meta.'+input.dataset.meta,META_LABELS[input.dataset.meta],true);});
+  document.querySelectorAll('[data-meta]').forEach(input=>input.addEventListener('input',()=>{
+    plan.meta[input.dataset.meta]=input.value;store();
+  }));
+  $('#editTab').addEventListener('click',()=>setView('edit'));
+  $('#viewTab').addEventListener('click',()=>setView('quick'));
+  $('#logTab').addEventListener('click',()=>setView('log'));
+  $('#checkTab').addEventListener('click',()=>setView('check'));
+  $('#exportBtn').addEventListener('click',backup);
+  $('#importBtn').addEventListener('click',()=>$('#importFile').click());
+  $('#importFile').addEventListener('change',e=>importBackup(e.target.files?.[0]));
+  function shortDate(d){return d.toLocaleDateString([], {month:'numeric',day:'numeric',year:'2-digit'});}
+  function fillPrintDate(){
+    document.querySelectorAll('[data-meta]').forEach(i=>i.classList.toggle('empty',!i.value));
+    // Updated date + signature rows, like the paper worksheet: the 3 most recent update days, plus a blank row
+    const days=[];
+    plan.history.forEach(h=>{const d=new Date(h.at);if(!isNaN(d)){const k=d.toLocaleDateString('en-CA');if(!days.includes(k))days.push(k);}});
+    if(plan.meta.updated&&!days.includes(plan.meta.updated))days.push(plan.meta.updated);
+    days.sort();
+    const box=$('#printUpdates');box.replaceChildren();
+    [...days.slice(-3),''].forEach(k=>{
+      const row=node('div',{class:'sig-row'});
+      let label='';if(k){const [y,m,d]=k.split('-').map(Number);label=shortDate(new Date(y,m-1,d));}
+      row.append(node('span',{class:'cap'},'Updated date:'),node('span',{class:'line date'},label),node('span',{class:'cap'},'Signature:'),node('span',{class:'line'}));
+      box.append(row);
+    });
+    // Full update log on page 2
+    const log=$('#printLog');log.replaceChildren(node('h2',{},'Update log'));
+    if(!plan.history.length){log.append(node('p',{},'No updates logged yet.'));return;}
+    const table=node('table'),head=node('tr');
+    ['Date','Area','What changed'].forEach(t=>head.append(node('th',{},t)));
+    table.append(head);
+    [...plan.history].reverse().forEach(h=>{const tr=node('tr');tr.append(node('td',{},fmtWhen(h)),node('td',{},h.area||'Plan'),node('td',{},describe(h)));table.append(tr);});
+    log.append(table);
+  }
+  window.addEventListener('beforeprint',fillPrintDate);
+  $('#printBtn').addEventListener('click',()=>{
+    fillPrintDate();
+    if(!savedAvailable)notify('Browser autosave is unavailable. Back up a copy too.');
+    window.print();
+  });
+  $('#clearBtn').addEventListener('click',()=>{
+    if(!confirm('Clear all answers in this safety plan? Back up first if you want to keep them.'))return;
+    const keep=plan;plan=emptyPlan();plan.history=keep.history;plan.checkins=keep.checkins;plan.ratings=keep.ratings;renderEditor();renderQuick();renderPerson();addLog({area:'Plan',note:'Cleared all answers'});notify('Plan cleared.');
+  });
+  // Phones can send texts; on computers, text buttons switch to online chat where a service offers it
+  const isPhone=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Mac/i.test(navigator.platform||''));
+
+  // My safety person: one-tap call / text
+  const telDigits=s=>s.replace(/[^\d+]/g,'');
+  function renderPerson(){
+    const box=$('#person');box.replaceChildren();
+    const {name,phone}=plan.person;
+    if(name.trim()&&telDigits(phone)){
+      box.append(node('a',{class:'call-person',href:'tel:'+telDigits(phone)},'📞 Call '+name.trim()));
+      if(isPhone)box.append(node('a',{href:'sms:'+telDigits(phone)},'💬 Text '+name.trim()));
+      const edit=node('button',{type:'button',class:'edit-person','aria-label':'Edit my safety person',title:'Edit my safety person'},'✎');
+      edit.addEventListener('click',openPerson);box.append(edit);
+    }else{
+      const add=node('button',{type:'button',class:'add-person'},'➕ Add my safety person');
+      add.addEventListener('click',openPerson);box.append(add);
+    }
+  }
+  function openPerson(){
+    $('#personName').value=plan.person.name;$('#personPhone').value=plan.person.phone;
+    $('#personError').classList.add('hidden');
+    $('#personRemove').classList.toggle('hidden',!plan.person.name&&!plan.person.phone);
+    const d=$('#personDialog');
+    if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
+    $('#personName').focus();
+  }
+  const closePerson=()=>{const d=$('#personDialog');if(typeof d.close==='function')d.close();else d.removeAttribute('open');};
+  $('#personForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const name=$('#personName').value.trim(),phone=$('#personPhone').value.trim();
+    if(!name||telDigits(phone).replace('+','').length<3){$('#personError').classList.remove('hidden');return;}
+    const had=plan.person.name;plan.person={name,phone};addLog({area:'My safety person',note:(had?'Updated to ':'Added ')+name+' ('+phone+')'});renderPerson();closePerson();notify('Saved '+name+' as your safety person.');
+  });
+  $('#personCancel').addEventListener('click',closePerson);
+  $('#personRemove').addEventListener('click',()=>{const was=plan.person.name;plan.person={name:'',phone:''};addLog({area:'My safety person',note:'Removed '+(was||'safety person')});renderPerson();closePerson();notify('Safety person removed.');});
+
+  // =====================================================================
+  //  Shared helpers for check-ins, skill ratings and breathing
+  // =====================================================================
+  const ZRANK={green:0,yellow:1,red:2};
+  const ZNAME={green:'Green zone',yellow:'Yellow zone',red:'Red zone'};
+  const skillKey=s=>s.trim().toLowerCase();
+  const STOP=new Set(['with','that','this','from','more','less','into','your','what','when','them','have','feel','like','body','right','around','other','others','things','thing']);
+  const words=t=>t.toLowerCase().split(/[^a-z]+/).filter(w=>w.length>=4&&!STOP.has(w));
+  const prefixLen=(a,b)=>{let i=0;while(i<a.length&&i<b.length&&a[i]===b[i])i++;return i;};
+  const wordsMatch=(a,b)=>prefixLen(a,b)>=Math.min(4,a.length,b.length)&&(a.length<=4||b.length<=4||prefixLen(a,b)>=4);
+  // Which lines of `text` share a meaningful word with the selected labels?
+  function matchLines(text,labels){
+    const toks=labels.flatMap(words);
+    return lines(text).filter(line=>words(line).some(w=>toks.some(t=>wordsMatch(w,t))));
+  }
+  function crisisButtons(){return buildCrisis(node('div',{class:'crisis'}),{withPerson:true});}
+
+
+  // =====================================================================
+  //  "Did it help?" — before/after skill ratings
+  // =====================================================================
+  function skillStats(){
+    const m=new Map();
+    plan.ratings.forEach(r=>{
+      const k=skillKey(r.skill);const s=m.get(k)||{name:r.skill,n:0,total:0};
+      s.n++;s.total+=r.before-r.after;s.name=r.skill;m.set(k,s);
+    });
+    m.forEach(s=>s.avg=s.total/s.n);
+    return m;
+  }
+  function badgeFor(s){
+    if(!s)return null;
+    const a=Math.round(s.avg*10)/10;
+    const cls=a>0?'badge':a<0?'badge up':'badge flat';
+    const txt=a>0?'↓'+a.toFixed(1):a<0?'↑'+Math.abs(a).toFixed(1):'±0';
+    return node('span',{class:cls,title:`Average change over ${s.n} ${s.n===1?'try':'tries'} (0–10 scale)`},txt);
+  }
+  // Skill list with badges + "Try it"; helpful skills float to the top
+  function skillList(text,before){
+    const stats=skillStats(),wrap=node('div');
+    const items=lines(text).map((t,i)=>({t,i,s:stats.get(skillKey(t))}));
+    items.sort((a,b)=>{
+      const av=a.s&&a.s.avg>0?a.s.avg:-1,bv=b.s&&b.s.avg>0?b.s.avg:-1;
+      return bv-av||a.i-b.i;
+    });
+    items.forEach(({t,s})=>{
+      const row=node('div',{class:'skill-row'});
+      row.append(node('span',{class:'nm'},t));
+      const b=badgeFor(s);if(b)row.append(b);
+      const btn=node('button',{type:'button','aria-label':'Try '+t},'Try it');
+      btn.addEventListener('click',()=>startSkill(t,before));
+      row.append(btn);wrap.append(row);
+    });
+    return wrap;
+  }
+  function startSkill(skill,before){
+    if(before==null){openRate('before',skill);return;}
+    prefs.pending={skill,before,at:new Date().toISOString()};savePrefs();renderPending();
+    if(/breath/i.test(skill))openBreathe();
+    else notify(`Go try "${skill}". When you're done, tap "Rate now."`);
+  }
+  function finishSkill(after){
+    const p=prefs.pending;if(!p)return;
+    plan.ratings.push({at:new Date().toISOString(),skill:p.skill,before:p.before,after});
+    if(plan.ratings.length>1000)plan.ratings.splice(0,plan.ratings.length-1000);
+    store();prefs.pending=null;savePrefs();renderPending();
+    const d=p.before-after;
+    notify(d>0?`${p.skill}: ${p.before} → ${after}. That helped.`:d===0?`${p.skill}: no change this time. That's useful to know too.`:`${p.skill}: it went up this time. That's okay. Try another skill or reach out.`);
+    if(!$('#quickView').hidden)renderQuick();
+    if(!$('#checkView').hidden)renderCheckSide();
+  }
+  function renderPending(){
+    document.querySelectorAll('.pending-slot').forEach(slot=>{
+      slot.replaceChildren();const p=prefs.pending;if(!p)return;
+      const t=new Date(p.at);
+      const box=node('div',{class:'pending'});
+      box.append(node('span',{},`⏳ Trying "${p.skill}" (started ${t.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}, was ${p.before}/10). How strong is it now?`));
+      const go=node('button',{type:'button',class:'go'},'Rate now');go.addEventListener('click',()=>openRate('after',p.skill));
+      const x=node('button',{type:'button'},'Cancel');x.addEventListener('click',()=>{prefs.pending=null;savePrefs();renderPending();});
+      box.append(go,x);slot.append(box);
+    });
+  }
+  function renderWorks(){
+    const box=$('#works');if(!box)return;box.replaceChildren();
+    const list=[...skillStats().values()].sort((a,b)=>b.avg-a.avg||b.n-a.n).slice(0,6);
+    box.append(node('h2',{},'What works for me'));
+    if(!list.length){box.append(node('p',{},'Tap "Try it" next to any skill, rate how you feel before and after, and the skills that help you most will show up here and move to the top of your lists.'));return;}
+    list.forEach(s=>{
+      const row=node('div',{class:'works-row'});
+      const left=node('span');left.append(s.name+' ',node('small',{},`· ${s.n} ${s.n===1?'try':'tries'}`));
+      row.append(left,badgeFor(s));box.append(row);
+    });
+  }
+  // Rating dialog (before / after)
+  let rateMode='before',rateSkill='';
+  function openRate(mode,skill){
+    rateMode=mode;rateSkill=skill;
+    $('#rateTitle').textContent=(mode==='before'?'Before: ':'After: ')+skill;
+    $('#rateSub').textContent=mode==='before'?'How strong is the feeling right now?':'How strong is the feeling now?';
+    $('#rateSave').textContent=mode==='before'?'Start':'Save';
+    const v=mode==='after'&&prefs.pending?prefs.pending.before:5;
+    $('#rateRange').value=v;$('#rateOut').textContent=v;
+    const d=$('#rateDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
+  }
+  const closeRate=()=>{const d=$('#rateDialog');if(typeof d.close==='function')d.close();else d.removeAttribute('open');};
+  $('#rateRange').addEventListener('input',e=>{$('#rateOut').textContent=e.target.value;});
+  $('#rateCancel').addEventListener('click',closeRate);
+  $('#rateForm').addEventListener('submit',e=>{
+    e.preventDefault();const v=Number($('#rateRange').value);closeRate();
+    if(rateMode==='before')startSkill(rateSkill,v);else finishSkill(v);
+  });
+
+  // =====================================================================
+  //  Guided breathing
+  // =====================================================================
+  const PATTERNS={calm:[['Breathe in',4,1],['Breathe out',6,0]],box:[['Breathe in',4,1],['Hold',4,1],['Breathe out',4,0],['Hold',4,0]]};
+  let bMode='calm',bTimer=null,bTick=null,bBreaths=0,bStart=0,wakeLock=null,lastFocus=null;
+  function bStatsText(){const s=Math.floor((Date.now()-bStart)/1000);$('#bStats').textContent=`${bBreaths} ${bBreaths===1?'breath':'breaths'} · ${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;}
+  function runPhase(i){
+    const pat=PATTERNS[bMode],[label,secs,big]=pat[i%pat.length];
+    if(i>0&&i%pat.length===0)bBreaths++;
+    $('#bPhase').textContent=label;
+    const c=$('#bCircle');c.style.transitionDuration=secs+'s';c.style.transform=`scale(${big?1:.55})`;
+    let left=secs;$('#bSecs').textContent=left;bStatsText();
+    clearInterval(bTick);bTick=setInterval(()=>{left--;if(left>0)$('#bSecs').textContent=left;bStatsText();},1000);
+    try{navigator.vibrate&&navigator.vibrate(15);}catch(e){}
+    clearTimeout(bTimer);bTimer=setTimeout(()=>runPhase(i+1),secs*1000);
+  }
+  function openBreathe(){
+    lastFocus=document.activeElement;
+    $('#breathe').classList.remove('hidden');document.body.style.overflow='hidden';
+    bBreaths=0;bStart=Date.now();
+    const c=$('#bCircle');c.style.transitionDuration='0s';c.style.transform='scale(.55)';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>runPhase(0)));
+    try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(l=>{wakeLock=l;}).catch(()=>{});}catch(e){}
+    $('#bDone').focus();
+  }
+  function closeBreathe(){
+    clearTimeout(bTimer);clearInterval(bTick);
+    $('#breathe').classList.add('hidden');document.body.style.overflow='';
+    try{wakeLock&&wakeLock.release();}catch(e){}wakeLock=null;
+    if(bBreaths>0)notify(`${bBreaths} slow ${bBreaths===1?'breath':'breaths'}. Nice work.`);
+    if(lastFocus&&lastFocus.focus)lastFocus.focus();
+    if(prefs.pending&&/breath/i.test(prefs.pending.skill))openRate('after',prefs.pending.skill);
+  }
+  document.querySelectorAll('[data-bmode]').forEach(b=>b.addEventListener('click',()=>{
+    bMode=b.dataset.bmode;document.querySelectorAll('[data-bmode]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+    bBreaths=0;bStart=Date.now();runPhase(0);
+  }));
+  $('#bDone').addEventListener('click',closeBreathe);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#breathe').classList.contains('hidden'))closeBreathe();});
+  $('#breatheBtn').addEventListener('click',()=>startSkill('Breathing',null));
+  $('#checkBtn').addEventListener('click',()=>setView('check'));
+
+  // =====================================================================
+  //  Emotion check-in
+  // =====================================================================
+  const CORES=[
+    {k:'Mad',c:'#b93a3a',f:['Frustrated','Irritated','Angry','Furious / rage','Resentful','Jealous','Critical','Disrespected']},
+    {k:'Sad',c:'#3d6fb3',f:['Lonely','Hurt','Disappointed','Grieving','Ashamed','Guilty','Empty','Depleted']},
+    {k:'Scared',c:'#7a5bb5',f:['Anxious','Worried','Overwhelmed','Insecure','Rejected','Embarrassed','Helpless','Confused']},
+    {k:'Joyful',c:'#9a6a08',f:['Excited','Playful','Hopeful','Amused','Energized','Delighted','Creative','Grateful']},
+    {k:'Powerful',c:'#b8501a',f:['Confident','Proud','Capable','Respected','Valued','Brave','Focused','Appreciated']},
+    {k:'Peaceful',c:'#2f8a6b',f:['Calm','Content','Relaxed','Safe','Loved','Connected','Thoughtful','Rested']},
+    {k:'Numb',c:'#5f6673',f:['Shut down','Blank','Disconnected','Checked out','Flat','Frozen']},
+    {k:'Not sure',c:'#4b5563',f:[]}
+  ];
+  const PLEASANT=new Set(['Joyful','Powerful','Peaceful']);
+  const BODY=[['head','Head'],['jaw','Jaw & face'],['throat','Throat'],['shoulders','Shoulders & neck'],['chest','Chest'],['stomach','Stomach'],['arms','Arms & hands'],['back','Back'],['legs','Legs & feet'],['whole','Whole body']];
+  const BODYNAME=Object.fromEntries(BODY);
+  const SENS_POS=['Relaxed','Loose','Warm','Light','Open','Soft','Steady breathing','Calm heartbeat','Grounded','Settled stomach','Energized','Tingly','Strong','Smiling','Rested','Easy to breathe'];
+  const SENS_NEG=['Tight','Tense','Clenched','Hot','Cold','Shaky','Heavy','Racing heart','Short of breath','Lump','Butterflies','Pressure','Buzzing','Restless','Tired','Numb'];
+  const SENS_POS_SET=new Set(SENS_POS);
+  function renderSens(){
+    const box=$('#sensChips');box.replaceChildren();
+    const cores=[...ci.cores],pleasantFirst=cores.length&&cores.some(k=>PLEASANT.has(k))&&!cores.some(k=>!PLEASANT.has(k));
+    const groups=[['Pleasant',SENS_POS,'#2f8a6b'],['Uncomfortable',SENS_NEG,null]];
+    if(!pleasantFirst&&cores.length)groups.reverse();
+    groups.forEach(([label,list,color])=>{box.append(node('div',{class:'feel-group'},label));list.forEach(x=>box.append(chip(x,ci.sens,null,color)));});
+  }
+  const URGES=['Yell or argue','Swear','Say every thought','Shut down','Leave / escape','Isolate','Cry','Drink','Drive','Hurt myself','None right now'];
+  const ci={cores:new Set(),feelings:new Set(),body:new Set(),sens:new Set(),urges:new Set(),touched:false};
+
+  function chip(label,set,onToggle,color){
+    const b=node('button',{type:'button',class:'chip','aria-pressed':String(set.has(label))},label);
+    if(color)b.style.setProperty('--c',color);
+    b.addEventListener('click',()=>{set.has(label)?set.delete(label):set.add(label);onToggle&&onToggle(label);b.setAttribute('aria-pressed',String(set.has(label)));});
+    return b;
+  }
+  function renderCores(){
+    const box=$('#coreChips');box.replaceChildren();
+    CORES.forEach(c=>box.append(chip(c.k,ci.cores,()=>{renderFeelings();renderSens();},c.c)));
+  }
+  function renderFeelings(){
+    const box=$('#feelingChips');box.replaceChildren();
+    const visible=new Set();
+    CORES.filter(c=>ci.cores.has(c.k)&&c.f.length).forEach(c=>{
+      box.append(node('div',{class:'feel-group'},c.k));
+      c.f.forEach(f=>{visible.add(f);box.append(chip(f,ci.feelings,null,c.c));});
+    });
+    [...ci.feelings].forEach(f=>{if(!visible.has(f))ci.feelings.delete(f);});
+  }
+  function syncBody(){
+    document.querySelectorAll('#bodyMap .part').forEach(p=>{const on=ci.body.has(p.dataset.part);p.classList.toggle('on',on);p.setAttribute('aria-pressed',String(on));});
+    document.querySelectorAll('#bodyChips .chip').forEach(b=>b.setAttribute('aria-pressed',String(ci.body.has(b.dataset.part))));
+  }
+  function renderBody(){
+    const box=$('#bodyChips');box.replaceChildren();
+    BODY.forEach(([k,label])=>{
+      const b=node('button',{type:'button',class:'chip','data-part':k,'aria-pressed':'false'},label);
+      b.addEventListener('click',()=>{ci.body.has(k)?ci.body.delete(k):ci.body.add(k);syncBody();});
+      box.append(b);
+    });
+    renderSens();
+    syncBody();
+  }
+  document.querySelectorAll('#bodyMap .part').forEach(p=>{
+    const toggle=()=>{const k=p.dataset.part;ci.body.has(k)?ci.body.delete(k):ci.body.add(k);syncBody();};
+    p.addEventListener('click',toggle);
+    p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
+  });
+  function renderUrges(){
+    const box=$('#urgeChips');box.replaceChildren();
+    URGES.forEach(u=>box.append(chip(u,ci.urges,label=>{
+      if(label==='None right now'&&ci.urges.has(label)){ci.urges.clear();ci.urges.add(label);}
+      else if(label!=='None right now')ci.urges.delete('None right now');
+      box.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',String(ci.urges.has(b.textContent))));
+    })));
+  }
+  $('#intensity').addEventListener('input',e=>{ci.touched=true;const o=$('#intensityOut');o.textContent=e.target.value;o.classList.remove('unset');$('#checkMsg').classList.add('hidden');});
+  function resetCheckForm(){
+    ['cores','feelings','body','sens','urges'].forEach(k=>ci[k].clear());ci.touched=false;
+    $('#intensity').value=5;const o=$('#intensityOut');o.textContent='Slide to rate';o.classList.add('unset');
+    $('#checkNote').value='';renderCores();renderFeelings();renderBody();renderUrges();
+  }
+  function suggestZone(c){
+    const negSens=c.sens.filter(x=>!SENS_POS_SET.has(x));
+    const labels=[...c.feelings,...negSens,...c.body.map(b=>BODYNAME[b]||b),...c.urges];
+    if(negSens.length&&c.body.length)c.body.forEach(b=>negSens.forEach(s=>labels.push((BODYNAME[b]||b)+' '+s)));
+    const matched={};
+    for(const z of ['green','yellow','red'])matched[z]=matchLines(plan.zones[z].signs+'\n'+plan.zones[z].noticed,labels);
+    const allPleasant=c.cores.length&&c.cores.every(k=>PLEASANT.has(k));
+    let zone=allPleasant?'green':c.intensity>=7?'red':c.intensity>=4?'yellow':'green';
+    if(matched.red.length)zone=c.intensity>=4?'red':(ZRANK[zone]<1?'yellow':zone);
+    else if(matched.yellow.length&&ZRANK[zone]<1)zone='yellow';
+    if(c.urges.includes('Hurt myself'))zone='red';
+    return {zone,matched};
+  }
+  $('#checkForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    if(!ci.touched){$('#checkMsg').classList.remove('hidden');$('#intensity').focus();return;}
+    const c={at:new Date().toISOString(),cores:[...ci.cores],feelings:[...ci.feelings],body:[...ci.body],sens:[...ci.sens],urges:[...ci.urges],intensity:Number($('#intensity').value),note:$('#checkNote').value.trim()};
+    c.zone=suggestZone(c).zone;
+    plan.checkins.push(c);if(plan.checkins.length>1000)plan.checkins.splice(0,plan.checkins.length-1000);
+    store();resetCheckForm();showResult(c);renderCheckSide();
+    $('#checkResult').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  function showResult(c){
+    const box=$('#checkResult');box.replaceChildren();
+    const {matched}=suggestZone(c),z=c.zone;
+    const card=node('div',{class:'result '+z,role:'status'});
+    card.append(node('h2',{},'Sounds like the '+ZNAME[z]));
+    card.append(node('p',{},'This is a suggestion. You know yourself best.'));
+    const pick=node('div',{class:'chips'});
+    pick.append(node('span',{class:'sub',style:'margin:8px 4px 0 0'},'Not right?'));
+    ['green','yellow','red'].filter(k=>k!==z).forEach(k=>{
+      const b=node('button',{type:'button',class:'chip'},ZNAME[k]);
+      b.addEventListener('click',()=>{c.zone=k;store();showResult(c);renderCheckSide();});pick.append(b);
+    });
+    card.append(pick);
+    if(z==='green'){
+      const have=lines(plan.zones.green.signs).map(x=>x.toLowerCase());
+      const posFeel=c.feelings.filter(f=>CORES.some(cc=>PLEASANT.has(cc.k)&&cc.f.includes(f)));
+      const posSens=c.sens.filter(x=>SENS_POS_SET.has(x)).map(x=>c.body.length&&['Relaxed','Loose','Warm','Light','Open','Soft','Strong','Tingly','Energized','Rested'].includes(x)?x+' '+c.body.map(b=>(BODYNAME[b]||b).toLowerCase()).join(', '):x);
+      const add=[...posFeel,...posSens].filter(x=>!have.includes(x.toLowerCase()));
+      if(add.length){
+        card.append(node('h3',{},'Learning your green zone'));
+        card.append(node('p',{},'Add these to your green-zone "Behaviors & signs" so you know what steady feels like for you:\n'+add.join(' · ')));
+        const b=node('button',{type:'button',class:'btn',style:'margin-top:8px'},'＋ Add to my green zone');
+        b.addEventListener('click',()=>{
+          const before=plan.zones.green.signs;
+          plan.zones.green.signs=[before.trim(),...add].filter(Boolean).join('\n');
+          addLog({area:'Green zone · Behaviors & signs',from:before,to:plan.zones.green.signs});
+          renderEditor();b.replaceWith(node('p',{},'✓ Added to your green zone.'));
+        });
+        card.append(b);
+      }
+    }
+    const sign=[...matched.red,...matched.yellow,...matched.green];
+    if(sign.length){card.append(node('h3',{},'Matches signs in your plan'));card.append(node('p',{},sign.join(' · ')));}
+    const avoidAll=matchLines(['green','yellow','red'].map(k=>plan.zones[k].avoid).join('\n'),c.urges.filter(u=>u!=='None right now'));
+    if(avoidAll.length){card.append(node('h3',{},'Your plan says to avoid'));card.append(node('p',{},avoidAll.join(' · ')));}
+    if(z==='red'||c.urges.includes('Hurt myself')||c.intensity>=9){
+      card.append(node('h3',{},'Support is one tap away'));
+      if(c.urges.includes('Hurt myself')){const cs=crisisSummary();card.append(node('p',{},'You named an urge to hurt yourself. Please reach out now'+(cs.support?': '+cs.support:'')+', or call '+cs.emergency+' if you are in danger.'));}
+      card.append(crisisButtons());
+    }
+    const safe=plan.zones[z].safe.trim();
+    card.append(node('h3',{},'Things to do in this zone'));
+    if(safe)card.append(skillList(safe,c.intensity));else card.append(node('p',{},'Nothing listed yet. Add some in Edit.'));
+    const who=plan.zones[z].contacts&&plan.zones[z].contacts.trim();
+    if(who){card.append(node('h3',{},'Who to contact'));const p=node('p');p.append(withLinks(who));card.append(p);}
+    const acts=node('div',{class:'result-actions'});
+    const br=node('button',{type:'button',class:'btn primary'},'🫁 Breathe with me');br.addEventListener('click',()=>startSkill('Breathing',c.intensity));
+    const done=node('button',{type:'button',class:'btn'},'Done');done.addEventListener('click',()=>box.replaceChildren());
+    acts.append(br,done);card.append(acts);box.append(card);
+  }
+  function countTop(arr,n=3){
+    const m=new Map();arr.forEach(x=>m.set(x,(m.get(x)||0)+1));
+    return [...m.entries()].sort((a,b)=>b[1]-a[1]).slice(0,n).map(([k,v])=>`${k} (${v})`).join(', ');
+  }
+  function describeCheck(c){
+    let t=(c.cores.join(' + ')||'Feeling')+(c.feelings.length?' → '+c.feelings.join(', '):'')+` · ${c.intensity}/10`;
+    const body=c.body.map(b=>BODYNAME[b]||b).join(', ');
+    if(body||c.sens.length)t+='\n'+[body,c.sens.join(', ').toLowerCase()].filter(Boolean).join(' · ');
+    const u=c.urges.filter(x=>x!=='None right now');if(u.length)t+='\nUrges: '+u.join(', ');
+    if(c.note)t+='\n“'+c.note+'”';
+    return t;
+  }
+  function renderCheckSide(){
+    const since=Date.now()-30*864e5,recent=plan.checkins.filter(c=>Date.parse(c.at)>=since);
+    const pat=$('#patterns');pat.replaceChildren();
+    if(!recent.length)pat.append(node('p',{class:'sub'},'After a few check-ins, this shows which emotions come up most, where you feel them, and which zones you spend time in.'));
+    else{
+      const avg=(recent.reduce((s,c)=>s+c.intensity,0)/recent.length).toFixed(1);
+      const zc={green:0,yellow:0,red:0};recent.forEach(c=>zc[c.zone]=(zc[c.zone]||0)+1);
+      const rows=[
+        ['Check-ins',`${recent.length} · average ${avg}/10`],
+        ['Core emotions',countTop(recent.flatMap(c=>c.cores))],
+        ['Feelings',countTop(recent.flatMap(c=>c.feelings))],
+        ['Where I feel it',countTop(recent.flatMap(c=>c.body.map(b=>BODYNAME[b]||b)))],
+        ['How it feels',countTop(recent.flatMap(c=>c.sens))],
+        ['Urges',countTop(recent.flatMap(c=>c.urges.filter(u=>u!=='None right now')))],
+        ['Zones',`Green ${zc.green} · Yellow ${zc.yellow} · Red ${zc.red}`]
+      ];
+      const best=[...skillStats().values()].filter(s=>s.avg>0).sort((a,b)=>b.avg-a.avg)[0];
+      if(best)rows.push(['Most helpful skill',`${best.name} (↓${best.avg.toFixed(1)})`]);
+      rows.filter(r=>r[1]).forEach(([k,v])=>{const d=node('div',{class:'stat'});d.append(node('span',{},k),node('b',{},v));pat.append(d);});
+    }
+    const list=$('#checkList');list.replaceChildren();
+    if(!plan.checkins.length){list.append(node('li',{class:'log-empty'},'No check-ins yet.'));return;}
+    plan.checkins.slice(-15).reverse().forEach(c=>{
+      const li=node('li'),when=node('div',{class:'log-when'});
+      when.append(node('span',{class:'zdot '+c.zone,'aria-hidden':'true'}),fmtWhen(c));
+      li.append(when,node('div',{class:'log-area'},ZNAME[c.zone]||''),node('div',{class:'log-what'},describeCheck(c)));
+      list.append(li);
+    });
+  }
+  function renderCheck(){renderCheckSide();renderPending();}
+  resetCheckForm();
+  // =====================================================================
+  //  Crisis lines by country (editable in Settings)
+  // =====================================================================
+  const COUNTRIES={
+    US:{name:'United States',emergency:'911',chat:'https://988lifeline.org/chat/',lines:[{name:'988',number:'988',kind:'call'},{name:'988',number:'988',kind:'text'}]},
+    CA:{name:'Canada',emergency:'911',lines:[{name:'988',number:'988',kind:'call'},{name:'988',number:'988',kind:'text'}]},
+    GB:{name:'United Kingdom',emergency:'999',lines:[{name:'Samaritans',number:'116 123',kind:'call'},{name:'Shout',number:'85258',kind:'text',body:'SHOUT'}]},
+    IE:{name:'Ireland',emergency:'112',lines:[{name:'Samaritans',number:'116 123',kind:'call'},{name:'50808',number:'50808',kind:'text',body:'HELLO'}]},
+    AU:{name:'Australia',emergency:'000',lines:[{name:'Lifeline',number:'13 11 14',kind:'call'},{name:'Lifeline',number:'0477 13 11 14',kind:'text'}]},
+    NZ:{name:'New Zealand',emergency:'111',lines:[{name:'1737',number:'1737',kind:'call'},{name:'1737',number:'1737',kind:'text'}]},
+    OTHER:{name:'Somewhere else',emergency:'112',lines:[]}
+  };
+  const FIND_HELPLINE='https://findahelpline.com';
+  function guessCountry(){
+    try{const r=(new Intl.Locale(navigator.language||'en-US').maximize().region||'').toUpperCase();if(COUNTRIES[r])return r;if(r==='UK')return 'GB';}catch(e){}
+    return 'US';
+  }
+  const crisisDefaults=code=>{const c=COUNTRIES[code]||COUNTRIES.OTHER;return {country:code,emergency:c.emergency,chat:c.chat||'',lines:c.lines.map(l=>({...l}))};};
+  const crisis=()=>plan.crisis&&plan.crisis.country?plan.crisis:crisisDefaults(guessCountry());
+  function smsHref(num,body){return 'sms:'+telDigits(num)+(body?'?&body='+encodeURIComponent(body):'');}
+  function buildCrisis(box,{withPerson=false}={}){
+    box.replaceChildren();const c=crisis();let first=true;
+    c.lines.forEach(l=>{
+      if(!telDigits(l.number))return;
+      let a;
+      if(l.kind==='text'){
+        if(!isPhone&&c.chat)a=node('a',{href:c.chat,target:'_blank',rel:'noopener noreferrer'},'💬 Chat with '+l.name+' online');
+        else a=node('a',{href:smsHref(l.number,l.body)},'💬 Text '+(l.body?l.body+' to '+l.number:l.name));
+      }else a=node('a',{href:'tel:'+telDigits(l.number)},'📞 Call '+l.name);
+      if(first&&l.kind!=='text'){a.classList.add('call988');first=false;}
+      box.append(a);
+    });
+    if(!c.lines.length)box.append(node('a',{class:'call988',href:FIND_HELPLINE,target:'_blank',rel:'noopener noreferrer'},'🌍 Find a crisis line'));
+    if(telDigits(c.emergency))box.append(node('a',{href:'tel:'+telDigits(c.emergency)},'🚨 Call '+c.emergency));
+    if(withPerson){const {name,phone}=plan.person;if(name.trim()&&telDigits(phone))box.append(node('a',{href:'tel:'+telDigits(phone),style:'border-color:#c9c7ee;color:#44418c'},'📞 Call '+name.trim()));}
+    return box;
+  }
+  function crisisSummary(){
+    const c=crisis();
+    const parts=c.lines.filter(l=>telDigits(l.number)).map(l=>(l.kind==='text'?'text '+(l.body?l.body+' to ':'')+l.number:'call '+l.name+(l.name!==l.number?' ('+l.number+')':'')));
+    return {emergency:c.emergency,support:parts.join(' · ')};
+  }
+  function renderCrisisAll(){
+    buildCrisis($('#crisisRow'));
+    const s=crisisSummary(),q=$('#quickHelp');q.replaceChildren();
+    q.append('If you are in immediate danger, call ',node('strong',{},s.emergency),'. ');
+    if(s.support)q.append('For 24/7 crisis support: ',node('strong',{},s.support),'. ');
+    else{q.append('Find a crisis line near you at ');q.append(node('a',{href:FIND_HELPLINE,target:'_blank',rel:'noopener noreferrer'},'findahelpline.com'));q.append('. ');}
+    q.append('This plan complements, but does not replace, professional care.');
+    if(!$('#lock').classList.contains('hidden'))buildCrisis($('#lockCrisis'));
+  }
+
+  // =====================================================================
+  //  Guided setup
+  // =====================================================================
+  const EX={
+    greenSigns:['Sleeping well','Patient','Laughing easily','Focused','Relaxed body','Wanting to be social','Eating regularly'],
+    greenSafe:['Sleep routine','Movement or exercise','Time outside','Music','Talking with a friend','Regular meals','Hobbies','Time with a pet','Journaling','Prayer or meditation'],
+    yellowSigns:['Irritable','Restless','Trouble sleeping','Withdrawing','Racing thoughts','Tense muscles','Snapping at people','Skipping meals','Pretending I\'m fine','Overthinking'],
+    yellowSafe:['Slow breathing','Take a break','Go for a walk','Text someone I trust','Drink water','Listen to music','Write it down','Stretch','Change the scene'],
+    yellowNoticed:['Quieter than usual','Short with people','Smiling but distant','Fidgeting','Canceling plans'],
+    redSigns:['Rage','Shutting down','Can\'t think clearly','Chest tightness','Shaking','Yelling','Crying I can\'t stop','Wanting to escape','Thoughts of hurting myself'],
+    redSafe:['Slow breathing','Go to a safe, quiet place','Call my support person','Grounding: 5 things I see, 4 I hear…','Weighted blanket','Comforting music','Hold a pet','Step away from the situation','Call a crisis line'],
+    redAvoid:['Driving','Alcohol or drugs','Being alone','Social media','Making big decisions','Arguing'],
+    redOthers:['Stay with me','Speak calmly and slowly','Give me some space','Bring me water','Breathe with me','Don\'t argue right now','Remind me of my plan'],
+    redEnv:['Ask someone to hold onto medications','Remove or lock away firearms','Give my keys to someone','Comfort items nearby','A quiet, low-light space']
+  };
+  function chipField(zone,field,examples,question,hint){
+    const wrap=node('div');
+    const q=node('div',{class:'setup-q'},question);if(hint)q.append(node('small',{},hint));wrap.append(q);
+    const ta=node('textarea',{rows:'4',placeholder:'Tap examples or type your own, one per line…','aria-label':question});
+    ta.value=plan.zones[zone][field];
+    const chips=node('div',{class:'chips',style:'margin-top:8px'});
+    const sync=()=>{const have=lines(ta.value).map(x=>x.toLowerCase());chips.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',String(have.includes(b.textContent.toLowerCase()))));};
+    examples.forEach(ex=>{
+      const b=node('button',{type:'button',class:'chip'},ex);
+      b.addEventListener('click',()=>{
+        const ls=lines(ta.value),i=ls.findIndex(x=>x.toLowerCase()===ex.toLowerCase());
+        if(i>=0)ls.splice(i,1);else ls.push(ex);
+        ta.value=ls.join('\n');ta.dispatchEvent(new Event('input'));
+      });
+      chips.append(b);
+    });
+    ta.addEventListener('input',()=>{plan.zones[zone][field]=ta.value;store();sync();});
+    wrap.append(chips,ta);sync();return wrap;
+  }
+  function countrySelect(sel,value){
+    sel.replaceChildren();Object.entries(COUNTRIES).forEach(([k,c])=>sel.append(node('option',{value:k},c.name)));sel.value=value;
+  }
+  const STEPS=[
+    {t:'Welcome to My Pocket Safety Plan',s:'A calm, private place for your plan: what helps you stay steady, your early warning signs, and what to do when things get hard.',b(){
+      const w=node('div'),p=node('div',{class:'promise'});
+      [['🔒','Your answers stay on this device. No account, no tracking. Nobody else can see them, including whoever shared this app with you.'],['🧭','Setup takes about 5 minutes. Tap examples or write your own. You can change anything later.'],['🤝','It works best alongside a clinician or people you trust. Consider filling it in together.']].forEach(([i,t])=>{const d=node('div');d.append(node('b',{'aria-hidden':'true'},i),node('span',{},t));p.append(d);});
+      const n=node('div',{class:'note-box'});n.append(node('strong',{},'Need help right now? '),'You don\'t need to finish setup first.');n.append(buildCrisis(node('div',{class:'crisis'})));
+      w.append(p,n);return w;},next:'Start setup'},
+    {t:'Where are you?',s:'This sets the crisis lines your call and text buttons use.',b(){
+      const w=node('div'),c=crisis();
+      const l1=node('label');l1.append(node('span',{class:'field-label'},'Country or region'));const sel=node('select');countrySelect(sel,c.country);l1.append(sel);
+      const prev=node('div',{class:'note-box'});
+      const paint=()=>{prev.replaceChildren(node('strong',{},'Your buttons:'));prev.append(buildCrisis(node('div',{class:'crisis'})));};
+      sel.addEventListener('change',()=>{plan.crisis=crisisDefaults(sel.value);store();paint();renderCrisisAll();});
+      if(!plan.crisis||!plan.crisis.country){plan.crisis=crisisDefaults(c.country);store();}
+      const l2=node('label');l2.append(node('span',{class:'field-label'},'Your first name (optional)'));const nm=node('input',{autocomplete:'given-name',maxlength:'60'});nm.value=plan.meta.name;
+      nm.addEventListener('input',()=>{plan.meta.name=nm.value;store();});l2.append(nm);
+      paint();w.append(l1,prev,l2,node('p',{class:'tiny',style:'margin-top:8px'},'You can edit these numbers any time in Settings.'));return w;}},
+    {t:'🟢 Green zone: when I\'m steady',s:'Knowing what "okay" looks like makes it easier to notice when you start to drift.',b(){
+      const w=node('div');w.append(chipField('green','signs',EX.greenSigns,'What do I notice when I\'m doing well?'),chipField('green','safe',EX.greenSafe,'What helps me stay steady?'));return w;}},
+    {t:'🟡 Yellow zone: early warning signs',s:'Catching things early is where small actions work best.',b(){
+      const w=node('div');w.append(chipField('yellow','signs',EX.yellowSigns,'What are my early warning signs?','Feelings, thoughts, body signals, or things I start doing'),chipField('yellow','noticed',EX.yellowNoticed,'What might other people notice?'),chipField('yellow','safe',EX.yellowSafe,'What can I do to help myself?'));return w;}},
+    {t:'🔴 Red zone: when it\'s overwhelming',s:'Keep these short and simple. You\'ll read them when it\'s hard to think.',b(){
+      const w=node('div');w.append(chipField('red','signs',EX.redSigns,'How do I know I\'m in the red zone?'),chipField('red','safe',EX.redSafe,'What can I do to stay safe?'),chipField('red','avoid',EX.redAvoid,'What should I avoid?'));return w;}},
+    {t:'🤝 My people',s:'Who can you reach, and how can they help?',b(){
+      const w=node('div');
+      const q=node('div',{class:'setup-q'},'My safety person');q.append(node('small',{},'One person you trust. They get their own call and text buttons.'));w.append(q);
+      const l1=node('label');l1.append(node('span',{class:'field-label'},'Name'));const n1=node('input',{maxlength:'80',autocomplete:'off'});n1.value=plan.person.name;l1.append(n1);
+      const l2=node('label');l2.append(node('span',{class:'field-label'},'Phone number'));const n2=node('input',{type:'tel',inputmode:'tel',maxlength:'30',autocomplete:'off'});n2.value=plan.person.phone;l2.append(n2);
+      const save=()=>{plan.person={name:n1.value.trim(),phone:n2.value.trim()};store();renderPerson();};
+      n1.addEventListener('change',save);n2.addEventListener('change',save);
+      w.append(l1,l2,chipField('red','others',EX.redOthers,'What can others do that actually helps?'));
+      const q2=node('div',{class:'setup-q'},'Who else can I contact?');q2.append(node('small',{},'Names and numbers, one per line'));
+      const ta=node('textarea',{rows:'3'});ta.value=plan.zones.red.contacts;ta.addEventListener('input',()=>{plan.zones.red.contacts=ta.value;store();});
+      w.append(q2,ta);return w;}},
+    {t:'🏡 Making my space safer',s:'Small changes ahead of time can make a hard moment safer. Choose what fits your life.',b(){
+      return chipField('red','environment',EX.redEnv,'What would help make my environment safer?','Many plans include asking someone you trust to hold onto anything risky for a while.');}},
+    {t:'Your plan is ready 🎉',s:'You can open it any time, add to it, and update it as you learn what works.',b(){
+      const w=node('div'),p=node('div',{class:'promise'});
+      [['📱','Add it to your home screen so it opens like an app, even offline. iPhone/iPad: Safari → Share → Add to Home Screen. Android: menu ⋮ → Install app.'],['♡','Use Check in to name what you feel, and "Try it" to learn which skills help you most.'],['💾','Tap Back up now and then and keep the file somewhere private. It\'s how you move your plan to a new device.'],['🔒','Want privacy on a shared device? Set a passcode in Settings.']].forEach(([i,t])=>{const d=node('div');d.append(node('b',{'aria-hidden':'true'},i),node('span',{},t));p.append(d);});
+      w.append(p);return w;},next:'Go to my plan'}
+  ];
+  let setupStep=0;
+  function renderSetup(){
+    const st=STEPS[setupStep];
+    $('#setupStepLabel').textContent=`Step ${setupStep+1} of ${STEPS.length}`;
+    $('#setupBar').style.width=((setupStep+1)/STEPS.length*100)+'%';
+    $('#setupTitle').textContent=st.t;$('#setupSub').textContent=st.s;
+    $('#setupBody').replaceChildren(st.b());
+    $('#setupBack').classList.toggle('hidden',setupStep===0);
+    $('#setupSkip').classList.toggle('hidden',setupStep===STEPS.length-1);
+    $('#setupNext').textContent=st.next||'Next';
+    $('#setup').scrollTop=0;
+  }
+  function openSetup(){setupStep=0;$('#setup').classList.remove('hidden');document.body.style.overflow='hidden';renderSetup();$('#setupNext').focus();}
+  function closeSetup(finished){
+    $('#setup').classList.add('hidden');document.body.style.overflow='';
+    if(!plan.crisis||!plan.crisis.country)plan.crisis=crisisDefaults(guessCountry());
+    if(!prefs.setupDone&&finished)addLog({area:'Plan',note:'Plan created with guided setup'});
+    prefs.setupDone=true;savePrefs();store();
+    renderEditor();renderPerson();renderCrisisAll();setView('quick');
+  }
+  $('#setupNext').addEventListener('click',()=>{if(setupStep<STEPS.length-1){setupStep++;renderSetup();}else closeSetup(true);});
+  $('#setupBack').addEventListener('click',()=>{if(setupStep>0){setupStep--;renderSetup();}});
+  $('#setupSkip').addEventListener('click',()=>closeSetup(false));
+
+  // =====================================================================
+  //  Settings: crisis lines, passcode
+  // =====================================================================
+  function renderLinesEditor(){
+    const box=$('#setLines');box.replaceChildren();
+    const c=plan.crisis;
+    c.lines.forEach((l,i)=>{
+      const row=node('div',{class:'line-row'});
+      const nm=node('input',{'aria-label':'Name',placeholder:'Name',maxlength:'40'});nm.value=l.name;
+      const nu=node('input',{'aria-label':'Number',placeholder:'Number',inputmode:'tel',maxlength:'20'});nu.value=l.number;
+      const ki=node('select',{'aria-label':'Call or text'});[['call','Call'],['text','Text']].forEach(([v,t])=>ki.append(node('option',{value:v},t)));ki.value=l.kind;
+      const rm=node('button',{type:'button','aria-label':'Remove this line'},'✕');
+      nm.addEventListener('input',()=>{l.name=nm.value;store();renderCrisisAll();});
+      nu.addEventListener('input',()=>{l.number=nu.value;store();renderCrisisAll();});
+      ki.addEventListener('change',()=>{l.kind=ki.value;store();renderCrisisAll();});
+      rm.addEventListener('click',()=>{c.lines.splice(i,1);store();renderLinesEditor();renderCrisisAll();});
+      row.append(nm,nu,ki,rm);box.append(row);
+    });
+  }
+  function openSettings(){
+    if(!plan.crisis||!plan.crisis.country){plan.crisis=crisisDefaults(guessCountry());store();}
+    countrySelect($('#setCountry'),plan.crisis.country);$('#setEmergency').value=plan.crisis.emergency;
+    renderLinesEditor();renderLockSettings();
+    const d=$('#settingsDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
+  }
+  $('#setCountry').addEventListener('change',e=>{plan.crisis=crisisDefaults(e.target.value);store();$('#setEmergency').value=plan.crisis.emergency;renderLinesEditor();renderCrisisAll();addLog({area:'Crisis lines',note:'Set to '+COUNTRIES[e.target.value].name});});
+  $('#setEmergency').addEventListener('input',e=>{plan.crisis.emergency=e.target.value.trim();store();renderCrisisAll();});
+  $('#setAddLine').addEventListener('click',()=>{plan.crisis.lines.push({name:'',number:'',kind:'call'});store();renderLinesEditor();$('#setLines .line-row:last-child input').focus();});
+  $('#setRerun').addEventListener('click',()=>{$('#settingsDialog').close();openSetup();});
+  $('#settingsBtn').addEventListener('click',openSettings);
+  $('#settingsHdrBtn').addEventListener('click',openSettings);
+
+  // Passcode (a per-device privacy screen; never synced or backed up)
+  async function hashPass(pass,salt){
+    const data=new TextEncoder().encode(salt+':'+pass);
+    if(window.crypto&&crypto.subtle){const buf=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');}
+    let h=2166136261;for(const b of data){h^=b;h=Math.imul(h,16777619)>>>0;}return 'f'+h.toString(16);
+  }
+  function renderLockSettings(){
+    const on=!!prefs.lock;
+    $('#setLockStatus').textContent=on?'A passcode is set on this device. It\'s asked for when you open the app.':'No passcode. Anyone using this device can open your plan.';
+    $('#setPassToggle').textContent=on?'Change passcode':'Set a passcode';
+    $('#setPassRemove').classList.toggle('hidden',!on);
+    $('#setLockForm').classList.add('hidden');$('#setPassError').classList.add('hidden');
+  }
+  $('#setPassToggle').addEventListener('click',()=>{$('#setLockForm').classList.remove('hidden');$('#setPass1').value='';$('#setPass2').value='';$('#setPass1').focus();});
+  $('#setPassSave').addEventListener('click',async()=>{
+    const a=$('#setPass1').value,b=$('#setPass2').value,err=$('#setPassError');
+    if(!/^\d{4,12}$/.test(a)){err.textContent='Use 4 to 12 digits.';err.classList.remove('hidden');return;}
+    if(a!==b){err.textContent='Those didn\'t match.';err.classList.remove('hidden');return;}
+    const salt=[...crypto.getRandomValues(new Uint8Array(8))].map(x=>x.toString(16).padStart(2,'0')).join('');
+    prefs.lock={salt,hash:await hashPass(a,salt)};savePrefs();renderLockSettings();notify('Passcode set for this device.');
+  });
+  $('#setPassRemove').addEventListener('click',()=>{prefs.lock=null;savePrefs();renderLockSettings();notify('Passcode removed.');});
+  let hiddenAt=0;
+  function showLock(){
+    if(!prefs.lock)return;
+    $('#lockInput').value='';$('#lockError').classList.add('hidden');$('#lockForgotBox').classList.add('hidden');
+    buildCrisis($('#lockCrisis'),{withPerson:true});
+    $('#lock').classList.remove('hidden');document.body.style.overflow='hidden';
+    setTimeout(()=>$('#lockInput').focus(),50);
+  }
+  $('#lockForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(await hashPass($('#lockInput').value,prefs.lock.salt)===prefs.lock.hash){$('#lock').classList.add('hidden');document.body.style.overflow='';}
+    else{$('#lockError').classList.remove('hidden');$('#lockInput').value='';}
+  });
+  $('#lockForgot').addEventListener('click',()=>$('#lockForgotBox').classList.toggle('hidden'));
+  $('#lockErase').addEventListener('click',e=>{
+    const b=e.currentTarget;
+    if(b.dataset.armed!=='1'){b.dataset.armed='1';b.textContent='Tap again to erase everything on this device';return;}
+    try{localStorage.removeItem(STORAGE_KEY);}catch(x){}
+    prefs={view:'quick',pick:'all'};savePrefs();location.reload();
+  });
+  document.addEventListener('visibilitychange',()=>{
+    if(document.visibilityState==='hidden')hiddenAt=Date.now();
+    else if(prefs.lock&&hiddenAt&&Date.now()-hiddenAt>60*1000&&$('#lock').classList.contains('hidden'))showLock();
+  });
+
+  // =====================================================================
+  //  Share with my support person
+  // =====================================================================
+  const SHARE_PARTS=[
+    {k:'notice',label:'What you might notice when I\'m struggling',on:true,get:()=>[...lines(plan.zones.yellow.noticed),...lines(plan.zones.red.noticed)]},
+    {k:'signs',label:'My warning signs',on:false,get:()=>[...lines(plan.zones.yellow.signs),...lines(plan.zones.red.signs)]},
+    {k:'helps',label:'What helps when I\'m struggling',on:true,get:()=>[...new Set([...lines(plan.zones.yellow.others),...lines(plan.zones.red.others)])]},
+    {k:'skills',label:'What I\'ll try to do for myself',on:false,get:()=>lines(plan.zones.red.safe)},
+    {k:'help',label:'How to get help if you\'re worried about my safety',on:true,get:()=>{const s=crisisSummary(),o=[];if(s.support)o.push('Crisis support, 24/7: '+s.support);else o.push('Find a crisis line: findahelpline.com');o.push('If I\'m in immediate danger: call '+s.emergency);return o;}}
+  ];
+  const shareOn={};SHARE_PARTS.forEach(p=>shareOn[p.k]=p.on);
+  const HEADS={notice:'When I\'m starting to struggle, you might notice:',signs:'My warning signs:',helps:'What helps me:',skills:'What I\'ll try to do for myself:',help:'If you\'re worried about my safety:'};
+  function buildShareText(){
+    const name=plan.meta.name.trim();
+    const out=['How to support me'+(name?' — '+name:''),''];
+    SHARE_PARTS.forEach(p=>{if(!shareOn[p.k])return;const items=p.get();if(!items.length)return;out.push(HEADS[p.k]);items.forEach(i=>out.push('• '+i));out.push('');});
+    out.push('Thank you for being someone I trust.');
+    return out.join('\n');
+  }
+  function openShare(){
+    const box=$('#shareOpts');box.replaceChildren();
+    SHARE_PARTS.forEach(p=>{
+      const n=p.get().length,l=node('label'),cb=node('input',{type:'checkbox'});cb.checked=shareOn[p.k]&&(n>0||p.k==='help');
+      if(!n&&p.k!=='help'){cb.disabled=true;}
+      cb.addEventListener('change',()=>{shareOn[p.k]=cb.checked;$('#shareText').value=buildShareText();});
+      l.append(cb,node('span',{},p.label+(!n&&p.k!=='help'?' (not filled in yet)':'')));box.append(l);
+    });
+    $('#shareText').value=buildShareText();
+    $('#shareSend').classList.toggle('hidden',!navigator.share);
+    const d=$('#shareDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
+  }
+  $('#shareBtn').addEventListener('click',openShare);
+  $('#shareCancel').addEventListener('click',()=>$('#shareDialog').close());
+  $('#shareCopy').addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText($('#shareText').value);notify('Copied. Paste it into a text or email.');}
+    catch(e){$('#shareText').select();notify('Select all and copy the text.');}
+  });
+  $('#shareSend').addEventListener('click',async()=>{try{await navigator.share({title:'How to support me',text:$('#shareText').value});}catch(e){}});
+
+  // =====================================================================
+  //  Restore: merge or replace
+  // =====================================================================
+  function lastEdit(p,key){let t=0;p.history.forEach(h=>{if(h.key===key){const x=Date.parse(h.at);if(x>t)t=x;}});return t;}
+  function mergePlans(a,b){
+    const out=normalize(JSON.parse(JSON.stringify(a)));
+    const newer=(b.meta.updated||'')>(a.meta.updated||'')?b:a;
+    for(const z of ZONES)for(const f of [...FIELDS.map(x=>x[0]),'contacts']){
+      const av=a.zones[z.key][f],bv=b.zones[z.key][f];if(av===bv)continue;
+      if(!av.trim()){out.zones[z.key][f]=bv;continue;}if(!bv.trim())continue;
+      const ta=lastEdit(a,z.key+'.'+f),tb=lastEdit(b,z.key+'.'+f);
+      out.zones[z.key][f]=(tb>ta||(tb===ta&&newer===b))?bv:av;
+    }
+    for(const k of ['name','focus','date']){const av=a.meta[k],bv=b.meta[k];if(av===bv)continue;if(!av){out.meta[k]=bv;continue;}if(!bv)continue;const ta=lastEdit(a,'meta.'+k),tb=lastEdit(b,'meta.'+k);out.meta[k]=(tb>ta||(tb===ta&&newer===b))?bv:av;}
+    if(!a.person.name&&b.person.name)out.person=b.person;else if(newer===b&&b.person.name)out.person=b.person;
+    if(newer===b&&b.crisis&&b.crisis.country)out.crisis=b.crisis;
+    const uniq=(x,y,key)=>{const m=new Map();[...x,...y].forEach(i=>m.set(key(i),i));return [...m.values()].sort((p,q)=>Date.parse(p.at)-Date.parse(q.at));};
+    out.history=uniq(a.history,b.history,h=>h.at+'|'+(h.key||h.area)+'|'+(h.note||h.to||'')).slice(-500);
+    out.checkins=uniq(a.checkins,b.checkins,c=>c.at).slice(-1000);
+    out.ratings=uniq(a.ratings,b.ratings,r=>r.at+'|'+r.skill).slice(-1000);
+    out.meta.updated=[a.meta.updated,b.meta.updated].sort().pop()||'';
+    return out;
+  }
+  let pendingRestore=null;
+  const closeRestore=()=>{pendingRestore=null;$('#restoreDialog').close();};
+  function afterRestore(note){renderEditor();renderQuick();renderPerson();renderCrisisAll();addLog({area:'Plan',note});prefs.setupDone=true;savePrefs();}
+  $('#restoreMerge').addEventListener('click',()=>{if(!pendingRestore)return;plan=mergePlans(plan,pendingRestore);closeRestore();afterRestore('Merged a backup file into this device');notify('Backup merged.');});
+  $('#restoreReplace').addEventListener('click',()=>{if(!pendingRestore)return;plan=pendingRestore;closeRestore();afterRestore('Replaced this device\'s plan with a backup file');notify('Backup restored.');});
+  $('#restoreCancel').addEventListener('click',closeRestore);
+
+  // Installable / offline (needs https or localhost)
+  if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+  }
+  load();renderEditor();renderPerson();renderCrisisAll();setView(prefs.view);renderPending();
+  if(!prefs.setupDone&&!hasContent(plan))openSetup();
+  showLock();
+})();
+</script>
+</body>
+</html>

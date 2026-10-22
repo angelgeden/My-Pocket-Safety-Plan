@@ -1,0 +1,104 @@
+MY POCKET SAFETY PLAN — HOW TO PUT IT ONLINE
+=============================================
+
+WHAT'S IN THIS FOLDER
+  index.html              the app
+  manifest.webmanifest    lets phones install it like an app
+  sw.js                   makes it work offline
+  icons/                  the app icons
+  README.md               the description people see on your GitHub page
+  HOW-TO-PUBLISH.txt      this guide (you don't need to upload it)
+
+Your users never download this folder. You put it online once, then share the link.
+Nobody's answers are ever stored in this folder or on the website. Each person's
+plan stays on their own device.
+
+
+OPTION A — GITHUB PAGES (free, permanent link)  ★ recommended
+--------------------------------------------------------------
+Your link will look like:  https://YOUR-USERNAME.github.io/my-pocket-safety-plan/
+
+1. Make a free account at https://github.com (skip if you have one).
+
+2. Create a home for the app:
+   - Click the  +  at the top right, then "New repository".
+   - Repository name:  my-pocket-safety-plan
+   - Choose "Public". (Free GitHub Pages needs public. That's fine: only the app's
+     code is visible, never anyone's answers.)
+   - Leave "Add a README file" unticked (this folder already has one).
+   - Click "Create repository".
+
+3. Upload the app:
+   - On the repository page, click the link that says "uploading an existing file".
+     (If you don't see it: "Add file", then "Upload files".)
+   - Open this folder on your computer. Select  index.html, manifest.webmanifest,
+     sw.js, README.md  AND the  icons  folder, and drag them all onto the upload area.
+     (Drag the icons FOLDER itself, not just the pictures inside it.)
+   - Click "Commit changes" at the bottom.
+
+4. Turn the website on:
+   - Click "Settings" (top of the repository), then "Pages" in the left menu.
+   - Under "Build and deployment", set Source to "Deploy from a branch".
+   - Set Branch to "main" and the folder to "/ (root)". Click "Save".
+
+5. Wait 1 to 3 minutes, then refresh the Pages screen. Your link appears at the top
+   ("Your site is live at ..."). Open it to check.
+   Then put your real link in the README: open README.md on GitHub, click the pencil
+   (Edit), replace  https://YOUR-USERNAME.github.io/my-pocket-safety-plan/  with your
+   link, and click "Commit changes".
+
+6. Test it on your phone before sharing (see the checklist below).
+
+
+OPTION B — NETLIFY DROP (fastest, good for a quick test)
+---------------------------------------------------------
+1. Go to https://app.netlify.com/drop
+2. Drag this whole folder onto the page.
+3. You get a link in about a minute.
+4. Create a free Netlify account when it offers, so the site doesn't get deleted.
+   In site settings you can change the random name to something like
+   my-pocket-safety-plan.netlify.app
+
+
+UPDATING THE APP LATER
+-----------------------
+1. Upload the new index.html the same way, replacing the old one.
+2. Also open sw.js and change   const VERSION = 'pocket-v1';
+   to   'pocket-v2'  (then v3, v4 ... each time). Upload sw.js too.
+   This tells phones that already installed the app to fetch the new version.
+   People's saved answers are NOT affected by updates.
+
+
+USING YOUR OWN WEB ADDRESS (optional)
+--------------------------------------
+GitHub: Settings > Pages > Custom domain. Netlify: Site settings > Domain management.
+Both walk you through connecting a domain you own (for example pocketsafetyplan.com).
+Keep using the same address once people install it: their saved plans belong to that
+address, and moving to a new address means they'd have to Back up and Restore.
+
+
+BEFORE YOU SHARE IT — QUICK CHECKLIST
+--------------------------------------
+[ ] Open the link on an iPhone in Safari. Tap Share > Add to Home Screen. Open it from
+    the home screen icon.
+[ ] Turn on Airplane Mode and open it again. It should still work.
+[ ] Tap Call / Text buttons to confirm they open the phone and messaging apps
+    (you can hang up / not send).
+[ ] Try it on Android and on a computer if you can.
+[ ] Ask a licensed clinician to review the wording: zone descriptions, setup examples,
+    check-in language and crisis messages.
+[ ] Decide how you'll describe it when sharing, e.g.:
+    "A free, private safety-plan app. Your answers stay on your phone. It's a planning
+     tool, not an emergency service. In a crisis, call your local emergency number."
+
+
+GOOD TO KNOW
+------------
+- Crisis numbers are built in for the US, Canada, UK, Ireland, Australia and New
+  Zealand. Anyone else picks "Somewhere else" (it points to findahelpline.com) and can
+  type in local numbers under Settings.
+- It needs a real web address (https) to install and work offline. Opening index.html
+  straight from a computer folder works for a preview, but not as an installed app.
+- On iPhone and iPad, people should install it to the home screen. Safari can clear
+  data for websites that haven't been opened in about a week, but installed apps are
+  protected. The app's setup and Settings both tell users this.
