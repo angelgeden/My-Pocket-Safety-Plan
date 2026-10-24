@@ -571,6 +571,29 @@
       .guide-item p{margin:6px 0;color:var(--muted);font-size:.94rem;line-height:1.55}
       .toggle-row{display:flex!important;align-items:center;gap:10px;margin:4px 0 8px;color:var(--ink)}
       .toggle-row input{width:22px!important;height:22px;min-height:auto!important;accent-color:var(--accent)}
+      /* ---------- Skills library + suggestions ---------- */
+      .skill-search{margin:4px 0 10px}
+      .skill-filter{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 6px}
+      .skill-filter .chip{font-size:.82rem;min-height:36px;padding:6px 12px}
+      .guide-item.skill{border-left:4px solid var(--c)}
+      .guide-item.skill summary{display:flex;align-items:center;gap:8px;list-style:none}
+      .guide-item.skill summary::-webkit-details-marker{display:none}
+      .guide-item.skill summary::before{content:"›";color:var(--muted);font-weight:800;transition:transform .15s;display:inline-block;width:10px}
+      .guide-item.skill[open] summary::before{transform:rotate(90deg)}
+      .guide-item.skill summary .nm{flex:1;min-width:0}
+      .skill-mod{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--c);font-weight:700;margin:8px 0 2px}
+      .skill-steps{margin:6px 0 8px;padding-left:1.25em;color:var(--ink);font-size:.94rem;line-height:1.55}
+      .skill-steps li{margin-bottom:4px}
+      .skill-note{font-size:.86rem!important;font-style:italic}
+      .skill-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+      .skill-actions .lbl{font-size:.8rem;color:var(--muted);margin-left:4px}
+      .skill-actions button{min-height:36px;border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:var(--r-sm);padding:4px 11px;font-size:.82rem;font-weight:700}
+      .skill-actions button.try{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+      .skill-actions button:disabled{opacity:.55}
+      .skill-empty{color:var(--muted);font-style:italic;padding:8px 0}
+      .sugg .skill-row{align-items:flex-start}
+      .sugg .nm button{border:0;background:none;padding:0;color:var(--ink);font-family:var(--font-body);text-transform:none;letter-spacing:0;min-height:auto;font-weight:700;text-align:left;text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px;font-size:.95rem}
+      .sugg .nm small{display:block;color:var(--muted);font-size:.82rem;line-height:1.35;margin-top:2px}
       /* ---------- Gentle on the senses ---------- */
       @media (prefers-reduced-motion:reduce){*:not(#bCircle){transition:none!important;animation:none!important}html{scroll-behavior:auto}}
     }
@@ -625,7 +648,7 @@
   </section>
   <section id="checkView" role="tabpanel" aria-labelledby="checkTab" class="hidden" hidden>
     <div class="pending-slot"></div>
-    <div class="guide-row"><button type="button" class="btn" id="guideBtn">📚 Emotion guide</button></div>
+    <div class="guide-row" style="gap:8px"><button type="button" class="btn" id="skillsCheckBtn">🧰 Skills</button><button type="button" class="btn" id="guideBtn">📚 Emotion guide</button></div>
     <div id="checkResult"></div>
     <form id="checkForm" novalidate>
       <div class="check-card">
@@ -699,7 +722,7 @@
   <section id="quickView" role="tabpanel" aria-labelledby="viewTab" class="hidden" hidden>
     <div class="crisis" id="crisisRow" aria-label="Crisis support"></div>
     <div class="person" id="person" aria-label="My safety person"></div>
-    <div class="tools-row"><button type="button" id="breatheBtn">🫁 Breathe with me</button><button type="button" id="checkBtn">♡ Check in</button><button type="button" id="shareBtn" class="share">🤝 Share with my support person</button></div>
+    <div class="tools-row"><button type="button" id="breatheBtn">🫁 Breathe with me</button><button type="button" id="checkBtn">♡ Check in</button><button type="button" id="skillsBtn">🧰 Skills</button><button type="button" id="shareBtn" class="share">🤝 Share with my support person</button></div>
     <div class="pending-slot"></div>
     <dialog id="personDialog" aria-labelledby="personTitle">
       <form method="dialog" id="personForm">
@@ -817,7 +840,7 @@
       <h3>Learning</h3>
       <p>Short tips in check-ins: what each emotion is for, which emotion came first, common urges, and an optional "check the facts" step.</p>
       <label class="toggle-row"><input type="checkbox" id="setLearn"> <span>Show learning tips in check-ins</span></label>
-      <div class="row-btns"><button type="button" class="btn" id="setGuide">📚 Open the emotion guide</button></div>
+      <div class="row-btns"><button type="button" class="btn" id="setGuide">📚 Open the emotion guide</button><button type="button" class="btn" id="setSkills">🧰 Open the skills library</button></div>
     </section>
     <section class="set-sec">
       <h3>My plans</h3>
@@ -902,6 +925,17 @@
     <div id="guideBody"></div>
     <p class="tiny" style="margin-top:14px">This guide is a quick reference for skills taught in DBT and related therapies. It isn't therapy and doesn't replace your therapist, skills group or treatment team. Bring your questions to them.</p>
     <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="guideClose">Close</button></div>
+  </form>
+</dialog>
+<dialog id="skillsDialog" aria-labelledby="skillsTitle" class="wide">
+  <form method="dialog">
+    <h2 id="skillsTitle">Skills library</h2>
+    <p>Skills from DBT and related therapies. Open one to see the steps, try it, or add it to your plan.</p>
+    <input type="search" id="skillSearch" class="skill-search" placeholder="Search skills" aria-label="Search skills" autocomplete="off">
+    <div class="skill-filter" id="skillFilter" role="group" aria-label="Filter skills"></div>
+    <div id="skillsBody"></div>
+    <p class="tiny" style="margin-top:14px">These are short reminders, not therapy. Go at your own pace, skip anything that doesn't feel right, and bring questions to your therapist or skills group. If you're in danger, use the crisis buttons on the Right now screen.</p>
+    <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="skillsClose">Close</button></div>
   </form>
 </dialog>
 <dialog id="restoreDialog" aria-labelledby="restoreTitle">
@@ -1636,7 +1670,8 @@
     learnResult(c,card);
     const safe=plan.zones[z].safe.trim();
     card.append(node('h3',{},'Things to do in this zone'));
-    if(safe)card.append(skillList(safe,c.intensity));else card.append(node('p',{},'Nothing listed yet. Add some in Edit.'));
+    if(safe)card.append(skillList(safe,c.intensity));else card.append(node('p',{},'Nothing listed yet. Add some in Edit, or from the skills below.'));
+    const sug=suggestionBlock(c);if(sug)card.append(sug);
     const who=plan.zones[z].contacts&&plan.zones[z].contacts.trim();
     if(who){card.append(node('h3',{},'Who to contact'));const p=node('p');p.append(withLinks(who));card.append(p);}
     const acts=node('div',{class:'result-actions'});
@@ -1746,6 +1781,196 @@
       card.append(node('p',{},'That makes sense. When an emotion fits, problem solving often helps most: what is one small step toward changing the situation? Your skills below can bring the intensity down first.'));
     }
     const g=node('button',{type:'button',class:'add-plan-link'},'Learn more in the emotion guide');g.addEventListener('click',()=>openGuide(fam.k));card.append(g);
+  }
+
+  // =====================================================================
+  //  SKILLS LIBRARY
+  //  All skill content lives in this one list. To reword a skill, edit it
+  //  here. To add one, copy an entry and change it.
+  //   mod:   mind | dt | er | ie  (see SKILL_MODS)
+  //   lv:    when the check-in may suggest it. h = very strong (8–10, red
+  //          zone or an urge to hurt myself), m = moderate, l = calmer.
+  //          Only h skills are ever suggested at high intensity.
+  //   fams:  emotion families it especially suits (from CORES), or [] for any
+  //   urges: urges from the check-in it can help with (optional)
+  //   when:  one line on when to use it
+  //   steps: short steps, one per line
+  //   note:  optional gentle caution or tip
+  //   guide: true adds a link to the emotion guide
+  // =====================================================================
+  const SKILL_MODS={
+    mind:{name:'Mindfulness',c:'#6f8f72'},
+    dt:{name:'Distress tolerance',c:'#b5694a'},
+    er:{name:'Emotion regulation',c:'#5876a3'},
+    ie:{name:'Interpersonal effectiveness',c:'#8a5a8a'}
+  };
+  const SKILLS=[
+    // ---- Mindfulness
+    {name:'Wise mind',mod:'mind',lv:'ml',fams:[],when:'When you\'re torn between what you feel and what you think, or a choice feels hard.',
+      steps:['Take a slow breath and let it settle low in your belly.','Notice what your emotions are telling you, and what the facts are telling you.','Ask quietly, "What does my wise mind say?" Wait for the answer that feels calm and true.','If nothing comes yet, that\'s okay. Try again later.']},
+    {name:'5-4-3-2-1 grounding',mod:'mind',lv:'hm',fams:['Fear','Sadness','Shame'],when:'When you feel swept up, spacey or far away.',
+      steps:['Name 5 things you can see.','Name 4 things you can feel, like your feet on the floor or your back against the chair.','Name 3 things you can hear.','Name 2 things you can smell and 1 thing you can taste.','Go slowly. Say each one out loud or in your head.']},
+    {name:'Mindful breathing',mod:'mind',lv:'ml',fams:[],when:'A short way to come back to the present.',
+      steps:['Breathe in, noticing the air coming in.','Breathe out, noticing the air leaving.','When your mind wanders, gently bring it back. Coming back is the practice.','Start with one minute.']},
+    {name:'Thought defusion',mod:'mind',lv:'ml',fams:['Fear','Shame','Guilt','Jealousy','Envy'],when:'When a thought keeps grabbing hold of you.',
+      steps:['Notice the thought and put it into words.','Add, "I\'m noticing the thought that…"','Picture the thought as a leaf floating down a stream, or a cloud passing by.','Let it come and go without arguing with it or obeying it.']},
+    {name:'Nonjudgmental stance',mod:'mind',lv:'l',fams:['Shame','Anger','Guilt'],when:'When judgments of yourself or others are making things heavier.',
+      steps:['Notice a judgment, like "this is awful" or "I\'m so stupid."','Swap it for the facts: what you saw, heard and felt.','Name your reaction without calling it good or bad: "I feel hurt."','If you catch yourself judging your judging, let that go too.']},
+    {name:'One thing at a time',mod:'mind',lv:'l',fams:[],when:'To practice being present in everyday life.',
+      steps:['Pick one everyday task, like washing dishes or making tea.','Give it your full attention: the sights, sounds and textures.','When your mind wanders, gently come back to the task.','Notice how it feels to do just one thing.']},
+    {name:'Loving kindness',mod:'mind',lv:'l',fams:['Anger','Envy','Jealousy','Shame'],when:'To soften harshness toward yourself or someone else.',
+      steps:['Sit comfortably and take a few slow breaths.','Silently offer yourself kind wishes, like "May I be safe. May I be at ease."','If it feels okay, offer the same wishes to someone you care about, then to others.','If kindness toward yourself feels hard, start with someone easier. That\'s common.']},
+    // ---- Distress tolerance
+    {name:'STOP',mod:'dt',lv:'hm',fams:['Anger','Fear','Jealousy'],urges:['Yell or argue','Swear','Say every thought','Leave / escape','Drive'],when:'When you feel the pull to react right away.',
+      steps:['Stop. Pause, and don\'t act yet.','Take a step back. Breathe, or step away from the situation.','Observe what\'s happening around you and inside you.','Proceed mindfully. Ask what will help, then choose your next step.']},
+    {name:'Paced breathing',mod:'dt',lv:'hm',fams:[],when:'When your body feels revved up.',
+      steps:['Breathe in for about 4 counts.','Breathe out slowly for about 6 counts. A longer out-breath helps your body settle.','Keep going for a few minutes.','Tap "Try it" to use the breathing pacer.']},
+    {name:'Paired muscle relaxation',mod:'dt',lv:'hm',fams:['Fear','Anger'],when:'When tension is building in your body.',
+      steps:['Breathe in and gently tense one muscle group, like your hands or shoulders, for about 5 seconds.','Breathe out, let go all at once, and think "relax."','Notice the difference between tense and relaxed.','Move through your body: hands, arms, shoulders, face, stomach, legs.'],
+      note:'Tense gently, never to the point of pain. Skip any area that hurts or is injured.'},
+    {name:'Self-soothe with the senses',mod:'dt',lv:'hm',fams:[],when:'To comfort yourself in a hard moment.',
+      steps:['Sight: something calming, like photos, the sky or a candle.','Sound: music you love, nature sounds or a familiar voice.','Smell: a scent you find comforting.','Taste: something you enjoy, eaten slowly.','Touch: a soft blanket, a warm shower or a pet.']},
+    {name:'Calm place',mod:'dt',lv:'hm',fams:['Fear','Sadness'],when:'To give your mind somewhere safe to rest.',
+      steps:['Picture a place where you feel safe and at ease. It can be real or imagined.','Notice what you see, hear, smell and feel there.','Stay as long as you like and let your breathing slow.','Give it a word you can use to come back to it later.'],
+      note:'If imagery doesn\'t feel good today, keep your eyes open and use your senses instead.'},
+    {name:'ACCEPTS',mod:'dt',lv:'hm',fams:[],when:'Ways to get through a painful moment without making it worse.',
+      steps:['Activities: do something that absorbs your attention.','Contributing: help someone or do something kind.','Comparisons: remember a hard time you\'ve already gotten through.','Emotions: watch or listen to something that brings a different feeling.','Pushing away: set it aside for now, and come back when you\'re ready.','Thoughts: count, do a puzzle, or name the colors around you.','Sensations: a warm shower, a cozy blanket or a pleasant scent.']},
+    {name:'IMPROVE the moment',mod:'dt',lv:'hm',fams:[],when:'To make a hard moment a little more bearable.',
+      steps:['Imagery: picture a calm place, or things going okay.','Meaning: find something that matters to you, even in this.','Presence or prayer: connect with something bigger, in whatever way fits you.','Relaxation: soften your body and slow your breathing.','One thing in the moment: focus only on what you\'re doing right now.','Vacation: take a short, safe break.','Encouragement: talk to yourself like a kind friend. "I can get through this."']},
+    {name:'HALT check',mod:'dt',lv:'m',fams:[],when:'When you\'re on edge and not sure why.',
+      steps:['Am I Hungry? Eat something.','Am I Angry? Name it and use a skill.','Am I Lonely? Reach out to someone.','Am I Tired? Rest if you can.','Meeting even one need can take the edge off.']},
+    {name:'Pros and cons',mod:'dt',lv:'m',fams:[],urges:['Drink','Drive','Leave / escape','Yell or argue','Isolate','Swear','Say every thought'],when:'When an urge is pulling at you.',
+      steps:['List the pros and cons of acting on the urge.','List the pros and cons of not acting on it.','Think about the short term and the long term.','Ask which choice your future self would thank you for.']},
+    {name:'Radical acceptance',mod:'dt',lv:'ml',fams:['Sadness','Anger'],when:'For painful things you can\'t change right now.',
+      steps:['Notice when you\'re fighting reality, like "This shouldn\'t be happening."','Remind yourself that this is what\'s happening right now, even though it hurts.','Accepting isn\'t approving or giving up. It\'s choosing to stop fighting what you can\'t change.','Each time your mind drifts back to fighting it, gently turn it toward acceptance again.']},
+    {name:'Willing hands and half-smile',mod:'dt',lv:'ml',fams:['Anger','Sadness'],when:'To help your body move toward acceptance.',
+      steps:['Willing hands: rest your hands open, palms up, in your lap or by your sides.','Half-smile: relax your face and let the corners of your mouth turn up just slightly.','Breathe and notice any shift.','If a smile doesn\'t feel right, relaxing your face and hands is enough.']},
+    // ---- Emotion regulation
+    {name:'Ride the wave',mod:'er',lv:'hm',fams:[],urges:['Yell or argue','Swear','Say every thought','Shut down','Leave / escape','Isolate','Cry','Drink','Drive'],when:'When an emotion or urge feels like it will last forever.',
+      steps:['Notice the emotion or urge, and where you feel it in your body.','Breathe and watch it like a wave: rising, peaking and falling.','Don\'t push it away and don\'t act on it. Let it be there.','Remind yourself, "This feeling will pass. It always does."']},
+    {name:'Check the facts',mod:'er',lv:'ml',fams:['Fear','Anger','Sadness','Shame','Guilt','Disgust','Envy','Jealousy'],when:'To see whether an emotion fits what actually happened.',
+      steps:['What happened? Just the facts, as a camera would see it.','What am I telling myself about it?','Is there another way to see it?','Does my emotion, and how strong it is, fit the facts?'],guide:true},
+    {name:'Opposite action',mod:'er',lv:'ml',fams:['Fear','Anger','Sadness','Shame','Guilt','Disgust','Envy','Jealousy'],when:'When an emotion doesn\'t fit the facts, or acting on it won\'t help.',
+      steps:['Name the emotion and its urge.','Check the facts. If the emotion doesn\'t fit, choose the opposite of the urge.','Do it all the way: actions, posture, voice and thoughts.','Keep going until the emotion starts to shift.'],guide:true},
+    {name:'Problem solving',mod:'er',lv:'ml',fams:['Fear','Guilt','Anger','Sadness'],when:'When the emotion fits the facts and the situation can change.',
+      steps:['Describe the problem.','List a few possible solutions. Don\'t judge them yet.','Pick one or two to try, and plan the first small step.','Try it. If it doesn\'t work, try another.']},
+    {name:'Self-validation',mod:'er',lv:'ml',fams:['Shame','Sadness','Guilt','Fear'],when:'When you\'re being hard on yourself for how you feel.',
+      steps:['Notice and name what you feel.','Tell yourself it makes sense, given what happened or what you\'ve been through.','Speak to yourself the way you would to a friend feeling the same thing.','Validating a feeling doesn\'t mean you have to act on it.']},
+    {name:'PLEASE: care for my body',mod:'er',lv:'ml',fams:[],when:'Taking care of your body makes emotions easier to manage.',
+      steps:['PL: take care of physical illness and pain, and take medications as prescribed.','E: eat regular, balanced meals.','A: avoid mood-altering drugs and alcohol.','S: aim for balanced sleep.','E: move your body in a way that feels good.']},
+    {name:'Build positives',mod:'er',lv:'l',fams:['Sadness','Joy'],when:'To add more good moments to your days.',
+      steps:['Do one pleasant thing today, even something small.','Pay attention while you do it, and let yourself enjoy it.','If worries pull you away, notice them and come back.','Over time, add things that matter to you in the long run too.']},
+    {name:'Build mastery',mod:'er',lv:'l',fams:['Sadness','Shame'],when:'To build confidence, one small win at a time.',
+      steps:['Pick one thing that\'s a little challenging but doable.','Do it, and notice that you did.','Next time, make it a bit harder.','Small wins add up.']},
+    {name:'Cope ahead',mod:'er',lv:'ml',fams:['Fear'],when:'Before a situation you expect to be hard.',
+      steps:['Describe the situation and the emotions you expect.','Choose the skills you\'ll use.','Picture yourself in it, using those skills well.','Rehearse handling a hard moment, then take a few minutes to relax.']},
+    {name:'One step toward my values',mod:'er',lv:'l',fams:[],when:'To spend energy on what matters to you.',
+      steps:['Pick something that matters to you, like family, health, learning or kindness.','Ask how closely you\'re living it right now.','Choose one small step for this week.','Notice how it feels when you take it.']},
+    // ---- Interpersonal effectiveness
+    {name:'DEAR MAN',mod:'ie',lv:'l',fams:['Anger','Fear'],when:'To ask for what you need, or to say no.',
+      steps:['Describe the situation, just the facts.','Express how you feel with "I" statements.','Assert what you want or need, clearly.','Reinforce: share how it helps both of you.','Stay Mindful of your goal, Appear confident, and Negotiate if you need to.']},
+    {name:'GIVE',mod:'ie',lv:'l',fams:['Love','Anger'],when:'To care for a relationship during a hard conversation.',
+      steps:['Gentle: no attacks, threats or judging.','Interested: listen and stay curious.','Validate: show you understand their side.','Easy manner: stay calm, with a little warmth or humor.']},
+    {name:'FAST',mod:'ie',lv:'l',fams:['Shame','Guilt'],when:'To keep your self-respect.',
+      steps:['Fair: be fair to yourself and the other person.','Apologies: no over-apologizing for having needs.','Stick to your values.','Truthful: no exaggerating or making excuses.']},
+    {name:'Set a boundary',mod:'ie',lv:'l',fams:['Anger','Fear','Guilt'],when:'To protect your time, energy, body or feelings.',
+      steps:['Get clear on what you need and why it matters to you.','Say it simply: "I\'m not okay with… What I need is…"','You don\'t have to over-explain.','Expect some discomfort at first. Holding a boundary gets easier with practice.']}
+  ];
+  const SKILL_BY=new Map(SKILLS.map(s=>[skillKey(s.name),s]));
+  // ----- Library dialog
+  let skillMod='all';
+  function inPlan(name,zone){return lines(plan.zones[zone].safe).some(l=>skillKey(l)===skillKey(name));}
+  function skillItem(s,stats,focus){
+    const m=SKILL_MODS[s.mod],d=node('details',{class:'guide-item skill','data-name':s.name});d.style.setProperty('--c',m.c);
+    const sum=node('summary');sum.append(node('span',{class:'nm'},s.name));const b=badgeFor(stats.get(skillKey(s.name)));if(b)sum.append(b);
+    d.append(sum,node('p',{class:'skill-mod'},m.name),node('p',{},s.when));
+    const ol=node('ol',{class:'skill-steps'});s.steps.forEach(t=>ol.append(node('li',{},t)));d.append(ol);
+    if(s.note)d.append(node('p',{class:'skill-note'},s.note));
+    if(s.guide){const g=node('button',{type:'button',class:'add-plan-link'},'See this for each emotion in the emotion guide');g.addEventListener('click',()=>{$('#skillsDialog').close();openGuide();});d.append(g);}
+    const acts=node('div',{class:'skill-actions'});
+    const t=node('button',{type:'button',class:'try'},'Try it');t.addEventListener('click',()=>{$('#skillsDialog').close();startSkill(s.name,null);});
+    acts.append(t,node('span',{class:'lbl'},'Add to my plan:'));
+    ZONES.forEach(z=>{
+      const has=inPlan(s.name,z.key),a=node('button',{type:'button','aria-label':'Add '+s.name+' to my '+z.name.toLowerCase()},(has?'✓ ':'＋ ')+z.name.replace(' zone',''));
+      a.disabled=has;
+      a.addEventListener('click',()=>{
+        const before=plan.zones[z.key].safe;
+        plan.zones[z.key].safe=[before.trim(),s.name].filter(Boolean).join('\n');
+        addLog({area:z.name+' · Things to do to stay safe',from:before,to:plan.zones[z.key].safe});
+        renderEditor();if(!$('#quickView').hidden)renderQuick();
+        a.textContent='✓ '+z.name.replace(' zone','');a.disabled=true;notify('Added "'+s.name+'" to your '+z.name.toLowerCase()+'.');
+      });
+      acts.append(a);
+    });
+    d.append(acts);
+    if(focus&&skillKey(focus)===skillKey(s.name))d.open=true;
+    return d;
+  }
+  function renderSkills(focus){
+    const stats=skillStats(),q=$('#skillSearch').value.trim().toLowerCase();
+    const f=$('#skillFilter');f.replaceChildren();
+    [['all','All'],['helped','★ Helped me'],...Object.entries(SKILL_MODS).map(([k,m])=>[k,m.name])].forEach(([k,label])=>{
+      const b=node('button',{type:'button',class:'chip','aria-pressed':String(skillMod===k)},label);
+      if(SKILL_MODS[k])b.style.setProperty('--c',SKILL_MODS[k].c);
+      b.addEventListener('click',()=>{skillMod=k;renderSkills();});f.append(b);
+    });
+    const box=$('#skillsBody');box.replaceChildren();
+    let list=SKILLS.filter(s=>(skillMod==='all'||skillMod==='helped'||s.mod===skillMod)&&(!q||(s.name+' '+s.when+' '+s.steps.join(' ')).toLowerCase().includes(q)));
+    if(skillMod==='helped')list=list.filter(s=>{const x=stats.get(skillKey(s.name));return x&&x.avg>0;}).sort((a,b)=>stats.get(skillKey(b.name)).avg-stats.get(skillKey(a.name)).avg);
+    if(!list.length){box.append(node('p',{class:'skill-empty'},skillMod==='helped'?'Tap "Try it" on any skill and rate how you feel before and after. Skills that help will show up here.':'No skills match that search.'));return;}
+    let lastMod='';
+    list.forEach(s=>{
+      if(skillMod==='all'&&!q&&s.mod!==lastMod){box.append(node('h3',{class:'guide-h'},SKILL_MODS[s.mod].name));lastMod=s.mod;}
+      box.append(skillItem(s,stats,focus));
+    });
+  }
+  function openSkills(focus){
+    $('#skillSearch').value='';if(focus)skillMod='all';
+    renderSkills(focus);
+    const d=$('#skillsDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
+    if(focus){const el=$('#skillsBody').querySelector(`[data-name="${CSS.escape(SKILL_BY.get(skillKey(focus))?.name||focus)}"]`);if(el)setTimeout(()=>el.scrollIntoView({block:'start'}),50);}
+  }
+  $('#skillSearch').addEventListener('input',()=>renderSkills());
+  $('#skillsClose').addEventListener('click',()=>$('#skillsDialog').close());
+  $('#skillsBtn').addEventListener('click',()=>openSkills());
+  $('#skillsCheckBtn').addEventListener('click',()=>openSkills());
+  $('#setSkills').addEventListener('click',()=>{$('#settingsDialog').close();openSkills();});
+  // ----- Suggestions after a check-in
+  function suggestSkills(c,n=3){
+    const high=c.zone==='red'||c.intensity>=8||c.urges.includes('Hurt myself');
+    const lvl=high?'h':(c.zone==='green'&&c.intensity<=3)||c.intensity<=3?'l':'m';
+    const fams=[c.primary,...c.cores].filter(k=>FAM[k]&&!FAM[k].extra);
+    const urges=c.urges.filter(u=>u!=='None right now'&&u!=='Hurt myself');
+    const stats=skillStats(),shown=lines(plan.zones[c.zone].safe).map(skillKey);
+    return SKILLS.map((s,i)=>{
+      if(!s.lv.includes(lvl)||shown.includes(skillKey(s.name)))return null;
+      let score=0;
+      fams.forEach((f,j)=>{if(s.fams.includes(f))score+=j===0?3:2;});
+      if(!s.fams.length)score+=1;
+      if(s.urges)score+=2*urges.filter(u=>s.urges.includes(u)).length;
+      const st=stats.get(skillKey(s.name));if(st&&st.avg>0)score+=2+Math.min(st.avg,4);
+      if(st&&st.avg<0)score-=2;
+      if(lvl!=='h'&&s.mod==='er')score+=1;      // calmer moments: lean toward emotion regulation
+      if(lvl==='l'&&s.lv==='l')score+=1;        // skills meant for calmer times
+      return {s,score,i};
+    }).filter(Boolean).sort((a,b)=>b.score-a.score||a.i-b.i)
+      .filter((x,_,arr)=>(x.n=arr.filter(y=>y.s.mod===x.s.mod&&(y.score>x.score||(y.score===x.score&&y.i<x.i))).length)<2) // no more than 2 from one module
+      .slice(0,n).map(x=>x.s);
+  }
+  function suggestionBlock(c){
+    const list=suggestSkills(c);if(!list.length)return null;
+    const wrap=node('div',{class:'sugg'}),stats=skillStats();
+    wrap.append(node('h3',{},'More skills that may help'));
+    list.forEach(s=>{
+      const row=node('div',{class:'skill-row'}),nm=node('div',{class:'nm'});
+      const open=node('button',{type:'button'},s.name);open.addEventListener('click',()=>openSkills(s.name));
+      nm.append(open,node('small',{},s.when));row.append(nm);
+      const b=badgeFor(stats.get(skillKey(s.name)));if(b)row.append(b);
+      const t=node('button',{type:'button','aria-label':'Try '+s.name},'Try it');t.addEventListener('click',()=>startSkill(s.name,c.intensity));
+      row.append(t);wrap.append(row);
+    });
+    const all=node('button',{type:'button',class:'add-plan-link'},'Browse all skills');all.addEventListener('click',()=>openSkills());wrap.append(all);
+    return wrap;
   }
   // ----- Emotion guide
   function openGuide(focus){

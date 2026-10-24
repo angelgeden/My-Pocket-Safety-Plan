@@ -16,6 +16,8 @@ My Pocket Safety Plan helps you build a personal safety plan in minutes, see you
 - **Learn as you go (optional).** Short notes on what each emotion is for and its usual urge, a "which came first?" prompt for primary vs. secondary emotions, and an optional check-the-facts step that suggests opposite action when an emotion doesn't fit. At very high intensity these step aside so the plan and support come first. An Emotion guide collects it all. Tips can be turned off in Settings.
 - **Did it help?** Rate how you feel before and after a coping skill. The skills that help you most move to the top.
 - **Breathe with me.** A guided breathing pacer (in 4, out 6, or box breathing).
+- **Skills library.** 32 DBT skills across mindfulness, distress tolerance, emotion regulation and interpersonal effectiveness, each with short steps, a "Try it" button and one-tap "Add to my plan."
+- **Skill suggestions.** After a check-in, the app suggests a few skills that fit the emotion and how strong it is. At high intensity it only suggests calming, grounding skills.
 - **Share with my support person.** Builds a short "how to support me" message you can review and send.
 - **Update log and printable plan.** Every change is dated. Print or save a PDF with signature and date lines.
 - **One plan, or a few.** Many people use one plan. If different settings bring different signs or need different help, add a separate plan for work, family, social situations or anything you name, and switch in one tap. Crisis lines, check-ins and skill ratings are shared across plans.
@@ -61,5 +63,7 @@ My Pocket Safety Plan is a personal planning tool. It is **not** an emergency se
 **Publishing an update:** replace `index.html`, then change `VERSION` in `sw.js` (for example `pocket-v1` → `pocket-v2`) so installed copies pick up the new version. People's saved answers are not affected.
 
 **Fonts.** Headlines use *Playfair Display* and body text uses *Inter*, both free under the SIL Open Font License from Google Fonts. They're self-hosted from the `fonts/` folder, so the app never contacts Google and the fonts work offline. See `fonts/ADD-FONTS-HERE.txt` for the two files to add. Without them, similar built-in fonts are used.
+
+**Skill content** lives in the `SKILLS` list in `index.html`. Edit a skill's wording there, or copy an entry to add a new one.
 
 **Crisis numbers** live in the `COUNTRIES` list in `index.html`. Check them periodically against each service's official site.
