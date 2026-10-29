@@ -597,6 +597,81 @@
       /* ---------- Gentle on the senses ---------- */
       @media (prefers-reduced-motion:reduce){*:not(#bCircle){transition:none!important;animation:none!important}html{scroll-behavior:auto}}
     }
+
+    /* ---------- My people (several contacts) ---------- */
+    .people{display:flex;flex-direction:column;gap:8px;margin:-8px 0 18px}
+    .people-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 0 2px}
+    .people-h h2{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted);margin:0;font-family:var(--font-body)}
+    .people-h span{font-size:.8rem;color:var(--dim)}
+    .person-row{display:flex;gap:8px;align-items:stretch}
+    .person-row a,.person-row button,.people>button.add-person{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:var(--r-sm);font-weight:800;text-decoration:none;font-size:1rem;border:1px solid var(--line2);background:transparent;color:var(--ink)}
+    .person-row a.call-person{flex:1 1 auto;flex-direction:column;align-items:flex-start;justify-content:center;gap:0;padding:8px 14px;text-align:left;min-width:0}
+    .person-row a.call-person small{font-weight:500;font-size:.8rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+    .person-row.first a.call-person{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+    .person-row.first a.call-person small{color:var(--accent-ink);opacity:.85}
+    .person-row a.text-person{flex:0 0 auto;padding:0 14px}
+    .person-row button.edit-person{flex:0 0 52px;font-size:1.1rem}
+    .people>button.add-person{background:var(--accent-tint);border:1px dashed color-mix(in srgb,var(--accent) 60%,var(--line2));color:var(--accent);width:100%}
+    #personDialog .move-up{margin-right:auto}
+    .setup-people .sp-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px;gap:6px;margin-bottom:6px;align-items:center}
+    .setup-people .sp-row input{margin:0}
+    .setup-people .sp-row button{min-height:44px;border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:var(--r-sm)}
+    @media(max-width:480px){.setup-people .sp-row{grid-template-columns:minmax(0,1fr) 44px}.setup-people .sp-row input[type=tel]{grid-column:1}}
+    @media print{.people{display:none!important}}
+    .print-people{display:none}
+    @media print{.print-people{display:block!important;font-size:8pt;margin:6px 0 0;break-inside:avoid}.print-people strong{font-size:7pt;text-transform:uppercase;letter-spacing:.04em}}
+    /* ---------- Warning-signs picker ---------- */
+    .pick-signs{margin-top:8px;border:1px dashed var(--line2);background:transparent;color:var(--accent);border-radius:var(--r-sm);padding:8px 12px;min-height:40px;font-weight:700;font-size:.86rem;width:100%}
+    @media print{.pick-signs{display:none!important}}
+    .sig-group{margin:12px 0 4px}
+    .sig-group h3{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-family:var(--font-body)}
+    /* ---------- Thought log ---------- */
+    .tl-field{display:block;margin:0 0 14px}
+    .tl-field textarea{width:100%;min-height:64px;padding:10px 12px;font-size:1rem}
+    .tl-q{font-weight:700;color:var(--ink);margin:0 0 6px;display:block}
+    .tl-q small{display:block;font-weight:500;color:var(--muted);font-size:.84rem}
+    .tl-alt{background:var(--accent-tint);border-radius:var(--r-sm);padding:12px;margin:0 0 14px}
+    .tl-prompt{margin:4px 0 8px;font-style:italic;color:var(--ink);font-size:.94rem;min-height:1px}
+    .tl-entry{border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;margin-bottom:8px;background:var(--surface2)}
+    .tl-entry summary{cursor:pointer;font-weight:700;color:var(--ink)}
+    .tl-entry summary small{display:block;font-weight:500;color:var(--muted);font-size:.8rem}
+    .tl-entry dl{margin:8px 0 4px}
+    .tl-entry dt{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+    .tl-entry dd{margin:2px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink)}
+    .tl-entry .del{margin-top:8px}
+    .tl-privacy{font-size:.82rem;color:var(--muted);margin:10px 0 0}
+
+    /* ---------- Stress check (separate from the zones) ---------- */
+    .stress-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;margin:0 0 18px}
+    .stress-card h2{font-family:var(--font-display);font-weight:700;font-size:1.35rem;margin:0 0 2px;color:var(--ink)}
+    .stress-card>p{margin:0 0 12px;color:var(--muted);font-size:.92rem}
+    .stress-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    @media(min-width:760px){.stress-opts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    .stress-opt{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:var(--r-sm);padding:12px;min-height:72px;font:inherit;cursor:pointer}
+    .stress-opt i{flex:0 0 8px;align-self:stretch;border-radius:4px;background:var(--sc)}
+    .stress-opt b{display:block;font-size:1rem}
+    .stress-opt small{display:block;color:var(--muted);font-size:.82rem;line-height:1.35;margin-top:2px}
+    .stress-opt[aria-pressed="true"]{border-color:var(--sc);box-shadow:inset 0 0 0 1px var(--sc);background:color-mix(in srgb,var(--sc) 10%,transparent)}
+    .stress-opt.ready{--sc:var(--g)}.stress-opt.reacting{--sc:var(--y)}.stress-opt.injured{--sc:#f08a3c}.stress-opt.ill{--sc:var(--r)}
+    .stress-res{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+    .stress-res h3{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;font-family:var(--font-body)}
+    .stress-res h3:first-child{margin-top:0}
+    .stress-res p{margin:0 0 8px;color:var(--ink)}
+    .stress-res .lead{font-size:1.05rem;font-weight:600}
+    .stress-res .row-btns{display:flex;gap:8px;flex-wrap:wrap}
+    .basics{display:flex;flex-direction:column;gap:4px;margin:0 0 6px}
+    .basics label{display:flex!important;gap:10px;align-items:center;min-height:44px;padding:4px 8px;border-radius:var(--r-sm);color:var(--ink);margin:0}
+    .basics input{width:22px!important;height:22px;min-height:auto!important;accent-color:var(--accent);flex:0 0 22px}
+    .basics-next{font-weight:600;color:var(--accent)!important}
+    .space-box{background:var(--accent-tint);border-radius:var(--r-sm);padding:12px 14px}
+    .space-box q{display:block;font-style:italic;margin:6px 0;color:var(--ink);quotes:none}
+    .zone-choice{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .zone-choice button{min-height:56px;border-radius:var(--r-sm);font-weight:800;font-size:1rem;border:1px solid var(--line2);background:transparent;color:var(--ink)}
+    .zone-choice button.y{border-color:var(--y);box-shadow:inset 4px 0 0 var(--y)}
+    .zone-choice button.r{border-color:var(--r);box-shadow:inset 4px 0 0 var(--r)}
+    .zone-choice button[aria-pressed="true"].y{background:var(--y);color:#141311}
+    .zone-choice button[aria-pressed="true"].r{background:var(--r);color:var(--on-zone)}
+    @media print{.stress-card{display:none!important}}
   </style>
 </head>
 <body>
@@ -645,10 +720,11 @@
   <section id="editView" role="tabpanel" aria-labelledby="editTab">
     <p class="intro">Your plan has three zones: green (steady), yellow (early warning signs) and red (overwhelmed). <button type="button" class="add-plan-link">＋ Add a plan for another setting</button> Write phrases or full sentences—whatever is easiest to recognize when you need it. Everything below is editable.</p>
     <div id="zones" class="zones"></div>
+    <div class="print-people" id="printPeople"></div>
   </section>
   <section id="checkView" role="tabpanel" aria-labelledby="checkTab" class="hidden" hidden>
     <div class="pending-slot"></div>
-    <div class="guide-row" style="gap:8px"><button type="button" class="btn" id="skillsCheckBtn">🧰 Skills</button><button type="button" class="btn" id="guideBtn">📚 Emotion guide</button></div>
+    <div class="guide-row" style="gap:8px"><button type="button" class="btn" id="skillsCheckBtn">🧰 Skills</button><button type="button" class="btn" id="thoughtCheckBtn">📝 Thought log</button><button type="button" class="btn" id="guideBtn">📚 Emotion guide</button></div>
     <div id="checkResult"></div>
     <form id="checkForm" novalidate>
       <div class="check-card">
@@ -721,18 +797,31 @@
   </section>
   <section id="quickView" role="tabpanel" aria-labelledby="viewTab" class="hidden" hidden>
     <div class="crisis" id="crisisRow" aria-label="Crisis support"></div>
-    <div class="person" id="person" aria-label="My safety person"></div>
-    <div class="tools-row"><button type="button" id="breatheBtn">🫁 Breathe with me</button><button type="button" id="checkBtn">♡ Check in</button><button type="button" id="skillsBtn">🧰 Skills</button><button type="button" id="shareBtn" class="share">🤝 Share with my support person</button></div>
+    <div class="people" id="person" aria-label="My people"></div>
+    <section class="stress-card" id="stressCard" aria-labelledby="stressTitle">
+      <h2 id="stressTitle">How's my stress right now?</h2>
+      <p>A quick read on how much is on you. It's different from your zones, and there's no wrong answer.</p>
+      <div class="stress-opts" role="group" aria-labelledby="stressTitle">
+        <button type="button" class="stress-opt ready" data-stress="ready" aria-pressed="false"><i aria-hidden="true"></i><span><b>Ready</b><small>Coping well. Getting things done.</small></span></button>
+        <button type="button" class="stress-opt reacting" data-stress="reacting" aria-pressed="false"><i aria-hidden="true"></i><span><b>Reacting</b><small>A lot going on, but it will pass.</small></span></button>
+        <button type="button" class="stress-opt injured" data-stress="injured" aria-pressed="false"><i aria-hidden="true"></i><span><b>Injured</b><small>It isn't passing. Hard to stay in control.</small></span></button>
+        <button type="button" class="stress-opt ill" data-stress="ill" aria-pressed="false"><i aria-hidden="true"></i><span><b>Ill</b><small>I'm not okay, or it's lasted for weeks.</small></span></button>
+      </div>
+      <div id="stressResult" aria-live="polite"></div>
+    </section>
+    <div class="tools-row"><button type="button" id="breatheBtn">🫁 Breathe with me</button><button type="button" id="checkBtn">♡ Check in</button><button type="button" id="skillsBtn">🧰 Skills</button><button type="button" id="thoughtBtn">📝 Thought log</button><button type="button" id="shareBtn" class="share">🤝 Share with my support person</button></div>
     <div class="pending-slot"></div>
     <dialog id="personDialog" aria-labelledby="personTitle">
       <form method="dialog" id="personForm">
-        <h2 id="personTitle">My safety person</h2>
-        <p>Someone you trust to call or text when you need support.</p>
+        <h2 id="personTitle">Add a person</h2>
+        <p>Someone you trust to call or text when you need support. People are listed in the order you'd reach out.</p>
         <label><span class="field-label">Name</span><input id="personName" autocomplete="off" maxlength="80" placeholder="e.g., Sam"></label>
         <label><span class="field-label">Phone number</span><input id="personPhone" type="tel" inputmode="tel" autocomplete="off" maxlength="30" placeholder="e.g., 555-123-4567"></label>
+        <label><span class="field-label">Good for (optional)</span><input id="personGood" autocomplete="off" maxlength="120" placeholder="e.g., talking it through, coming over"></label>
         <p class="form-error hidden" id="personError">Please add a name and a phone number.</p>
         <div class="dialog-actions">
           <button type="button" class="btn danger" id="personRemove">Remove</button>
+          <button type="button" class="btn move-up" id="personUp">↑ Move up</button>
           <span></span>
           <button type="button" class="btn" id="personCancel">Cancel</button>
           <button type="submit" class="btn primary" value="save">Save</button>
@@ -840,7 +929,7 @@
       <h3>Learning</h3>
       <p>Short tips in check-ins: what each emotion is for, which emotion came first, common urges, and an optional "check the facts" step.</p>
       <label class="toggle-row"><input type="checkbox" id="setLearn"> <span>Show learning tips in check-ins</span></label>
-      <div class="row-btns"><button type="button" class="btn" id="setGuide">📚 Open the emotion guide</button><button type="button" class="btn" id="setSkills">🧰 Open the skills library</button></div>
+      <div class="row-btns"><button type="button" class="btn" id="setGuide">📚 Open the emotion guide</button><button type="button" class="btn" id="setSkills">🧰 Open the skills library</button><button type="button" class="btn" id="setThoughts">📝 Open the thought log</button></div>
     </section>
     <section class="set-sec">
       <h3>My plans</h3>
@@ -947,6 +1036,35 @@
     <div class="dialog-actions"><span></span><button type="button" class="btn" id="restoreCancel">Cancel</button></div>
   </form>
 </dialog>
+<dialog id="signsDialog" aria-labelledby="signsTitle" class="wide">
+  <form method="dialog">
+    <h2 id="signsTitle">Common warning signs</h2>
+    <p id="signsSub"></p>
+    <div id="signsBody"></div>
+    <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="signsDone">Done</button></div>
+  </form>
+</dialog>
+<dialog id="thoughtDialog" aria-labelledby="thoughtTitle" class="wide">
+  <form method="dialog" id="thoughtForm" novalidate>
+    <h2 id="thoughtTitle">Thought log</h2>
+    <p>Untangle a thought. Fill in what you can. Short answers are fine, and you can skip any box.</p>
+    <label class="tl-field"><span class="tl-q">1. What happened?<small>Where, when, who</small></span><textarea id="tlSituation" rows="2" maxlength="2000"></textarea></label>
+    <label class="tl-field"><span class="tl-q">2. What went through my mind?<small>The thought, in my own words</small></span><textarea id="tlThought" rows="2" maxlength="2000"></textarea></label>
+    <div class="tl-field"><span class="tl-q" id="tlEmoQ">3. What did I feel?</span><div class="chips" id="tlEmotions" role="group" aria-labelledby="tlEmoQ"></div></div>
+    <label class="tl-field"><span class="tl-q">4. What did I do?<small>Or what I felt like doing</small></span><textarea id="tlBehavior" rows="2" maxlength="2000"></textarea></label>
+    <div class="tl-alt">
+      <label class="tl-field" style="margin:0"><span class="tl-q">5. Another way to see it<small>Stuck? Tap a prompt.</small></span>
+        <span class="chips" id="tlPrompts" role="group" aria-label="Prompts" style="margin:6px 0 0"></span>
+        <span class="tl-prompt" id="tlPromptText" aria-live="polite"></span>
+        <textarea id="tlAlt" rows="3" maxlength="2000" placeholder="A kinder or more balanced thought"></textarea></label>
+    </div>
+    <p class="form-error hidden" id="tlError">Write at least what happened or what went through your mind.</p>
+    <div class="dialog-actions"><button type="button" class="btn" id="tlClose">Close</button><span></span><button type="submit" class="btn primary">Save to this device</button></div>
+    <h3 class="guide-h" id="tlPastH">My past entries</h3>
+    <div id="tlList"></div>
+    <p class="tl-privacy">Saved only on this device and included in your backup file. Never sent anywhere.</p>
+  </form>
+</dialog>
 <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 <script>
 (() => {
@@ -965,14 +1083,16 @@
     {key:'yellow',name:'Yellow zone',symbol:'!',description:'Early warning signs · What can help before I escalate'},
     {key:'red',name:'Red zone',symbol:'×',description:'Feeling overwhelmed · How I can reduce risk and get support'}
   ];
-  const emptyPlan = () => ({version:1, id:'', title:'My plan', icon:'🧭', meta:{name:'',focus:'',date:'',updated:''}, person:{name:'',phone:''}, crisis:{country:'',emergency:'',chat:'',lines:[]}, history:[], checkins:[], ratings:[], zones:Object.fromEntries(ZONES.map(z => [z.key,Object.fromEntries([...FIELDS.map(f=>[f[0],'']),['contacts','']])]))});
-  const hasContent = p => ['name','focus','date'].some(k=>(p.meta[k]||'').trim()) || (p.person&&p.person.name.trim()) || Object.values(p.zones).some(z=>Object.values(z).some(v=>v.trim()));
+  const emptyPlan = () => ({version:1, id:'', title:'My plan', icon:'🧭', meta:{name:'',focus:'',date:'',updated:''}, person:{name:'',phone:''}, people:[], crisis:{country:'',emergency:'',chat:'',lines:[]}, history:[], checkins:[], ratings:[], thoughts:[], stress:[], zones:Object.fromEntries(ZONES.map(z => [z.key,Object.fromEntries([...FIELDS.map(f=>[f[0],'']),['contacts','']])]))});
+  const hasContent = p => ['name','focus','date'].some(k=>(p.meta[k]||'').trim()) || (p.people&&p.people.length)||(p.person&&p.person.name.trim()) || Object.values(p.zones).some(z=>Object.values(z).some(v=>v.trim()));
+  const MAX_PEOPLE = 8;
+  const STRESS = {ready:{name:'Ready',zone:'green'},reacting:{name:'Reacting',zone:'yellow'},injured:{name:'Injured',zone:''},ill:{name:'Ill',zone:'red'}};
   const PREF_KEY = 'pocket-safety-plan-prefs';
   let prefs = {view:'quick', pick:'all', setupDone:false, lock:null};
   try{ Object.assign(prefs, JSON.parse(localStorage.getItem(PREF_KEY)||'{}')); }catch(e){}
   const savePrefs = () => { try{ localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); }catch(e){} };
   let plan = emptyPlan();
-  let book = {version:2, activeId:'', plans:[], shared:{name:'',crisis:null,checkins:[],ratings:[]}};
+  let book = {version:2, activeId:'', plans:[], shared:{name:'',crisis:null,checkins:[],ratings:[],thoughts:[],stress:[]}};
   let toastTimeout;
   let savedAvailable = true;
   const $ = (selector,el=document)=>el.querySelector(selector);
@@ -998,6 +1118,10 @@
     if(typeof source.title==='string'&&source.title.trim())clean.title=source.title.slice(0,40);
     if(typeof source.icon==='string'&&source.icon)clean.icon=source.icon.slice(0,8);
     for(const key of ['name','phone'])if(typeof source.person?.[key]==='string')clean.person[key]=source.person[key].slice(0,80);
+    // Several people per plan. Older saves and backups have one "person"; it becomes the first entry.
+    const ppl=Array.isArray(source.people)?source.people:(clean.person.name.trim()?[clean.person]:[]);
+    clean.people=ppl.filter(x=>x&&typeof x==='object'&&typeof x.name==='string'&&x.name.trim()).slice(0,MAX_PEOPLE).map(x=>({name:x.name.slice(0,80),phone:typeof x.phone==='string'?x.phone.slice(0,30):'',good:typeof x.good==='string'?x.good.slice(0,120):''}));
+    clean.person=clean.people[0]?{name:clean.people[0].name,phone:clean.people[0].phone}:{name:'',phone:''};
     for(const z of ZONES)for(const f of [...FIELDS.map(x=>x[0]),'contacts'])if(typeof source.zones?.[z.key]?.[f]==='string')clean.zones[z.key][f]=source.zones[z.key][f].slice(0,20000);
     if(Array.isArray(source.history))clean.history=source.history.filter(h=>h&&typeof h.at==='string').slice(-500).map(h=>{
       const o={at:h.at.slice(0,40)};
@@ -1015,6 +1139,11 @@
     if(Array.isArray(source.checkins))clean.checkins=source.checkins.filter(c=>c&&typeof c.at==='string'&&n010(c.intensity)!==null).slice(-1000).map(c=>({
       at:c.at.slice(0,40),cores:strArr(c.cores),feelings:strArr(c.feelings),body:strArr(c.body),sens:strArr(c.sens),urges:strArr(c.urges),
       planId:typeof c.planId==='string'?c.planId.slice(0,40):'',plan:typeof c.plan==='string'?c.plan.slice(0,60):'',...(typeof c.primary==='string'&&c.primary?{primary:c.primary.slice(0,40)}:{}),...(typeof c.fits==='string'&&c.fits?{fits:c.fits.slice(0,20)}:{}),...(typeof c.effective==='string'&&c.effective?{effective:c.effective.slice(0,20)}:{}),intensity:n010(c.intensity),zone:['green','yellow','red'].includes(c.zone)?c.zone:'yellow',note:typeof c.note==='string'?c.note.slice(0,5000):''}));
+    if(Array.isArray(source.thoughts))clean.thoughts=source.thoughts.filter(t=>t&&typeof t.at==='string').slice(-500).map(t=>{
+      const s2=(x,n)=>typeof x==='string'?x.slice(0,n):'';
+      return {at:t.at.slice(0,40),situation:s2(t.situation,2000),thought:s2(t.thought,2000),emotions:strArr(t.emotions,20),behavior:s2(t.behavior,2000),alt:s2(t.alt,2000)};
+    });
+    if(Array.isArray(source.stress))clean.stress=source.stress.filter(t=>t&&typeof t.at==='string'&&STRESS[t.level]).slice(-1000).map(t=>({at:t.at.slice(0,40),level:t.level,zone:['green','yellow','red'].includes(t.zone)?t.zone:'',plan:typeof t.plan==='string'?t.plan.slice(0,60):''}));
     if(Array.isArray(source.ratings))clean.ratings=source.ratings.filter(r=>r&&typeof r.at==='string'&&typeof r.skill==='string'&&n010(r.before)!==null&&n010(r.after)!==null).slice(-1000).map(r=>({at:r.at.slice(0,40),skill:r.skill.slice(0,200),before:n010(r.before),after:n010(r.after)}));
     return clean;
   }
@@ -1062,7 +1191,9 @@
         const printText=node('div',{class:'print-answer'});printText.textContent=ta.value;
         ta.addEventListener('input',()=>{plan.zones[z.key][f[0]]=ta.value;printText.textContent=ta.value;store()});
         trackField(ta,z.key+'.'+f[0],z.name+' · '+f[1]);
-        card.append(label,hint,ta,printText);grid.append(card);
+        card.append(label,hint,ta,printText);
+        if(f[0]==='signs'&&z.key!=='green'){const pk=node('button',{type:'button',class:'pick-signs'},'＋ Pick from common warning signs');pk.addEventListener('click',()=>openSigns(z.key,ta));card.append(pk);}
+        grid.append(card);
       });
       section.append(grid);
       if(z.key!=='green'){
@@ -1272,7 +1403,7 @@
   });
   $('#clearBtn').addEventListener('click',()=>{
     if(!confirm('Clear all answers in '+(multi()?'your '+planLabel(plan)+' plan':'this safety plan')+'? Back up first if you want to keep them.'))return;
-    const blank=emptyPlan();plan.zones=blank.zones;plan.person=blank.person;plan.meta.focus='';plan.meta.date='';
+    const blank=emptyPlan();plan.zones=blank.zones;plan.person=blank.person;plan.people=[];plan.meta.focus='';plan.meta.date='';
     renderEditor();renderQuick();renderPerson();addLog({area:'Plan',note:'Cleared all answers'});notify('Plan cleared.');
   });
   // Phones can send texts; on computers, text buttons switch to online chat where a service offers it
@@ -1282,34 +1413,60 @@
   const telDigits=s=>s.replace(/[^\d+]/g,'');
   function renderPerson(){
     const box=$('#person');box.replaceChildren();
-    const {name,phone}=plan.person;
-    if(name.trim()&&telDigits(phone)){
-      box.append(node('a',{class:'call-person',href:'tel:'+telDigits(phone)},'📞 Call '+name.trim()));
-      if(isPhone)box.append(node('a',{href:'sms:'+telDigits(phone)},'💬 Text '+name.trim()));
-      const edit=node('button',{type:'button',class:'edit-person','aria-label':'Edit my safety person',title:'Edit my safety person'},'✎');
-      edit.addEventListener('click',openPerson);box.append(edit);
-    }else{
-      const add=node('button',{type:'button',class:'add-person'},'➕ Add my safety person');
-      add.addEventListener('click',openPerson);box.append(add);
+    const ppl=plan.people;
+    if(ppl.length){
+      const h=node('div',{class:'people-h'});h.append(node('h2',{},'My people'));
+      if(ppl.length>1)h.append(node('span',{},'In the order I\'d reach out'));
+      box.append(h);
     }
+    ppl.forEach((x,i)=>{
+      const row=node('div',{class:'person-row'+(i===0?' first':'')}),d=telDigits(x.phone);
+      const call=node('a',{class:'call-person',href:d?'tel:'+d:'#'});
+      call.append(node('span',{},'📞 Call '+x.name.trim()));
+      if(x.good&&x.good.trim())call.append(node('small',{},x.good.trim()));
+      if(!d)call.addEventListener('click',e=>{e.preventDefault();openPerson(i);});
+      row.append(call);
+      if(isPhone&&d)row.append(node('a',{class:'text-person',href:'sms:'+d,'aria-label':'Text '+x.name.trim()},'💬 Text'));
+      const edit=node('button',{type:'button',class:'edit-person','aria-label':'Edit '+x.name.trim(),title:'Edit'},'✎');
+      edit.addEventListener('click',()=>openPerson(i));row.append(edit);
+      box.append(row);
+    });
+    if(ppl.length<MAX_PEOPLE){
+      const add=node('button',{type:'button',class:'add-person'},ppl.length?'＋ Add another person':'➕ Add a person I trust');
+      add.addEventListener('click',()=>openPerson(-1));box.append(add);
+    }
+    renderPrintPeople();
   }
-  function openPerson(){
-    $('#personName').value=plan.person.name;$('#personPhone').value=plan.person.phone;
+  function renderPrintPeople(){
+    const box=$('#printPeople');if(!box)return;box.replaceChildren();
+    if(!plan.people.length)return;
+    box.append(node('strong',{},'My people: '),plan.people.map(x=>x.name+(x.phone?' '+x.phone:'')+(x.good?' ('+x.good+')':'')).join(' · '));
+  }
+  let personIdx=-1;
+  function openPerson(i){
+    personIdx=i;const x=i>=0?plan.people[i]:{name:'',phone:'',good:''};
+    $('#personTitle').textContent=i>=0?'Edit '+x.name:'Add a person';
+    $('#personName').value=x.name;$('#personPhone').value=x.phone;$('#personGood').value=x.good||'';
     $('#personError').classList.add('hidden');
-    $('#personRemove').classList.toggle('hidden',!plan.person.name&&!plan.person.phone);
+    $('#personRemove').classList.toggle('hidden',i<0);
+    $('#personUp').classList.toggle('hidden',i<1);
     const d=$('#personDialog');
     if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
     $('#personName').focus();
   }
   const closePerson=()=>{const d=$('#personDialog');if(typeof d.close==='function')d.close();else d.removeAttribute('open');};
+  function peopleChanged(){plan.person=plan.people[0]?{name:plan.people[0].name,phone:plan.people[0].phone}:{name:'',phone:''};renderPerson();}
   $('#personForm').addEventListener('submit',e=>{
     e.preventDefault();
-    const name=$('#personName').value.trim(),phone=$('#personPhone').value.trim();
+    const name=$('#personName').value.trim(),phone=$('#personPhone').value.trim(),good=$('#personGood').value.trim();
     if(!name||telDigits(phone).replace('+','').length<3){$('#personError').classList.remove('hidden');return;}
-    const had=plan.person.name;plan.person={name,phone};addLog({area:'My safety person',note:(had?'Updated to ':'Added ')+name+' ('+phone+')'});renderPerson();closePerson();notify('Saved '+name+' as your safety person.');
+    if(personIdx>=0){plan.people[personIdx]={name,phone,good};addLog({area:'My people',note:'Updated '+name+' ('+phone+')'});}
+    else{plan.people.push({name,phone,good});addLog({area:'My people',note:'Added '+name+' ('+phone+')'});}
+    peopleChanged();closePerson();notify('Saved '+name+'.');
   });
   $('#personCancel').addEventListener('click',closePerson);
-  $('#personRemove').addEventListener('click',()=>{const was=plan.person.name;plan.person={name:'',phone:''};addLog({area:'My safety person',note:'Removed '+(was||'safety person')});renderPerson();closePerson();notify('Safety person removed.');});
+  $('#personRemove').addEventListener('click',()=>{if(personIdx<0)return;const [was]=plan.people.splice(personIdx,1);addLog({area:'My people',note:'Removed '+(was?was.name:'a person')});peopleChanged();closePerson();notify('Removed '+(was?was.name:'')+'.');});
+  $('#personUp').addEventListener('click',()=>{if(personIdx<1)return;const [x]=plan.people.splice(personIdx,1);plan.people.splice(personIdx-1,0,x);addLog({area:'My people',note:'Moved '+x.name+' up the list'});peopleChanged();closePerson();notify('Moved '+x.name+' up.');});
 
   // =====================================================================
   //  Shared helpers for check-ins, skill ratings and breathing
@@ -1677,7 +1834,9 @@
     const acts=node('div',{class:'result-actions'});
     const br=node('button',{type:'button',class:'btn primary'},'🫁 Breathe with me');br.addEventListener('click',()=>startSkill('Breathing',c.intensity));
     const done=node('button',{type:'button',class:'btn'},'Done');done.addEventListener('click',()=>box.replaceChildren());
-    acts.append(br,done);card.append(acts);box.append(card);
+    acts.append(br);
+    if(z!=='red'&&c.intensity<=7&&!c.urges.includes('Hurt myself')){const tl=node('button',{type:'button',class:'btn'},'📝 Untangle a thought');tl.addEventListener('click',()=>openThoughts({situation:c.note||'',emotions:c.cores.filter(x=>FAM[x])}));acts.append(tl);}
+    acts.append(done);card.append(acts);box.append(card);
   }
   function countTop(arr,n=3){
     const m=new Map();arr.forEach(x=>m.set(x,(m.get(x)||0)+1));
@@ -1694,7 +1853,7 @@
   function renderCheckSide(){
     const since=Date.now()-30*864e5,recent=plan.checkins.filter(c=>Date.parse(c.at)>=since);
     const pat=$('#patterns');pat.replaceChildren();
-    if(!recent.length)pat.append(node('p',{class:'sub'},'After a few check-ins, this shows which emotions come up most, where you feel them, and which zones you spend time in.'));
+    if(!recent.length)pat.append(node('p',{class:'sub'},'After a few check-ins, this shows which emotions come up most, where you feel them, and which zones you spend time in. Stress checks from the Right now screen show up here too.'));
     else{
       const avg=(recent.reduce((s,c)=>s+c.intensity,0)/recent.length).toFixed(1);
       const zc={green:0,yellow:0,red:0};recent.forEach(c=>zc[c.zone]=(zc[c.zone]||0)+1);
@@ -1712,6 +1871,15 @@
       const best=[...skillStats().values()].filter(s=>s.avg>0).sort((a,b)=>b.avg-a.avg)[0];
       if(best)rows.push(['Most helpful skill',`${best.name} (↓${best.avg.toFixed(1)})`]);
       rows.filter(r=>r[1]).forEach(([k,v])=>{const d=node('div',{class:'stat'});d.append(node('span',{},k),node('b',{},v));pat.append(d);});
+    }
+    const rs=(plan.stress||[]).filter(t=>Date.parse(t.at)>=since);
+    if(rs.length){
+      const sc={ready:0,reacting:0,injured:0,ill:0};rs.forEach(t=>sc[t.level]++);
+      const inj=rs.filter(t=>t.level==='injured'&&t.zone),iy=inj.filter(t=>t.zone==='yellow').length,ir=inj.filter(t=>t.zone==='red').length;
+      [['Stress checks',`Ready ${sc.ready} · Reacting ${sc.reacting} · Injured ${sc.injured} · Ill ${sc.ill}`],
+       ['When injured, I chose',inj.length?`Yellow plan ${iy} · Red plan ${ir}`:''],
+       ['Stress check settings',multi()?countTop(rs.map(t=>t.plan).filter(Boolean)):'']
+      ].filter(r=>r[1]).forEach(([k,v])=>{const d=node('div',{class:'stat'});d.append(node('span',{},k),node('b',{},v));pat.append(d);});
     }
     const list=$('#checkList');list.replaceChildren();
     if(!plan.checkins.length){list.append(node('li',{class:'log-empty'},'No check-ins yet.'));return;}
@@ -2030,7 +2198,7 @@
     });
     if(!c.lines.length)box.append(node('a',{class:'call988',href:FIND_HELPLINE,target:'_blank',rel:'noopener noreferrer'},'🌍 Find a crisis line'));
     if(telDigits(c.emergency))box.append(node('a',{href:'tel:'+telDigits(c.emergency)},'🚨 Call '+c.emergency));
-    if(withPerson){const {name,phone}=plan.person;if(name.trim()&&telDigits(phone))box.append(node('a',{href:'tel:'+telDigits(phone),style:'border-color:#c9c7ee;color:#44418c'},'📞 Call '+name.trim()));}
+    if(withPerson)plan.people.filter(x=>x.name.trim()&&telDigits(x.phone)).slice(0,3).forEach(x=>box.append(node('a',{href:'tel:'+telDigits(x.phone),style:'border-color:#c9c7ee;color:#44418c'},'📞 Call '+x.name.trim())));
     return box;
   }
   function crisisSummary(){
@@ -2114,12 +2282,29 @@
       const w=node('div');w.append(chipField('red','signs',EX.redSigns,'How do I know I\'m in the red zone?'),chipField('red','safe',EX.redSafe,'What can I do to stay safe?'),chipField('red','avoid',EX.redAvoid,'What should I avoid?'));return w;}},
     {t:'🤝 My people',s:'Who can you reach, and how can they help?',b(){
       const w=node('div');
-      const q=node('div',{class:'setup-q'},'My safety person');q.append(node('small',{},'One person you trust. They get their own call and text buttons.'));w.append(q);
-      const l1=node('label');l1.append(node('span',{class:'field-label'},'Name'));const n1=node('input',{maxlength:'80',autocomplete:'off'});n1.value=plan.person.name;l1.append(n1);
-      const l2=node('label');l2.append(node('span',{class:'field-label'},'Phone number'));const n2=node('input',{type:'tel',inputmode:'tel',maxlength:'30',autocomplete:'off'});n2.value=plan.person.phone;l2.append(n2);
-      const save=()=>{plan.person={name:n1.value.trim(),phone:n2.value.trim()};store();renderPerson();};
-      n1.addEventListener('change',save);n2.addEventListener('change',save);
-      w.append(l1,l2,chipField('red','others',EX.redOthers,'What can others do that actually helps?'));
+      const q=node('div',{class:'setup-q'},'People I can reach out to');q.append(node('small',{},'Add as many as you like, in the order you\'d reach out. Each one gets their own call and text buttons.'));w.append(q);
+      const list=node('div',{class:'setup-people'});
+      const paintP=()=>{
+        list.replaceChildren();
+        [...plan.people.map((x,i)=>[x,i]),[{name:'',phone:'',good:''},-1]].forEach(([x,i])=>{
+          if(i<0&&plan.people.length>=MAX_PEOPLE)return;
+          const row=node('div',{class:'sp-row'});
+          const n1=node('input',{maxlength:'80',autocomplete:'off',placeholder:i<0?(plan.people.length?'Another name':'Name'):'Name','aria-label':'Name'});n1.value=x.name;
+          const n2=node('input',{type:'tel',inputmode:'tel',maxlength:'30',autocomplete:'off',placeholder:'Phone number','aria-label':'Phone number for '+(x.name||'this person')});n2.value=x.phone;
+          const save=()=>{
+            const name=n1.value.trim(),phone=n2.value.trim();
+            if(i>=0){if(!name&&!phone){plan.people.splice(i,1);}else plan.people[i]={...plan.people[i],name:name||plan.people[i].name,phone};store();peopleChanged();paintP();}
+            else if(name&&telDigits(phone).replace('+','').length>=3){plan.people.push({name,phone,good:''});store();peopleChanged();paintP();list.querySelector('.sp-row:last-child input')?.focus();}
+          };
+          n1.addEventListener('change',save);n2.addEventListener('change',save);
+          row.append(n1,n2);
+          if(i>=0){const rm=node('button',{type:'button','aria-label':'Remove '+x.name},'✕');rm.addEventListener('click',()=>{plan.people.splice(i,1);store();peopleChanged();paintP();});row.append(rm);}
+          else row.append(node('span'));
+          list.append(row);
+        });
+      };
+      paintP();w.append(list);
+      w.append(chipField('red','others',EX.redOthers,'What can others do that actually helps?'));
       const q2=node('div',{class:'setup-q'},'Who else can I contact?');q2.append(node('small',{},'Names and numbers, one per line'));
       const ta=node('textarea',{rows:'3'});ta.value=plan.zones.red.contacts;ta.addEventListener('input',()=>{plan.zones.red.contacts=ta.value;store();});
       w.append(q2,ta);return w;}},
@@ -2298,11 +2483,16 @@
     }
     for(const k of ['name','focus','date']){const av=a.meta[k],bv=b.meta[k];if(av===bv)continue;if(!av){out.meta[k]=bv;continue;}if(!bv)continue;const ta=lastEdit(a,'meta.'+k),tb=lastEdit(b,'meta.'+k);out.meta[k]=(tb>ta||(tb===ta&&newer===b))?bv:av;}
     if(!a.person.name&&b.person.name)out.person=b.person;else if(newer===b&&b.person.name)out.person=b.person;
+    {const first=newer===b?b.people:a.people,second=newer===b?a.people:b.people,seenP=new Set(),pp=[];
+     [...first,...second].forEach(x=>{const k=telDigits(x.phone)||x.name.trim().toLowerCase();if(!seenP.has(k)){seenP.add(k);pp.push({...x});}});
+     out.people=pp.slice(0,MAX_PEOPLE);out.person=out.people[0]?{name:out.people[0].name,phone:out.people[0].phone}:{name:'',phone:''};}
     if(newer===b&&b.crisis&&b.crisis.country)out.crisis=b.crisis;
     const uniq=(x,y,key)=>{const m=new Map();[...x,...y].forEach(i=>m.set(key(i),i));return [...m.values()].sort((p,q)=>Date.parse(p.at)-Date.parse(q.at));};
     out.history=uniq(a.history,b.history,h=>h.at+'|'+(h.key||h.area)+'|'+(h.note||h.to||'')).slice(-500);
     out.checkins=uniq(a.checkins,b.checkins,c=>c.at).slice(-1000);
     out.ratings=uniq(a.ratings,b.ratings,r=>r.at+'|'+r.skill).slice(-1000);
+    out.thoughts=uniq(a.thoughts||[],b.thoughts||[],t=>t.at).slice(-500);
+    out.stress=uniq(a.stress||[],b.stress||[],t=>t.at).slice(-1000);
     out.meta.updated=[a.meta.updated,b.meta.updated].sort().pop()||'';
     return out;
   }
@@ -2327,13 +2517,13 @@
   const uid=()=>'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
   const multi=()=>book.plans.length>1;
   const planLabel=p=>(p.icon?p.icon+' ':'')+(p.title||'My plan');
-  function splitPlan(p){return {id:p.id,title:p.title,icon:p.icon,meta:{focus:p.meta.focus,date:p.meta.date,updated:p.meta.updated},person:{...p.person},zones:JSON.parse(JSON.stringify(p.zones)),history:p.history.slice()};}
+  function splitPlan(p){return {id:p.id,title:p.title,icon:p.icon,meta:{focus:p.meta.focus,date:p.meta.date,updated:p.meta.updated},person:p.people&&p.people[0]?{name:p.people[0].name,phone:p.people[0].phone}:{name:'',phone:''},people:(p.people||[]).map(x=>({...x})),zones:JSON.parse(JSON.stringify(p.zones)),history:p.history.slice()};}
   function fullPlan(item,shared){
-    const p=normalize({...item,meta:{...item.meta,name:shared.name||''},crisis:shared.crisis,checkins:shared.checkins,ratings:shared.ratings});
+    const p=normalize({...item,meta:{...item.meta,name:shared.name||''},crisis:shared.crisis,checkins:shared.checkins,ratings:shared.ratings,thoughts:shared.thoughts||[],stress:shared.stress||[]});
     p.id=item.id;p.title=item.title;p.icon=item.icon;return p;
   }
   function syncBook(){
-    book.shared={name:plan.meta.name,crisis:plan.crisis,checkins:plan.checkins,ratings:plan.ratings};
+    book.shared={name:plan.meta.name,crisis:plan.crisis,checkins:plan.checkins,ratings:plan.ratings,thoughts:plan.thoughts,stress:plan.stress};
     if(!plan.id)plan.id=uid();
     const i=book.plans.findIndex(x=>x.id===plan.id),item=splitPlan(plan);
     if(i<0)book.plans.push(item);else book.plans[i]=item;
@@ -2341,8 +2531,8 @@
   }
   function normalizeBook(src){
     if(!src||typeof src!=='object'||!Array.isArray(src.plans))throw new Error('This does not look like a safety-plan backup.');
-    const sh=normalize({meta:{name:typeof src.shared?.name==='string'?src.shared.name:''},crisis:src.shared?.crisis,checkins:src.shared?.checkins,ratings:src.shared?.ratings});
-    const shared={name:sh.meta.name,crisis:sh.crisis,checkins:sh.checkins,ratings:sh.ratings};
+    const sh=normalize({meta:{name:typeof src.shared?.name==='string'?src.shared.name:''},crisis:src.shared?.crisis,checkins:src.shared?.checkins,ratings:src.shared?.ratings,thoughts:src.shared?.thoughts,stress:src.shared?.stress});
+    const shared={name:sh.meta.name,crisis:sh.crisis,checkins:sh.checkins,ratings:sh.ratings,thoughts:sh.thoughts,stress:sh.stress};
     const seen=new Set(),plans=[];
     src.plans.slice(0,MAX_PLANS).forEach(it=>{
       if(!it||typeof it!=='object')return;
@@ -2356,10 +2546,10 @@
     return {version:2,activeId,plans,shared};
   }
   // Wrap an older single-plan save or backup as a book
-  function bookFromSingle(p){p.id=p.id||uid();p.title=p.title||'My plan';p.icon=p.icon||'🧭';return {version:2,activeId:p.id,plans:[splitPlan(p)],shared:{name:p.meta.name,crisis:p.crisis,checkins:p.checkins,ratings:p.ratings}};}
+  function bookFromSingle(p){p.id=p.id||uid();p.title=p.title||'My plan';p.icon=p.icon||'🧭';return {version:2,activeId:p.id,plans:[splitPlan(p)],shared:{name:p.meta.name,crisis:p.crisis,checkins:p.checkins,ratings:p.ratings,thoughts:p.thoughts||[],stress:p.stress||[]}};}
   function parseAny(obj){return obj&&Array.isArray(obj.plans)?{kind:'book',data:normalizeBook(obj)}:{kind:'plan',data:normalize(obj)};}
   function rerenderAll(){
-    renderEditor();renderPerson();renderCrisisAll();renderPlans();
+    renderEditor();renderPerson();renderCrisisAll();renderPlans();stressNow=null;renderStress();
     setView(prefs.view);
   }
   function switchPlan(id){
@@ -2417,8 +2607,8 @@
     store();
     const src=plan,np=emptyPlan();
     np.id=uid();np.title=title;np.icon=newIcon;
-    np.meta.name=src.meta.name;np.crisis=src.crisis;np.checkins=src.checkins;np.ratings=src.ratings;
-    if(start==='copy'){np.zones=JSON.parse(JSON.stringify(src.zones));np.person={...src.person};np.meta.focus=src.meta.focus;}
+    np.meta.name=src.meta.name;np.crisis=src.crisis;np.checkins=src.checkins;np.ratings=src.ratings;np.thoughts=src.thoughts;np.stress=src.stress;
+    if(start==='copy'){np.zones=JSON.parse(JSON.stringify(src.zones));np.person={...src.person};np.people=src.people.map(x=>({...x}));np.meta.focus=src.meta.focus;}
     np.history=[{at:new Date().toISOString(),area:'Plan',note:start==='copy'?'Plan created as a copy of '+planLabel(src):'Plan created'}];
     plan=np;store();
     $('#newPlanDialog').close();
@@ -2465,7 +2655,7 @@
     if(parsed.kind==='plan'){plan=mergePlans(plan,parsed.data);return;}
     const inc=parsed.data,cur=book.shared;
     const shared={name:cur.name||inc.shared.name,crisis:cur.crisis&&cur.crisis.country?cur.crisis:inc.shared.crisis,
-      checkins:uniqBy(cur.checkins,inc.shared.checkins,c=>c.at).slice(-1000),ratings:uniqBy(cur.ratings,inc.shared.ratings,r=>r.at+'|'+r.skill).slice(-1000)};
+      checkins:uniqBy(cur.checkins,inc.shared.checkins,c=>c.at).slice(-1000),ratings:uniqBy(cur.ratings,inc.shared.ratings,r=>r.at+'|'+r.skill).slice(-1000),thoughts:uniqBy(cur.thoughts||[],inc.shared.thoughts||[],t=>t.at).slice(-500),stress:uniqBy(cur.stress||[],inc.shared.stress||[],t=>t.at).slice(-1000)};
     inc.plans.forEach(ip=>{
       const i=book.plans.findIndex(cp=>cp.id===ip.id||cp.title.toLowerCase()===ip.title.toLowerCase());
       if(i>=0){const cp=book.plans[i];const m=mergePlans(fullPlan(cp,cur),fullPlan(ip,inc.shared));m.id=cp.id;m.title=cp.title;m.icon=cp.icon;book.plans[i]=splitPlan(m);}
@@ -2474,6 +2664,200 @@
     book.shared=shared;
     plan=fullPlan(book.plans.find(p=>p.id===plan.id)||book.plans[0],shared);
   }
+  // =====================================================================
+  //  Common warning signs (stress building toward burnout), in plain words.
+  //  Tapping one adds it to that zone's "Behaviors & signs"; tapping again removes it.
+  // =====================================================================
+  const SIGN_GROUPS=[
+    ['How I feel',['Frustrated or overloaded','Tired no matter how much I rest','Disappointed or cynical','Numb or checked out','Sad or hopeless']],
+    ['How I think',['Nothing seems worth it','Doubting myself','Forgetting things','Trouble focusing']],
+    ['What I do',['Pulling away from people','Snapping at people','Skipping things I usually enjoy','Going through the motions']],
+    ['My body',['Headaches','Stomach trouble','Sleep is off','Tense or achy']]
+  ];
+  function openSigns(zone,ta){
+    const zn=ZNAME[zone].toLowerCase();
+    $('#signsSub').textContent='These are common signs that stress is building up. Tap any that fit you. They\'re added to your '+zn+' signs, and you can edit the wording anytime.';
+    const body=$('#signsBody');body.replaceChildren();
+    const paint=()=>{const have=lines(ta.value).map(x=>x.toLowerCase());body.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',String(have.includes(b.textContent.toLowerCase()))));};
+    SIGN_GROUPS.forEach(([title,items])=>{
+      const g=node('div',{class:'sig-group'});g.append(node('h3',{},title));
+      const chips=node('div',{class:'chips',role:'group','aria-label':title});
+      items.forEach(it=>{
+        const b=node('button',{type:'button',class:'chip','aria-pressed':'false'},it);
+        b.addEventListener('click',()=>{
+          const ls=lines(ta.value),i=ls.findIndex(x=>x.toLowerCase()===it.toLowerCase());
+          if(i>=0)ls.splice(i,1);else ls.push(it);
+          ta.value=ls.join('\n');ta.dispatchEvent(new Event('input'));if(ta._log)ta._log();paint();
+        });
+        chips.append(b);
+      });
+      g.append(chips);body.append(g);
+    });
+    paint();
+    const d=$('#signsDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
+  }
+  $('#signsDone').addEventListener('click',()=>$('#signsDialog').close());
+
+  // =====================================================================
+  //  Thought log: situation → thought → feelings → actions → another way to see it.
+  //  Shared across plans; saved on this device and in backups only.
+  // =====================================================================
+  const TL_PROMPTS=[
+    ['Check the facts','What do I know for sure? What am I guessing or assuming?'],
+    ['What would I tell a friend?','If someone I care about had this thought, what would I say to them?'],
+    ['Drop the judgment','Can I say it again without words like “stupid,” “always” or “never”?'],
+    ['Does my reaction make sense?','Given what happened, which parts of how I feel make sense?'],
+    ['Is it a catastrophe?','Even if part of it is true, is it the end of the world, or something I can get through?']
+  ];
+  let tlEmos=new Set();
+  function paintTlEmos(){
+    const box=$('#tlEmotions');box.replaceChildren();
+    [...CORES.map(c=>c.k),'Overwhelmed','Lonely','Numb'].forEach(k=>{
+      const b=node('button',{type:'button',class:'chip','aria-pressed':String(tlEmos.has(k))},k);
+      b.addEventListener('click',()=>{tlEmos.has(k)?tlEmos.delete(k):tlEmos.add(k);b.setAttribute('aria-pressed',String(tlEmos.has(k)));});
+      box.append(b);
+    });
+  }
+  function paintTlPrompts(){
+    const box=$('#tlPrompts');box.replaceChildren();$('#tlPromptText').textContent='';
+    TL_PROMPTS.forEach(([lbl,q])=>{
+      const b=node('button',{type:'button',class:'chip','aria-pressed':'false'},lbl);
+      b.addEventListener('click',()=>{box.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$('#tlPromptText').textContent=q;});
+      box.append(b);
+    });
+  }
+  function renderThoughtList(){
+    const box=$('#tlList');box.replaceChildren();
+    const all=plan.thoughts||[];
+    $('#tlPastH').classList.toggle('hidden',!all.length);
+    [...all].reverse().slice(0,50).forEach(t=>{
+      const d=node('details',{class:'tl-entry'}),sm=node('summary');
+      sm.append(node('span',{},(t.thought||t.situation||'Entry').slice(0,80)+((t.thought||t.situation||'').length>80?'…':'')));
+      const when=new Date(t.at);sm.append(node('small',{},(isNaN(when)?t.at:shortDate(when)+' · '+when.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}))+(t.emotions.length?' · '+t.emotions.join(', '):'')));
+      d.append(sm);
+      const dl=node('dl');
+      [['What happened',t.situation],['What went through my mind',t.thought],['What I felt',t.emotions.join(', ')],['What I did',t.behavior],['Another way to see it',t.alt]].forEach(([k,v])=>{if(v&&v.trim()){dl.append(node('dt',{},k),node('dd',{},v));}});
+      d.append(dl);
+      const del=node('button',{type:'button',class:'btn danger del'},'Delete this entry');
+      del.addEventListener('click',()=>{
+        if(del.dataset.armed!=='1'){del.dataset.armed='1';del.textContent='Tap again to delete';return;}
+        const i=plan.thoughts.indexOf(t);if(i>=0)plan.thoughts.splice(i,1);store();renderThoughtList();notify('Entry deleted.');
+      });
+      d.append(del);box.append(d);
+    });
+    if(all.length>1){
+      const da=node('button',{type:'button',class:'btn danger',style:'margin-top:4px'},'Delete all entries');
+      da.addEventListener('click',()=>{
+        if(da.dataset.armed!=='1'){da.dataset.armed='1';da.textContent='Tap again to delete all '+all.length+' entries';return;}
+        plan.thoughts.splice(0,plan.thoughts.length);store();renderThoughtList();notify('All thought log entries deleted.');
+      });
+      box.append(da);
+    }
+  }
+  function openThoughts(pre={}){
+    ['#tlSituation','#tlThought','#tlBehavior','#tlAlt'].forEach(k=>$(k).value='');
+    $('#tlSituation').value=pre.situation||'';
+    tlEmos=new Set(pre.emotions||[]);paintTlEmos();paintTlPrompts();renderThoughtList();
+    $('#tlError').classList.add('hidden');
+    const d=$('#thoughtDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');
+    d.scrollTop=0;setTimeout(()=>$((pre.situation?'#tlThought':'#tlSituation')).focus(),30);
+  }
+  $('#thoughtForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const t={at:new Date().toISOString(),situation:$('#tlSituation').value.trim(),thought:$('#tlThought').value.trim(),emotions:[...tlEmos],behavior:$('#tlBehavior').value.trim(),alt:$('#tlAlt').value.trim()};
+    if(!t.situation&&!t.thought){$('#tlError').classList.remove('hidden');return;}
+    if(!plan.thoughts)plan.thoughts=[];
+    plan.thoughts.push(t);if(plan.thoughts.length>500)plan.thoughts.splice(0,plan.thoughts.length-500);
+    store();$('#thoughtDialog').close();notify('Saved to your thought log on this device.');
+  });
+  $('#tlClose').addEventListener('click',()=>$('#thoughtDialog').close());
+  $('#thoughtBtn').addEventListener('click',()=>openThoughts());
+  $('#thoughtCheckBtn').addEventListener('click',()=>openThoughts());
+  $('#setThoughts').addEventListener('click',()=>{$('#settingsDialog').close();openThoughts();});
+
+  // =====================================================================
+  //  Stress check: Ready / Reacting / Injured / Ill. A separate, quick read on
+  //  load (not the same as the zones). Orange ("Injured") asks the person to
+  //  make some space, then choose which part of their plan fits.
+  // =====================================================================
+  const BASICS=[
+    ['safe','I\'m somewhere safe','Get somewhere safe, or reach someone from your list above.'],
+    ['water','I\'ve had some water','Drink a glass of water.'],
+    ['food','I\'ve eaten in the last few hours','Eat something small, even a snack.'],
+    ['sleep','I slept okay last night','Go easy on yourself today. Rest counts.'],
+    ['meds','I took my medication as prescribed (if I have any)','If it\'s time, take it as prescribed. Questions? Ask your pharmacist or prescriber.']
+  ];
+  let stressNow=null;
+  function basicsBlock(){
+    const w=node('div');
+    w.append(node('p',{},'Tap what\'s true right now. Anything left blank is a good place to start.'));
+    const box=node('div',{class:'basics'}),next=node('p',{class:'basics-next','aria-live':'polite'});
+    const checks=[];
+    const paint=()=>{const miss=BASICS.find((b,i)=>!checks[i].checked);next.textContent=miss?'Start here: '+miss[2]:'Basics covered. Nice work looking after yourself.';};
+    BASICS.forEach(([k,label])=>{const l=node('label'),cb=node('input',{type:'checkbox'});checks.push(cb);cb.addEventListener('change',paint);l.append(cb,node('span',{},label));box.append(l);});
+    w.append(box,next);paint();return w;
+  }
+  function openZone(zone){
+    prefs.pick=zone;savePrefs();renderQuick();
+    const g=$('#quickGrid');if(g)g.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function stressBtn(label,fn,cls='btn'){const b=node('button',{type:'button',class:cls},label);b.addEventListener('click',fn);return b;}
+  function renderStress(){
+    document.querySelectorAll('[data-stress]').forEach(b=>b.setAttribute('aria-pressed',String(!!stressNow&&b.dataset.stress===stressNow.level)));
+    const box=$('#stressResult');box.replaceChildren();
+    if(!stressNow)return;
+    const r=node('div',{class:'stress-res'}),lv=stressNow.level,btns=node('div',{class:'row-btns'});
+    if(lv==='ready'){
+      r.append(node('p',{class:'lead'},'You\'re coping well. This is a good time to grow your strengths.'));
+      r.append(node('p',{},'Practice a skill while it\'s easy, notice what\'s working, or check on someone else.'));
+      btns.append(stressBtn('🟢 My green zone plan',()=>openZone('green'),'btn primary'),stressBtn('🧰 Practice a skill',()=>openSkills()),stressBtn('📝 Thought log',()=>openThoughts()));
+      r.append(btns);
+    }else if(lv==='reacting'){
+      r.append(node('p',{class:'lead'},'Stress is normal, and this kind usually passes.'));
+      r.append(node('p',{},'Slow down for a moment. A few slow breaths can help you calm and focus.'));
+      btns.append(stressBtn('🫁 Breathe with me',()=>startSkill('Breathing',null),'btn primary'),stressBtn('🟡 My yellow zone plan',()=>openZone('yellow')),stressBtn('📝 Thought log',()=>openThoughts()));
+      r.append(btns);
+    }else if(lv==='injured'){
+      r.append(node('p',{class:'lead'},'Thanks for noticing. Let\'s take this one step at a time.'));
+      r.append(node('h3',{},'1 · Basics first'),basicsBlock());
+      r.append(node('h3',{},'2 · Make some space'));
+      const sp=node('div',{class:'space-box'});
+      sp.append(node('p',{},'Take one slow breath. Then try putting what\'s happening this way:'));
+      sp.append(node('q',{},'“I\'m noticing the thought that…”'),node('q',{},'“I\'m having the feeling of…”'));
+      sp.append(node('p',{style:'margin:6px 0 0'},'You\'re the one noticing it. A thought or feeling is something you have, not who you are.'));
+      r.append(sp);
+      const b2=node('div',{class:'row-btns',style:'margin-top:8px'});b2.append(stressBtn('🫁 Breathe with me',()=>startSkill('Breathing',null)));r.append(b2);
+      r.append(node('h3',{},'3 · Which part of my plan fits right now?'));
+      r.append(node('p',{},'You know yourself best. Pick the one that matches how you are right now.'));
+      const zc=node('div',{class:'zone-choice',role:'group','aria-label':'Choose a zone'});
+      [['yellow','y','🟡 Yellow zone'],['red','r','🔴 Red zone']].forEach(([z,c,t])=>{
+        const b=node('button',{type:'button',class:c,'aria-pressed':String(stressNow.zone===z)},t);
+        b.addEventListener('click',()=>{stressNow.zone=z;store();renderStress();openZone(z);});zc.append(b);
+      });
+      r.append(zc);
+      if(stressNow.zone==='red'){r.append(node('h3',{},'Support is one tap away'),crisisButtons());}
+    }else{
+      r.append(node('p',{class:'lead'},'You don\'t have to handle this alone. Reach out now.'));
+      r.append(crisisButtons());
+      if(plan.people.length)r.append(node('p',{},'Your people are listed just above.'));
+      r.append(node('h3',{},'Basics'),basicsBlock());
+      r.append(node('p',{},'If this has lasted for weeks or keeps getting worse, let your therapist, doctor or treatment team know. That\'s exactly what they\'re there for.'));
+      btns.append(stressBtn('🔴 My red zone plan',()=>openZone('red'),'btn primary'),stressBtn('🫁 Breathe with me',()=>openBreathe()));
+      r.append(btns);
+    }
+    const end=node('div',{class:'row-btns',style:'margin-top:12px'});
+    end.append(stressBtn('Done',()=>{stressNow=null;renderStress();},'btn link'));
+    r.append(end);box.append(r);
+  }
+  document.querySelectorAll('[data-stress]').forEach(b=>b.addEventListener('click',()=>{
+    const lv=b.dataset.stress;
+    // Tapping again within a few minutes updates the same entry instead of adding another
+    const last=plan.stress[plan.stress.length-1];
+    if(stressNow&&last===stressNow&&Date.now()-Date.parse(last.at)<10*60*1000){last.level=lv;last.zone=STRESS[lv].zone;last.at=new Date().toISOString();}
+    else{stressNow={at:new Date().toISOString(),level:lv,zone:STRESS[lv].zone,plan:multi()?planLabel(plan):''};plan.stress.push(stressNow);if(plan.stress.length>1000)plan.stress.splice(0,plan.stress.length-1000);}
+    store();renderStress();
+  }));
+
   load();syncBook();renderEditor();renderPerson();renderCrisisAll();renderPlans();setView(prefs.view);renderPending();
   if(!prefs.setupDone&&!hasContent(plan))openSetup();
   showLock();

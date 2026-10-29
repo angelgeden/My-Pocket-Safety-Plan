@@ -4,23 +4,27 @@
 
 My Pocket Safety Plan helps you build a personal safety plan in minutes, see your early warning signs, and reach support in one tap. Check in with your emotions, learn which coping skills help, and share how to support you. Private by design: no account, no tracking, answers stay on your own device. Free and works offline. Not an emergency service.
 
-👉 **Open the app:** https://angelgeden.github.io/my-pocket-safety-plan/
+👉 **Open the app:** https://YOUR-USERNAME.github.io/my-pocket-safety-plan/
 
 ---
 
 ## What it does
 
 - **Guided setup.** A five-minute walkthrough with tap-to-add examples covers three zones: 🟢 green (steady), 🟡 yellow (early warning signs) and 🔴 red (overwhelmed). For each zone you note what helps, what to avoid and who to contact.
-- **Right now.** One tap to call or text a crisis line, call your local emergency number, or reach your own safety person. These buttons also work from the lock screen.
+- **Right now.** One tap to call or text a crisis line, call your local emergency number, or reach your own people. These buttons also work from the lock screen.
+- **My people.** Add several people you trust, in the order you'd reach out, each with their own call and text buttons and an optional "good for" note (talking it through, coming over…). Plans saved by older versions move their one safety person to the top of the list automatically.
+- **Stress check.** A quick, separate read on load: Ready, Reacting, Injured or Ill. Each one points to a next step. *Injured* starts with the basics (safe, water, food, sleep, medication), offers a moment to make some space from the thought or feeling, then lets you choose whether your yellow or red zone fits. *Ill* puts your people and crisis lines first.
 - **Check in.** Pick from the 10 DBT emotion families (fear, anger, sadness, shame, guilt, joy, love, disgust, envy, jealousy), plus "not sure." Mark where you feel it in your body, rate how strong it is, and note any urges. The app suggests which zone you're in and shows that part of your plan.
 - **Learn as you go (optional).** Short notes on what each emotion is for and its usual urge, a "which came first?" prompt for primary vs. secondary emotions, and an optional check-the-facts step that suggests opposite action when an emotion doesn't fit. At very high intensity these step aside so the plan and support come first. An Emotion guide collects it all. Tips can be turned off in Settings.
-- **Did it help?** Rate how you feel before and after a coping skill. The skills that help you most move to the top.
+- **Thought log.** Five short steps: what happened, what went through my mind, what I felt, what I did, and another way to see it, with optional prompts like checking the facts or what you'd tell a friend. Entries stay on the device and can be deleted anytime.
+- **Common warning signs.** In Edit, the yellow and red zones have a picker of common signs that stress is building (how I feel, think, act, and what my body does). Tap to add or remove.
+- **Did it help?** Rate how you feel before and after a coping skill. The skills that help you most move to the top. My patterns also shows how often each stress level comes up and which zone you chose when you were Injured.
 - **Breathe with me.** A guided breathing pacer (in 4, out 6, or box breathing).
 - **Skills library.** 32 DBT skills across mindfulness, distress tolerance, emotion regulation and interpersonal effectiveness, each with short steps, a "Try it" button and one-tap "Add to my plan."
 - **Skill suggestions.** After a check-in, the app suggests a few skills that fit the emotion and how strong it is. At high intensity it only suggests calming, grounding skills.
 - **Share with my support person.** Builds a short "how to support me" message you can review and send.
 - **Update log and printable plan.** Every change is dated. Print or save a PDF with signature and date lines.
-- **One plan, or a few.** Many people use one plan. If different settings bring different signs or need different help, add a separate plan for work, family, social situations or anything you name, and switch in one tap. Crisis lines, check-ins and skill ratings are shared across plans.
+- **One plan, or a few.** Many people use one plan. If different settings bring different signs or need different help, add a separate plan for work, family, social situations or anything you name, and switch in one tap. Crisis lines, check-ins, stress checks, thought logs and skill ratings are shared across plans. Each plan has its own people.
 - **Optional passcode** for privacy on a shared device.
 - **Easy on the eyes.** A calm dark theme by default with a light option (Settings → Appearance). Large tap targets, high contrast and minimal motion, so it stays usable when emotions run high.
 
