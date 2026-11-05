@@ -672,6 +672,66 @@
     .zone-choice button[aria-pressed="true"].y{background:var(--y);color:#141311}
     .zone-choice button[aria-pressed="true"].r{background:var(--r);color:var(--on-zone)}
     @media print{.stress-card{display:none!important}}
+
+    /* ---------- Tools drawer ---------- */
+    .tool-list{display:flex;flex-direction:column;gap:8px;margin:6px 0 4px}
+    .tool-list button{display:flex;align-items:center;gap:12px;text-align:left;min-height:60px;padding:10px 14px;border:1px solid var(--line2);background:var(--surface2);color:var(--ink);border-radius:var(--r-sm);font:inherit;cursor:pointer;width:100%}
+    .tool-list button b{display:block;font-size:1rem}
+    .tool-list button small{display:block;color:var(--muted);font-size:.84rem;line-height:1.35}
+    .tool-list .ic{font-size:1.3rem;flex:0 0 28px;text-align:center}
+    /* ---------- Cope ahead ---------- */
+    .ca-sec{margin:0 0 16px}
+    .ca-sec>.tl-q{margin-bottom:6px}
+    .ca-sec textarea,.ca-sec input[type=text]{width:100%;padding:10px 12px;font-size:1rem}
+    .ca-sec textarea{min-height:60px}
+    .say-row{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;margin-bottom:10px;align-items:start}
+    .say-row .n{width:30px;height:30px;border-radius:15px;background:var(--accent);color:var(--accent-ink);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem;margin-top:2px}
+    .say-row label{display:block;margin:0!important}
+    .say-row .t{font-weight:700;display:block}
+    .say-row small{display:block;color:var(--muted);font-size:.82rem;margin-bottom:4px}
+    .say-row input{width:100%;padding:10px 12px;font-size:1rem}
+    .say-box{background:var(--accent-tint);border-radius:var(--r-sm);padding:12px 14px;margin:6px 0 16px}
+    .say-box h4{margin:0 0 6px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .say-box p{margin:0 0 4px;font-size:.92rem;color:var(--ink)}
+    .say-draft{white-space:pre-wrap;font-size:1rem!important;line-height:1.5}
+    .say-draft.empty{font-style:italic;color:var(--muted)!important}
+    .ca-case{display:grid;grid-template-columns:1fr;gap:10px}
+    .ca-case label{margin:0!important}
+    /* ---------- Relationship check ---------- */
+    .rel-note{background:color-mix(in srgb,#f08a3c 14%,transparent);border-left:3px solid #f08a3c;border-radius:0 var(--r-sm) var(--r-sm) 0;padding:10px 12px;margin:0 0 14px;font-size:.92rem;color:var(--ink)}
+    .rel-opts{display:flex;flex-direction:column;gap:8px;margin:0 0 14px}
+    .rel-opts button{display:block;text-align:left;padding:12px 14px;border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:var(--r-sm);font:inherit;cursor:pointer;min-height:56px}
+    .rel-opts button b{display:block}
+    .rel-opts button small{display:block;color:var(--muted);font-size:.86rem;line-height:1.4;margin-top:2px}
+    .rel-opts button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-tint)}
+    .rel-next{display:flex;flex-direction:column;gap:6px;margin:0 0 14px}
+    .rel-next button{text-align:left;min-height:48px;padding:8px 12px;border:1px solid var(--line2);background:var(--surface2);color:var(--ink);border-radius:var(--r-sm);font:inherit;cursor:pointer}
+    .rel-next button b{display:block}
+    .rel-next button small{color:var(--muted);font-size:.84rem}
+    .rel-safety{border:1px solid var(--r);border-radius:var(--r-sm);padding:12px 14px;margin:0 0 10px}
+    .rel-safety h3{margin:0 0 4px;color:var(--rt);font-size:1rem}
+    .rel-safety p{margin:0 0 10px;font-size:.92rem}
+    .rel-safety .crisis{margin:0}
+    .qexit-btn{white-space:nowrap;flex:0 0 auto;border:1px solid var(--line2);background:var(--ink);color:var(--bg);border-radius:var(--r-sm);font-weight:800;font-size:.82rem;min-height:40px;padding:0 12px;cursor:pointer}
+    .qexit-float{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:60}
+    .rel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    /* ---------- Feel-good week ---------- */
+    .fg-grid{display:grid;grid-template-columns:minmax(0,2.3fr) repeat(7,minmax(0,1fr));gap:4px;align-items:center;margin:4px 0}
+    .fg-grid .dh{font-size:.72rem;font-weight:700;color:var(--muted);text-align:center}
+    .fg-grid .dh.today{color:var(--accent)}
+    .fg-grid .act{font-size:.84rem;font-weight:600;line-height:1.2;overflow-wrap:break-word;hyphens:auto}
+    .fg-grid button{height:38px;min-width:0;border-radius:6px;border:1px solid var(--line2);background:transparent;padding:0;cursor:pointer}
+    .fg-grid button[aria-pressed="true"]{background:var(--g);border-color:var(--g)}
+    .fg-total{font-size:.92rem;color:var(--gt);font-weight:600;margin:8px 0 4px}
+    .fg-edit .line-row{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:6px;margin-bottom:6px}
+    .fg-edit .line-row button{min-height:44px;border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:var(--r-sm)}
+    .hard-card{border:1px solid var(--line);background:var(--surface2);border-radius:var(--r-sm);padding:12px 14px;margin-top:14px}
+    .hard-card h3{margin:0 0 4px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .hard-row{display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px;align-items:center;margin:8px 0}
+    .hard-row input[type=checkbox]{width:24px!important;height:24px;min-height:auto!important;accent-color:var(--accent)}
+    .hard-row label{margin:0!important}
+    .hard-row input[type=text]{width:100%;padding:10px 12px;font-size:1rem}
+    .hard-done{font-weight:700;color:var(--gt);margin:6px 0 0}
   </style>
 </head>
 <body>
@@ -809,7 +869,7 @@
       </div>
       <div id="stressResult" aria-live="polite"></div>
     </section>
-    <div class="tools-row"><button type="button" id="breatheBtn">🫁 Breathe with me</button><button type="button" id="checkBtn">♡ Check in</button><button type="button" id="skillsBtn">🧰 Skills</button><button type="button" id="thoughtBtn">📝 Thought log</button><button type="button" id="shareBtn" class="share">🤝 Share with my support person</button></div>
+    <div class="tools-row"><button type="button" id="breatheBtn">🫁 Breathe with me</button><button type="button" id="checkBtn">♡ Check in</button><button type="button" id="toolsBtn">🧰 Tools</button><button type="button" id="shareBtn" class="share">🤝 Share with my support person</button></div>
     <div class="pending-slot"></div>
     <dialog id="personDialog" aria-labelledby="personTitle">
       <form method="dialog" id="personForm">
@@ -930,6 +990,12 @@
       <p>Short tips in check-ins: what each emotion is for, which emotion came first, common urges, and an optional "check the facts" step.</p>
       <label class="toggle-row"><input type="checkbox" id="setLearn"> <span>Show learning tips in check-ins</span></label>
       <div class="row-btns"><button type="button" class="btn" id="setGuide">📚 Open the emotion guide</button><button type="button" class="btn" id="setSkills">🧰 Open the skills library</button><button type="button" class="btn" id="setThoughts">📝 Open the thought log</button></div>
+    </section>
+    <section class="set-sec">
+      <h3>Privacy &amp; safety</h3>
+      <p>Quick exit leaves the app right away and opens an ordinary web page, in case someone checks your phone.</p>
+      <label class="toggle-row"><input type="checkbox" id="setQexit"> <span>Show a Quick exit button on every screen</span></label>
+      <label class="toggle-row"><input type="checkbox" id="setRel"> <span>Show the Relationship check in Tools</span></label>
     </section>
     <section class="set-sec">
       <h3>My plans</h3>
@@ -1065,6 +1131,80 @@
     <p class="tl-privacy">Saved only on this device and included in your backup file. Never sent anywhere.</p>
   </form>
 </dialog>
+<dialog id="toolsDialog" aria-labelledby="toolsTitle" class="wide">
+  <form method="dialog">
+    <h2 id="toolsTitle">Tools</h2>
+    <p>Pick what you need. Everything here stays on this device.</p>
+    <div class="tool-list" id="toolList">
+      <button type="button" id="skillsBtn"><span class="ic" aria-hidden="true">🧰</span><span><b>Skills library</b><small>Short steps for calming, coping and communicating</small></span></button>
+      <button type="button" id="thoughtBtn"><span class="ic" aria-hidden="true">📝</span><span><b>Thought log</b><small>Look back at something that happened and untangle it</small></span></button>
+      <button type="button" id="copeBtn"><span class="ic" aria-hidden="true">🗓</span><span><b>Cope ahead</b><small>Plan and practice for something hard that's coming up</small></span></button>
+      <button type="button" id="sayBtn"><span class="ic" aria-hidden="true">💬</span><span><b>What I'll say</b><small>Build a clear, kind way to ask for what I need</small></span></button>
+      <button type="button" id="feelBtn"><span class="ic" aria-hidden="true">🌿</span><span><b>My feel-good week</b><small>Soothing things that keep my green zone strong</small></span></button>
+      <button type="button" id="relBtn"><span class="ic" aria-hidden="true">🤍</span><span><b>Relationship check</b><small>Reflect on how a relationship is going for me</small></span></button>
+      <button type="button" id="guideToolBtn"><span class="ic" aria-hidden="true">📚</span><span><b>Emotion guide</b><small>What each emotion is for and what helps</small></span></button>
+    </div>
+    <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="toolsClose">Close</button></div>
+  </form>
+</dialog>
+<dialog id="copeDialog" aria-labelledby="copeTitle" class="wide">
+  <form method="dialog" id="copeForm" novalidate>
+    <h2 id="copeTitle">Cope ahead</h2>
+    <p>Practice something hard before it happens, so you have a plan in your pocket when it does. Fill in what helps and skip the rest.</p>
+    <label class="ca-sec" style="display:block"><span class="tl-q">1. What's coming up?<small>Stick to the facts. Be specific.</small></span><textarea id="caSit" rows="2" maxlength="2000" placeholder="e.g., a conversation I've been putting off"></textarea></label>
+    <div class="ca-sec"><span class="tl-q" id="caBlocksQ">2. What might get in the way?<small>Feelings or urges that could make it hard to use my skills</small></span><div class="chips" id="caBlocks" role="group" aria-labelledby="caBlocksQ"></div></div>
+    <div class="ca-sec"><span class="tl-q" id="caSkillsQ">3. Skills I'll use</span><div class="chips" id="caSkills" role="group" aria-labelledby="caSkillsQ"></div>
+      <label style="display:block;margin:4px 0 0"><span class="field-label">Another skill (optional)</span><input type="text" id="caSkillOther" maxlength="60" placeholder="Type one and press Enter"></label></div>
+    <div class="ca-sec" id="caSay"><span class="tl-q">4. What I want to say<small>One short line for each step. Your draft builds below.</small></span>
+      <div id="caSayRows"></div>
+      <div class="say-box"><h4>My draft</h4><p class="say-draft" id="caDraft"></p><div class="row-btns" style="margin-top:8px"><button type="button" class="btn" id="caCopy">Copy draft</button></div></div>
+      <div class="say-box"><h4>While I'm talking</h4><p><b>Stay on track.</b> Calmly repeat my ask if the topic drifts.</p><p><b>Sound confident.</b> Steady voice, eye contact if it feels okay.</p><p><b>Be gentle.</b> No threats or digs. Listen to their side.</p><p><b>Keep my self-respect.</b> No over-apologizing. Stick to my values.</p></div>
+    </div>
+    <label class="ca-sec" style="display:block"><span class="tl-q">5. How I want to act and think</span><textarea id="caAct" rows="2" maxlength="2000" placeholder="e.g., calm and patient, even if it doesn't go my way"></textarea></label>
+    <div class="ca-sec"><span class="tl-q">6. Picture how it could go</span>
+      <div class="ca-case">
+        <label><span class="field-label">What's the best that could happen?</span><textarea id="caBest" rows="2" maxlength="2000"></textarea></label>
+        <label><span class="field-label">If something new comes up, what will I do?</span><textarea id="caSurprise" rows="2" maxlength="2000"></textarea></label>
+        <label><span class="field-label">If my biggest worry happens, how will I get through it?</span><textarea id="caWorst" rows="2" maxlength="2000"></textarea></label>
+      </div></div>
+    <div class="ca-sec say-box"><h4>7. Rehearse, then relax</h4><p>Close your eyes and picture it going the way you planned. Then take a few slow breaths.</p><div class="row-btns" style="margin-top:8px"><button type="button" class="btn" id="caBreathe">🫁 Breathe with me</button></div></div>
+    <p class="form-error hidden" id="caError">Write at least what's coming up.</p>
+    <div class="dialog-actions"><button type="button" class="btn" id="caClose">Close</button><span></span><button type="submit" class="btn primary" id="caSave">Save to this device</button></div>
+    <h3 class="guide-h" id="caPastH">My saved plans</h3>
+    <div id="caList"></div>
+    <p class="tl-privacy">Saved only on this device and included in your backup file. Open a plan again right before the hard moment.</p>
+  </form>
+</dialog>
+<dialog id="relDialog" aria-labelledby="relTitle" class="wide">
+  <form method="dialog">
+    <div class="rel-head"><h2 id="relTitle">How is this relationship for me?</h2><button type="button" class="qexit-btn" id="relExit">✕ Quick exit</button></div>
+    <p>A space to reflect. Only you can decide what a relationship means for you. Nothing here is saved.</p>
+    <p class="rel-note hidden" id="relNote">Your last stress check was <b id="relLevel"></b>. Big decisions go better from a calm, wise place. Reflecting is fine. Deciding can wait until things settle.</p>
+    <div class="rel-opts" id="relOpts" role="group" aria-label="Lately, this relationship"></div>
+    <div class="rel-next" id="relNext" aria-live="polite"></div>
+    <div class="rel-safety" id="relSafety"><h3>Safety first</h3><p>If you feel unsafe with someone, a domestic violence hotline can help you plan how to stay safe, including before leaving. It's free and confidential.</p><div class="crisis" id="relLines"></div></div>
+    <p class="tiny">If someone checks your phone, Quick exit leaves the app right away. You can show it on every screen, or hide this tool, in Settings.</p>
+    <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="relClose">Close</button></div>
+  </form>
+</dialog>
+<dialog id="feelDialog" aria-labelledby="feelTitle" class="wide">
+  <form method="dialog">
+    <h2 id="feelTitle">My feel-good week</h2>
+    <p>Soothing and feel-good things that keep my green zone strong. Tap a day when I do one.</p>
+    <div id="fgGrid"></div>
+    <p class="fg-total" id="fgTotal"></p>
+    <button type="button" class="btn link" id="fgEditBtn" style="padding-left:0">✎ Add or change activities</button>
+    <div class="fg-edit hidden" id="fgEdit"></div>
+    <div class="hard-card"><h3>One hard thing today</h3><p class="sub" style="margin:0 0 4px">Pick one task I've been avoiding, and a reward for after.</p>
+      <div class="hard-row"><input type="checkbox" id="hdTaskDone" aria-label="Task done"><label><span class="field-label">Task</span><input type="text" id="hdTask" maxlength="200" placeholder="A task I've been putting off"></label></div>
+      <div class="hard-row"><input type="checkbox" id="hdRewardDone" aria-label="Reward done"><label><span class="field-label">Reward after</span><input type="text" id="hdReward" maxlength="200" placeholder="Something I enjoy"></label></div>
+      <p class="hard-done hidden" id="hdDone">Both done. That counts.</p>
+    </div>
+    <p class="tl-privacy">Saved only on this device. A fresh week starts every Monday.</p>
+    <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="feelClose">Done</button></div>
+  </form>
+</dialog>
+<button type="button" class="qexit-btn qexit-float hidden" id="qexitFloat">✕ Quick exit</button>
 <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 <script>
 (() => {
@@ -1083,7 +1223,7 @@
     {key:'yellow',name:'Yellow zone',symbol:'!',description:'Early warning signs · What can help before I escalate'},
     {key:'red',name:'Red zone',symbol:'×',description:'Feeling overwhelmed · How I can reduce risk and get support'}
   ];
-  const emptyPlan = () => ({version:1, id:'', title:'My plan', icon:'🧭', meta:{name:'',focus:'',date:'',updated:''}, person:{name:'',phone:''}, people:[], crisis:{country:'',emergency:'',chat:'',lines:[]}, history:[], checkins:[], ratings:[], thoughts:[], stress:[], zones:Object.fromEntries(ZONES.map(z => [z.key,Object.fromEntries([...FIELDS.map(f=>[f[0],'']),['contacts','']])]))});
+  const emptyPlan = () => ({version:1, id:'', title:'My plan', icon:'🧭', meta:{name:'',focus:'',date:'',updated:''}, person:{name:'',phone:''}, people:[], crisis:{country:'',emergency:'',chat:'',lines:[]}, history:[], checkins:[], ratings:[], thoughts:[], stress:[], copes:[], feel:{acts:[],done:[],hard:null}, zones:Object.fromEntries(ZONES.map(z => [z.key,Object.fromEntries([...FIELDS.map(f=>[f[0],'']),['contacts','']])]))});
   const hasContent = p => ['name','focus','date'].some(k=>(p.meta[k]||'').trim()) || (p.people&&p.people.length)||(p.person&&p.person.name.trim()) || Object.values(p.zones).some(z=>Object.values(z).some(v=>v.trim()));
   const MAX_PEOPLE = 8;
   const STRESS = {ready:{name:'Ready',zone:'green'},reacting:{name:'Reacting',zone:'yellow'},injured:{name:'Injured',zone:''},ill:{name:'Ill',zone:'red'}};
@@ -1092,7 +1232,7 @@
   try{ Object.assign(prefs, JSON.parse(localStorage.getItem(PREF_KEY)||'{}')); }catch(e){}
   const savePrefs = () => { try{ localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); }catch(e){} };
   let plan = emptyPlan();
-  let book = {version:2, activeId:'', plans:[], shared:{name:'',crisis:null,checkins:[],ratings:[],thoughts:[],stress:[]}};
+  let book = {version:2, activeId:'', plans:[], shared:{name:'',crisis:null,checkins:[],ratings:[],thoughts:[],stress:[],copes:[],feel:null}};
   let toastTimeout;
   let savedAvailable = true;
   const $ = (selector,el=document)=>el.querySelector(selector);
@@ -1143,6 +1283,17 @@
       const s2=(x,n)=>typeof x==='string'?x.slice(0,n):'';
       return {at:t.at.slice(0,40),situation:s2(t.situation,2000),thought:s2(t.thought,2000),emotions:strArr(t.emotions,20),behavior:s2(t.behavior,2000),alt:s2(t.alt,2000)};
     });
+    if(Array.isArray(source.copes))clean.copes=source.copes.filter(c=>c&&typeof c.at==='string').slice(-100).map(c=>{
+      const s2=(x,n)=>typeof x==='string'?x.slice(0,n):'',sy=c.say&&typeof c.say==='object'?c.say:{};
+      return {at:c.at.slice(0,40),situation:s2(c.situation,2000),blocks:strArr(c.blocks,20),skills:strArr(c.skills,20),
+        say:{what:s2(sy.what,500),feel:s2(sy.feel,500),ask:s2(sy.ask,500),why:s2(sy.why,500),give:s2(sy.give,500)},
+        act:s2(c.act,2000),best:s2(c.best,2000),surprise:s2(c.surprise,2000),worst:s2(c.worst,2000)};
+    });
+    if(source.feel&&typeof source.feel==='object'){
+      const f=source.feel,h=f.hard;
+      clean.feel={acts:strArr(f.acts,12).map(x=>x.slice(0,40)).filter(x=>x.trim()),done:Array.isArray(f.done)?f.done.filter(x=>typeof x==='string'&&/^\d{4}-\d{2}-\d{2}\|/.test(x)).slice(-1500).map(x=>x.slice(0,60)):[],
+        hard:h&&typeof h==='object'&&typeof h.date==='string'?{date:h.date.slice(0,10),task:typeof h.task==='string'?h.task.slice(0,200):'',reward:typeof h.reward==='string'?h.reward.slice(0,200):'',taskDone:h.taskDone===true,rewardDone:h.rewardDone===true}:null};
+    }
     if(Array.isArray(source.stress))clean.stress=source.stress.filter(t=>t&&typeof t.at==='string'&&STRESS[t.level]).slice(-1000).map(t=>({at:t.at.slice(0,40),level:t.level,zone:['green','yellow','red'].includes(t.zone)?t.zone:'',plan:typeof t.plan==='string'?t.plan.slice(0,60):''}));
     if(Array.isArray(source.ratings))clean.ratings=source.ratings.filter(r=>r&&typeof r.at==='string'&&typeof r.skill==='string'&&n010(r.before)!==null&&n010(r.after)!==null).slice(-1000).map(r=>({at:r.at.slice(0,40),skill:r.skill.slice(0,200),before:n010(r.before),after:n010(r.after)}));
     return clean;
@@ -2493,6 +2644,8 @@
     out.ratings=uniq(a.ratings,b.ratings,r=>r.at+'|'+r.skill).slice(-1000);
     out.thoughts=uniq(a.thoughts||[],b.thoughts||[],t=>t.at).slice(-500);
     out.stress=uniq(a.stress||[],b.stress||[],t=>t.at).slice(-1000);
+    out.copes=uniq(a.copes||[],b.copes||[],t=>t.at).slice(-100);
+    out.feel=mergeFeel(a.feel,b.feel);
     out.meta.updated=[a.meta.updated,b.meta.updated].sort().pop()||'';
     return out;
   }
@@ -2519,11 +2672,11 @@
   const planLabel=p=>(p.icon?p.icon+' ':'')+(p.title||'My plan');
   function splitPlan(p){return {id:p.id,title:p.title,icon:p.icon,meta:{focus:p.meta.focus,date:p.meta.date,updated:p.meta.updated},person:p.people&&p.people[0]?{name:p.people[0].name,phone:p.people[0].phone}:{name:'',phone:''},people:(p.people||[]).map(x=>({...x})),zones:JSON.parse(JSON.stringify(p.zones)),history:p.history.slice()};}
   function fullPlan(item,shared){
-    const p=normalize({...item,meta:{...item.meta,name:shared.name||''},crisis:shared.crisis,checkins:shared.checkins,ratings:shared.ratings,thoughts:shared.thoughts||[],stress:shared.stress||[]});
+    const p=normalize({...item,meta:{...item.meta,name:shared.name||''},crisis:shared.crisis,checkins:shared.checkins,ratings:shared.ratings,thoughts:shared.thoughts||[],stress:shared.stress||[],copes:shared.copes||[],feel:shared.feel||undefined});
     p.id=item.id;p.title=item.title;p.icon=item.icon;return p;
   }
   function syncBook(){
-    book.shared={name:plan.meta.name,crisis:plan.crisis,checkins:plan.checkins,ratings:plan.ratings,thoughts:plan.thoughts,stress:plan.stress};
+    book.shared={name:plan.meta.name,crisis:plan.crisis,checkins:plan.checkins,ratings:plan.ratings,thoughts:plan.thoughts,stress:plan.stress,copes:plan.copes,feel:plan.feel};
     if(!plan.id)plan.id=uid();
     const i=book.plans.findIndex(x=>x.id===plan.id),item=splitPlan(plan);
     if(i<0)book.plans.push(item);else book.plans[i]=item;
@@ -2531,8 +2684,8 @@
   }
   function normalizeBook(src){
     if(!src||typeof src!=='object'||!Array.isArray(src.plans))throw new Error('This does not look like a safety-plan backup.');
-    const sh=normalize({meta:{name:typeof src.shared?.name==='string'?src.shared.name:''},crisis:src.shared?.crisis,checkins:src.shared?.checkins,ratings:src.shared?.ratings,thoughts:src.shared?.thoughts,stress:src.shared?.stress});
-    const shared={name:sh.meta.name,crisis:sh.crisis,checkins:sh.checkins,ratings:sh.ratings,thoughts:sh.thoughts,stress:sh.stress};
+    const sh=normalize({meta:{name:typeof src.shared?.name==='string'?src.shared.name:''},crisis:src.shared?.crisis,checkins:src.shared?.checkins,ratings:src.shared?.ratings,thoughts:src.shared?.thoughts,stress:src.shared?.stress,copes:src.shared?.copes,feel:src.shared?.feel});
+    const shared={name:sh.meta.name,crisis:sh.crisis,checkins:sh.checkins,ratings:sh.ratings,thoughts:sh.thoughts,stress:sh.stress,copes:sh.copes,feel:sh.feel};
     const seen=new Set(),plans=[];
     src.plans.slice(0,MAX_PLANS).forEach(it=>{
       if(!it||typeof it!=='object')return;
@@ -2546,7 +2699,7 @@
     return {version:2,activeId,plans,shared};
   }
   // Wrap an older single-plan save or backup as a book
-  function bookFromSingle(p){p.id=p.id||uid();p.title=p.title||'My plan';p.icon=p.icon||'🧭';return {version:2,activeId:p.id,plans:[splitPlan(p)],shared:{name:p.meta.name,crisis:p.crisis,checkins:p.checkins,ratings:p.ratings,thoughts:p.thoughts||[],stress:p.stress||[]}};}
+  function bookFromSingle(p){p.id=p.id||uid();p.title=p.title||'My plan';p.icon=p.icon||'🧭';return {version:2,activeId:p.id,plans:[splitPlan(p)],shared:{name:p.meta.name,crisis:p.crisis,checkins:p.checkins,ratings:p.ratings,thoughts:p.thoughts||[],stress:p.stress||[],copes:p.copes||[],feel:p.feel}};}
   function parseAny(obj){return obj&&Array.isArray(obj.plans)?{kind:'book',data:normalizeBook(obj)}:{kind:'plan',data:normalize(obj)};}
   function rerenderAll(){
     renderEditor();renderPerson();renderCrisisAll();renderPlans();stressNow=null;renderStress();
@@ -2607,7 +2760,7 @@
     store();
     const src=plan,np=emptyPlan();
     np.id=uid();np.title=title;np.icon=newIcon;
-    np.meta.name=src.meta.name;np.crisis=src.crisis;np.checkins=src.checkins;np.ratings=src.ratings;np.thoughts=src.thoughts;np.stress=src.stress;
+    np.meta.name=src.meta.name;np.crisis=src.crisis;np.checkins=src.checkins;np.ratings=src.ratings;np.thoughts=src.thoughts;np.stress=src.stress;np.copes=src.copes;np.feel=src.feel;
     if(start==='copy'){np.zones=JSON.parse(JSON.stringify(src.zones));np.person={...src.person};np.people=src.people.map(x=>({...x}));np.meta.focus=src.meta.focus;}
     np.history=[{at:new Date().toISOString(),area:'Plan',note:start==='copy'?'Plan created as a copy of '+planLabel(src):'Plan created'}];
     plan=np;store();
@@ -2655,7 +2808,7 @@
     if(parsed.kind==='plan'){plan=mergePlans(plan,parsed.data);return;}
     const inc=parsed.data,cur=book.shared;
     const shared={name:cur.name||inc.shared.name,crisis:cur.crisis&&cur.crisis.country?cur.crisis:inc.shared.crisis,
-      checkins:uniqBy(cur.checkins,inc.shared.checkins,c=>c.at).slice(-1000),ratings:uniqBy(cur.ratings,inc.shared.ratings,r=>r.at+'|'+r.skill).slice(-1000),thoughts:uniqBy(cur.thoughts||[],inc.shared.thoughts||[],t=>t.at).slice(-500),stress:uniqBy(cur.stress||[],inc.shared.stress||[],t=>t.at).slice(-1000)};
+      checkins:uniqBy(cur.checkins,inc.shared.checkins,c=>c.at).slice(-1000),ratings:uniqBy(cur.ratings,inc.shared.ratings,r=>r.at+'|'+r.skill).slice(-1000),thoughts:uniqBy(cur.thoughts||[],inc.shared.thoughts||[],t=>t.at).slice(-500),stress:uniqBy(cur.stress||[],inc.shared.stress||[],t=>t.at).slice(-1000),copes:uniqBy(cur.copes||[],inc.shared.copes||[],t=>t.at).slice(-100),feel:mergeFeel(cur.feel,inc.shared.feel)};
     inc.plans.forEach(ip=>{
       const i=book.plans.findIndex(cp=>cp.id===ip.id||cp.title.toLowerCase()===ip.title.toLowerCase());
       if(i>=0){const cp=book.plans[i];const m=mergePlans(fullPlan(cp,cur),fullPlan(ip,inc.shared));m.id=cp.id;m.title=cp.title;m.icon=cp.icon;book.plans[i]=splitPlan(m);}
@@ -2810,7 +2963,7 @@
     if(lv==='ready'){
       r.append(node('p',{class:'lead'},'You\'re coping well. This is a good time to grow your strengths.'));
       r.append(node('p',{},'Practice a skill while it\'s easy, notice what\'s working, or check on someone else.'));
-      btns.append(stressBtn('🟢 My green zone plan',()=>openZone('green'),'btn primary'),stressBtn('🧰 Practice a skill',()=>openSkills()),stressBtn('📝 Thought log',()=>openThoughts()));
+      btns.append(stressBtn('🟢 My green zone plan',()=>openZone('green'),'btn primary'),stressBtn('🌿 My feel-good week',()=>openFeel()),stressBtn('🧰 Practice a skill',()=>openSkills()));
       r.append(btns);
     }else if(lv==='reacting'){
       r.append(node('p',{class:'lead'},'Stress is normal, and this kind usually passes.'));
@@ -2857,6 +3010,206 @@
     else{stressNow={at:new Date().toISOString(),level:lv,zone:STRESS[lv].zone,plan:multi()?planLabel(plan):''};plan.stress.push(stressNow);if(plan.stress.length>1000)plan.stress.splice(0,plan.stress.length-1000);}
     store();renderStress();
   }));
+
+  // =====================================================================
+  //  Tools drawer
+  // =====================================================================
+  const showDlg=d=>{if(typeof d.showModal==='function'){if(!d.open)d.showModal();}else d.setAttribute('open','');};
+  function openTools(){$('#relBtn').classList.toggle('hidden',!!prefs.relOff);showDlg($('#toolsDialog'));}
+  $('#toolsBtn').addEventListener('click',openTools);
+  $('#toolsClose').addEventListener('click',()=>$('#toolsDialog').close());
+  // each tool opens its own screen; close the drawer behind it
+  $('#toolList').addEventListener('click',e=>{if(e.target.closest('button'))$('#toolsDialog').close();});
+  $('#guideToolBtn').addEventListener('click',()=>$('#guideBtn').click());
+
+  // =====================================================================
+  //  Cope ahead (with "What I'll say")
+  // =====================================================================
+  const CA_BLOCKS=['Anxiety','Anger','Shame','Guilt','Frustration','Impatience','Putting it off','Shutting down','People-pleasing'];
+  const CA_SKILLS=['Slow breathing','Grounding','Stretch or move','Check the facts','Opposite action'];
+  const SAY_STEPS=[['what','What happened','Just the facts, no blame','When…'],['feel','How I feel','Start with “I feel” or “I\'m worried”','I feel…'],['ask','What I\'m asking for','Be clear and specific','I\'m asking for…'],['why','Why it helps','What\'s good about it for them, or for us','That would help because…'],['give','Where I can bend','Optional. What I\'d accept instead','If that doesn\'t work, I could…']];
+  let copeEdit=-1,copeDraft=null,caBlocks=new Set(),caSkills=new Set(),caExtra=[];
+  const emptyCope=()=>({situation:'',blocks:[],skills:[],say:{what:'',feel:'',ask:'',why:'',give:''},act:'',best:'',surprise:'',worst:''});
+  function readCope(){
+    const say={};SAY_STEPS.forEach(([k])=>say[k]=$('#say-'+k).value.trim());
+    return {situation:$('#caSit').value.trim(),blocks:[...caBlocks],skills:[...caSkills],say,act:$('#caAct').value.trim(),best:$('#caBest').value.trim(),surprise:$('#caSurprise').value.trim(),worst:$('#caWorst').value.trim()};
+  }
+  function sentence(x){x=x.trim();if(!x)return '';return /[.!?…]$/.test(x)?x:x+'.';}
+  function sayDraft(say){return [say.what,say.feel,say.ask,say.why,say.give].map(sentence).filter(Boolean).join(' ');}
+  function paintDraft(){const t=sayDraft(readCope().say),d=$('#caDraft');d.textContent=t||'Your words will show up here as you fill in the steps.';d.classList.toggle('empty',!t);}
+  function chipSet(box,items,set){
+    box.replaceChildren();
+    items.forEach(k=>{const b=node('button',{type:'button',class:'chip','aria-pressed':String(set.has(k))},k);b.addEventListener('click',()=>{set.has(k)?set.delete(k):set.add(k);b.setAttribute('aria-pressed',String(set.has(k)));});box.append(b);});
+  }
+  function copeSkillOptions(){
+    const fromPlan=[...lines(plan.zones.yellow.safe),...lines(plan.zones.red.safe)];
+    const seen=new Set(),out=[];
+    [...CA_SKILLS,...fromPlan,...caExtra,...caSkills].forEach(x=>{const k=x.toLowerCase();if(x.trim()&&!seen.has(k)&&out.length<16){seen.add(k);out.push(x);}});
+    return out;
+  }
+  function fillCope(c){
+    $('#caSit').value=c.situation;$('#caAct').value=c.act;$('#caBest').value=c.best;$('#caSurprise').value=c.surprise;$('#caWorst').value=c.worst;
+    caBlocks=new Set(c.blocks);caSkills=new Set(c.skills);caExtra=c.skills.slice();
+    const rows=$('#caSayRows');rows.replaceChildren();
+    SAY_STEPS.forEach(([k,t,h,ph],i)=>{
+      const r=node('div',{class:'say-row'});r.append(node('span',{class:'n','aria-hidden':'true'},String(i+1)));
+      const l=node('label');l.append(node('span',{class:'t'},t),node('small',{},h));
+      const inp=node('input',{type:'text',id:'say-'+k,maxlength:'500',placeholder:ph});inp.value=c.say[k]||'';inp.addEventListener('input',paintDraft);
+      l.append(inp);r.append(l);rows.append(r);
+    });
+    chipSet($('#caBlocks'),[...new Set([...CA_BLOCKS,...c.blocks])],caBlocks);
+    chipSet($('#caSkills'),copeSkillOptions(),caSkills);
+    paintDraft();
+    $('#caSave').textContent=copeEdit>=0?'Save changes':'Save to this device';
+    $('#caError').classList.add('hidden');
+  }
+  function renderCopeList(){
+    const box=$('#caList');box.replaceChildren();const all=plan.copes||[];
+    $('#caPastH').classList.toggle('hidden',!all.length);
+    [...all].map((c,i)=>[c,i]).reverse().forEach(([c,i])=>{
+      const d=node('details',{class:'tl-entry'}),sm=node('summary');
+      sm.append(node('span',{},c.situation.slice(0,80)+(c.situation.length>80?'…':'')));
+      const when=new Date(c.at);sm.append(node('small',{},isNaN(when)?c.at:shortDate(when)));d.append(sm);
+      const dl=node('dl'),dr=sayDraft(c.say);
+      [['Might get in the way',c.blocks.join(', ')],['Skills I\'ll use',c.skills.join(', ')],['What I\'ll say',dr],['How I want to act',c.act],['Best case',c.best],['If something new comes up',c.surprise],['If my biggest worry happens',c.worst]].forEach(([k,v])=>{if(v&&v.trim())dl.append(node('dt',{},k),node('dd',{},v));});
+      d.append(dl);
+      const row=node('div',{class:'row-btns',style:'margin-top:8px'});
+      const ed=node('button',{type:'button',class:'btn'},'✎ Edit');ed.addEventListener('click',()=>{copeEdit=i;fillCope(plan.copes[i]);$('#copeDialog').scrollTop=0;$('#caSit').focus();});
+      const del=node('button',{type:'button',class:'btn danger'},'Delete');
+      del.addEventListener('click',()=>{if(del.dataset.armed!=='1'){del.dataset.armed='1';del.textContent='Tap again to delete';return;}plan.copes.splice(i,1);if(copeEdit===i){copeEdit=-1;copeDraft=null;fillCope(emptyCope());}else if(copeEdit>i)copeEdit--;store();renderCopeList();notify('Plan deleted.');});
+      row.append(ed,del);d.append(row);box.append(d);
+    });
+  }
+  function openCope(opts={}){
+    if(opts.fresh){copeEdit=-1;copeDraft=null;}
+    fillCope(copeDraft||emptyCope());renderCopeList();showDlg($('#copeDialog'));
+    const dlg=$('#copeDialog');
+    setTimeout(()=>{if(opts.say){$('#caSay').scrollIntoView({block:'start'});$('#say-what').focus();}else{dlg.scrollTop=0;$('#caSit').focus();}},40);
+  }
+  const keepCopeDraft=()=>{const c=readCope();copeDraft=(c.situation||sayDraft(c.say)||c.act||c.best||c.surprise||c.worst||c.blocks.length)?c:null;};
+  $('#caSkillOther').addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const v=e.target.value.trim();if(!v)return;caExtra.push(v);caSkills.add(v);chipSet($('#caSkills'),copeSkillOptions(),caSkills);e.target.value='';});
+  $('#caCopy').addEventListener('click',async()=>{const t=sayDraft(readCope().say);if(!t){notify('Fill in a step first.');return;}try{await navigator.clipboard.writeText(t);notify('Copied. Paste it into a text or notes.');}catch(e){notify('Select the draft text to copy it.');}});
+  $('#caBreathe').addEventListener('click',()=>{keepCopeDraft();$('#copeDialog').close();startSkill('Breathing',null);});
+  $('#caClose').addEventListener('click',()=>{keepCopeDraft();$('#copeDialog').close();});
+  $('#copeDialog').addEventListener('cancel',keepCopeDraft);
+  $('#copeForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const c=readCope();if(!c.situation){$('#caError').classList.remove('hidden');$('#caSit').focus();return;}
+    if(!plan.copes)plan.copes=[];
+    if(copeEdit>=0&&plan.copes[copeEdit]){plan.copes[copeEdit]={...plan.copes[copeEdit],...c};}
+    else{plan.copes.push({at:new Date().toISOString(),...c});if(plan.copes.length>100)plan.copes.splice(0,plan.copes.length-100);}
+    store();copeEdit=-1;copeDraft=null;$('#copeDialog').close();notify('Cope ahead plan saved on this device.');
+  });
+  $('#copeBtn').addEventListener('click',()=>openCope());
+  $('#sayBtn').addEventListener('click',()=>openCope({say:true}));
+
+  // =====================================================================
+  //  Relationship check: reflection only (nothing saved), with safety first
+  // =====================================================================
+  const REL=[
+    {k:'hard',t:'Is hard, but worth working on',s:'It matters to me and I think it can get better.',next:[['Plan a conversation','Cope ahead',()=>openCope()],['Say what I need','What I\'ll say',()=>openCope({say:true})],['Untangle a thought about it','Thought log',()=>openThoughts()]]},
+    {k:'interfering',t:'Gets in the way of my life',s:'It makes it harder to reach my goals, enjoy things, or be with other people I care about.',next:[['Get clear on what I want','Thought log',()=>openThoughts()],['Set a boundary','What I\'ll say',()=>openCope({say:true})],['Plan a hard conversation','Cope ahead',()=>openCope()]]},
+    {k:'harmful',t:'Is hurting me',s:'It\'s wearing down my safety, self-respect, or peace of mind.',next:[['Talk it through with someone I trust','My people',()=>{setView('quick');setTimeout(()=>$('#person').scrollIntoView({behavior:'smooth',block:'center'}),60);}],['Plan for safety first','Safety support below, or my care team',()=>$('#relSafety').scrollIntoView({behavior:'smooth',block:'center'})],['Plan ending it, if I decide to','Cope ahead, and practice it first',()=>openCope()]]}
+  ];
+  let relPick='';
+  function quickExit(){
+    try{document.querySelectorAll('dialog[open]').forEach(d=>d.close());}catch(e){}
+    document.body.style.visibility='hidden';
+    location.replace('https://www.google.com/search?q=weather');
+  }
+  function paintRel(){
+    const box=$('#relOpts');box.replaceChildren();
+    REL.forEach(r=>{const b=node('button',{type:'button','aria-pressed':String(relPick===r.k)});b.append(node('b',{},r.t),node('small',{},r.s));b.addEventListener('click',()=>{relPick=r.k;paintRel();});box.append(b);});
+    const nx=$('#relNext');nx.replaceChildren();
+    const cur=REL.find(r=>r.k===relPick);
+    if(cur){nx.append(node('h3',{class:'guide-h',style:'margin:4px 0 2px'},'Ideas for next steps'));cur.next.forEach(([t,sub,fn])=>{const b=node('button',{type:'button'});b.append(node('b',{},t),node('small',{},sub));b.addEventListener('click',()=>{if(cur.k!=='harmful'||t!=='Plan for safety first')$('#relDialog').close();fn();});nx.append(b);});}
+  }
+  function relLines(){
+    const box=$('#relLines');box.replaceChildren();
+    const us=(plan.crisis&&plan.crisis.country)==='US';
+    if(us){
+      box.append(node('a',{class:'call988',href:'tel:18007997233'},'📞 Call the DV hotline'));
+      if(isPhone)box.append(node('a',{href:'sms:88788'+(/iPhone|iPad|iPod|Mac/i.test(navigator.userAgent)?'&':'?')+'body=START'},'💬 Text START to 88788'));
+      else box.append(node('a',{href:'https://www.thehotline.org',target:'_blank',rel:'noopener noreferrer'},'💬 Chat online'));
+    }else box.append(node('a',{class:'call988',href:FIND_HELPLINE,target:'_blank',rel:'noopener noreferrer'},'🌍 Find a local support line'));
+    if(telDigits(crisis().emergency))box.append(node('a',{href:'tel:'+telDigits(crisis().emergency)},'🚨 Call '+crisis().emergency));
+  }
+  function openRel(){
+    relPick='';paintRel();relLines();
+    const last=(plan.stress||[])[plan.stress.length-1];
+    const high=last&&['injured','ill'].includes(last.level)&&Date.now()-Date.parse(last.at)<24*3600*1000;
+    $('#relNote').classList.toggle('hidden',!high);if(high)$('#relLevel').textContent=STRESS[last.level].name;
+    showDlg($('#relDialog'));
+  }
+  $('#relBtn').addEventListener('click',openRel);
+  $('#relClose').addEventListener('click',()=>$('#relDialog').close());
+  $('#relExit').addEventListener('click',quickExit);
+  $('#qexitFloat').addEventListener('click',quickExit);
+  function applyQexit(){$('#qexitFloat').classList.toggle('hidden',!prefs.qexit);}
+  $('#setQexit').addEventListener('change',e=>{prefs.qexit=e.target.checked;savePrefs();applyQexit();});
+  $('#setRel').addEventListener('change',e=>{prefs.relOff=!e.target.checked;savePrefs();});
+  $('#settingsBtn').addEventListener('click',()=>{$('#setQexit').checked=!!prefs.qexit;$('#setRel').checked=!prefs.relOff;});
+  $('#settingsHdrBtn').addEventListener('click',()=>{$('#setQexit').checked=!!prefs.qexit;$('#setRel').checked=!prefs.relOff;});
+  applyQexit();
+
+  // =====================================================================
+  //  Feel-good week + one hard thing
+  // =====================================================================
+  const FG_DEFAULT=['Warm shower','Time outside','Music I love','Call a friend','Cozy blanket','Stretch or move'];
+  const dayKey=d=>d.toLocaleDateString('en-CA');
+  function weekDays(){const t=new Date();t.setHours(12,0,0,0);const dow=(t.getDay()+6)%7;const mon=new Date(t);mon.setDate(t.getDate()-dow);return [...Array(7)].map((_,i)=>{const d=new Date(mon);d.setDate(mon.getDate()+i);return d;});}
+  function mergeFeel(a,b){
+    a=a||{acts:[],done:[],hard:null};b=b||{acts:[],done:[],hard:null};
+    const acts=[...a.acts];(b.acts||[]).forEach(x=>{if(!acts.some(y=>y.toLowerCase()===x.toLowerCase())&&acts.length<12)acts.push(x);});
+    const done=[...new Set([...(a.done||[]),...(b.done||[])])].sort().slice(-1500);
+    const hard=!a.hard?b.hard:!b.hard?a.hard:(b.hard.date>a.hard.date?b.hard:a.hard);
+    return {acts,done,hard};
+  }
+  function feelData(){if(!plan.feel)plan.feel={acts:[],done:[],hard:null};if(!plan.feel.acts.length)plan.feel.acts=FG_DEFAULT.slice();return plan.feel;}
+  function renderFeel(){
+    const f=feelData(),days=weekDays(),today=dayKey(new Date()),NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    const g=node('div',{class:'fg-grid',role:'grid','aria-label':'Feel-good activities this week'});
+    g.append(node('span'));days.forEach((d,i)=>g.append(node('span',{class:'dh'+(dayKey(d)===today?' today':'')},'MTWTFSS'[i])));
+    let total=0;const keys=new Set(days.map(dayKey));
+    f.acts.forEach(a=>{
+      g.append(node('span',{class:'act'},a));
+      days.forEach((d,i)=>{
+        const k=dayKey(d)+'|'+a,on=f.done.includes(k);if(on)total++;
+        const b=node('button',{type:'button','aria-pressed':String(on),'aria-label':a+', '+NAMES[i]});
+        b.addEventListener('click',()=>{const j=f.done.indexOf(k);if(j>=0)f.done.splice(j,1);else f.done.push(k);
+          const cutoff=dayKey(new Date(Date.now()-120*864e5));f.done=f.done.filter(x=>x.slice(0,10)>=cutoff);store();renderFeel();});
+        g.append(b);
+      });
+    });
+    $('#fgGrid').replaceChildren(g);
+    $('#fgTotal').textContent=total?total+' feel-good moment'+(total===1?'':'s')+' this week. That adds up.':'Nothing yet this week. One small thing counts.';
+    if(!$('#fgEdit').classList.contains('hidden'))renderFeelEdit();
+    // one hard thing (resets each day)
+    if(!f.hard||f.hard.date!==today)f.hard={date:today,task:f.hard&&!f.hard.taskDone?f.hard.task:'',reward:f.hard&&!f.hard.taskDone?f.hard.reward:'',taskDone:false,rewardDone:false};
+    if(document.activeElement!==$('#hdTask'))$('#hdTask').value=f.hard.task;
+    if(document.activeElement!==$('#hdReward'))$('#hdReward').value=f.hard.reward;
+    $('#hdTaskDone').checked=f.hard.taskDone;$('#hdRewardDone').checked=f.hard.rewardDone;
+    $('#hdDone').classList.toggle('hidden',!(f.hard.taskDone&&f.hard.rewardDone));
+  }
+  function renderFeelEdit(){
+    const f=feelData(),box=$('#fgEdit');box.replaceChildren();
+    f.acts.forEach((a,i)=>{const r=node('div',{class:'line-row'}),inp=node('input',{type:'text',maxlength:'40','aria-label':'Activity'});inp.value=a;
+      inp.addEventListener('change',()=>{const v=inp.value.trim();if(!v){inp.value=a;return;}f.done=f.done.map(x=>x.endsWith('|'+a)?x.slice(0,11)+v:x);f.acts[i]=v;store();renderFeel();});
+      const rm=node('button',{type:'button','aria-label':'Remove '+a},'✕');rm.addEventListener('click',()=>{f.acts.splice(i,1);if(!f.acts.length)f.acts.push('Something soothing');store();renderFeel();});
+      r.append(inp,rm);box.append(r);});
+    if(f.acts.length<12){const add=node('input',{type:'text',maxlength:'40',placeholder:'＋ Add an activity and press Enter','aria-label':'Add an activity'});
+      add.addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const v=add.value.trim();if(!v)return;f.acts.push(v);store();renderFeel();$('#fgEdit input:last-of-type')?.focus();});
+      box.append(add);}
+    const pl=lines(plan.zones.green.safe).filter(x=>!f.acts.some(a=>a.toLowerCase()===x.toLowerCase())).slice(0,6);
+    if(pl.length){const c=node('div',{class:'chips',style:'margin-top:8px'});c.append(node('span',{class:'sub',style:'margin:8px 4px 0 0'},'From my green zone:'));
+      pl.forEach(x=>{const b=node('button',{type:'button',class:'chip'},'＋ '+x);b.addEventListener('click',()=>{if(f.acts.length<12){f.acts.push(x.slice(0,40));store();renderFeel();}});c.append(b);});box.append(c);}
+  }
+  function openFeel(){$('#fgEdit').classList.add('hidden');renderFeel();showDlg($('#feelDialog'));}
+  $('#fgEditBtn').addEventListener('click',()=>{const e=$('#fgEdit');e.classList.toggle('hidden');if(!e.classList.contains('hidden'))renderFeelEdit();});
+  ['hdTask','hdReward'].forEach(id=>$('#'+id).addEventListener('input',e=>{const f=feelData();f.hard[id==='hdTask'?'task':'reward']=e.target.value;store();}));
+  ['hdTaskDone','hdRewardDone'].forEach(id=>$('#'+id).addEventListener('change',e=>{const f=feelData();f.hard[id==='hdTaskDone'?'taskDone':'rewardDone']=e.target.checked;store();renderFeel();if(f.hard.taskDone&&f.hard.rewardDone)notify('Both done. That counts.');}));
+  $('#feelBtn').addEventListener('click',openFeel);
+  $('#feelClose').addEventListener('click',()=>$('#feelDialog').close());
 
   load();syncBook();renderEditor();renderPerson();renderCrisisAll();renderPlans();setView(prefs.view);renderPending();
   if(!prefs.setupDone&&!hasContent(plan))openSetup();

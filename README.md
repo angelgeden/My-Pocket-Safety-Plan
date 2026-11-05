@@ -17,6 +17,12 @@ My Pocket Safety Plan helps you build a personal safety plan in minutes, see you
 - **Check in.** Pick from the 10 DBT emotion families (fear, anger, sadness, shame, guilt, joy, love, disgust, envy, jealousy), plus "not sure." Mark where you feel it in your body, rate how strong it is, and note any urges. The app suggests which zone you're in and shows that part of your plan.
 - **Learn as you go (optional).** Short notes on what each emotion is for and its usual urge, a "which came first?" prompt for primary vs. secondary emotions, and an optional check-the-facts step that suggests opposite action when an emotion doesn't fit. At very high intensity these step aside so the plan and support come first. An Emotion guide collects it all. Tips can be turned off in Settings.
 - **Thought log.** Five short steps: what happened, what went through my mind, what I felt, what I did, and another way to see it, with optional prompts like checking the facts or what you'd tell a friend. Entries stay on the device and can be deleted anytime.
+- **Tools drawer.** One Tools button holds the skills library, thought log, Cope ahead, What I'll say, My feel-good week, Relationship check and the emotion guide, so the main screen stays simple.
+- **Cope ahead.** Plan and practice for something hard that's coming up: the situation, what might get in the way, skills to use, what I want to say, how I want to act, and the best case, surprises and worst case. Ends with rehearsing and a breathing break. Plans are saved on the device to reopen right before the moment.
+- **What I'll say.** Inside Cope ahead: one short line each for what happened, how I feel, what I'm asking for, why it helps and where I can bend. It builds a draft to copy, with reminders for staying calm and keeping self-respect while talking.
+- **My feel-good week.** A weekly tracker of soothing, feel-good activities (editable, with suggestions from the green zone), plus "one hard thing today": a task and a reward, checked off together.
+- **Relationship check.** A reflection, not a quiz, and nothing is saved. Three plain-language choices point to next steps (problem-solving, setting a boundary, talking to someone, safety). If the last stress check was Injured or Ill, it suggests waiting on big decisions. A Safety first card links to a domestic violence hotline (US) or a local support line elsewhere.
+- **Quick exit.** Leaves the app right away for an ordinary web page. It's on the Relationship check, and can be shown on every screen (Settings → Privacy & safety). The Relationship check can also be hidden there.
 - **Common warning signs.** In Edit, the yellow and red zones have a picker of common signs that stress is building (how I feel, think, act, and what my body does). Tap to add or remove.
 - **Did it help?** Rate how you feel before and after a coping skill. The skills that help you most move to the top. My patterns also shows how often each stress level comes up and which zone you chose when you were Injured.
 - **Breathe with me.** A guided breathing pacer (in 4, out 6, or box breathing).
@@ -24,7 +30,7 @@ My Pocket Safety Plan helps you build a personal safety plan in minutes, see you
 - **Skill suggestions.** After a check-in, the app suggests a few skills that fit the emotion and how strong it is. At high intensity it only suggests calming, grounding skills.
 - **Share with my support person.** Builds a short "how to support me" message you can review and send.
 - **Update log and printable plan.** Every change is dated. Print or save a PDF with signature and date lines.
-- **One plan, or a few.** Many people use one plan. If different settings bring different signs or need different help, add a separate plan for work, family, social situations or anything you name, and switch in one tap. Crisis lines, check-ins, stress checks, thought logs and skill ratings are shared across plans. Each plan has its own people.
+- **One plan, or a few.** Many people use one plan. If different settings bring different signs or need different help, add a separate plan for work, family, social situations or anything you name, and switch in one tap. Crisis lines, check-ins, stress checks, thought logs, Cope ahead plans, the feel-good week and skill ratings are shared across plans. Each plan has its own people.
 - **Optional passcode** for privacy on a shared device.
 - **Easy on the eyes.** A calm dark theme by default with a light option (Settings → Appearance). Large tap targets, high contrast and minimal motion, so it stays usable when emotions run high.
 
@@ -70,4 +76,4 @@ My Pocket Safety Plan is a personal planning tool. It is **not** an emergency se
 
 **Skill content** lives in the `SKILLS` list in `index.html`. Edit a skill's wording there, or copy an entry to add a new one.
 
-**Crisis numbers** live in the `COUNTRIES` list in `index.html`. Check them periodically against each service's official site.
+**Crisis numbers** live in the `COUNTRIES` list in `index.html`. Check them periodically against each service's official site. The domestic violence hotline number and text option are in the `relLines` function.
