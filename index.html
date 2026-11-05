@@ -864,8 +864,8 @@
       <div class="stress-opts" role="group" aria-labelledby="stressTitle">
         <button type="button" class="stress-opt ready" data-stress="ready" aria-pressed="false"><i aria-hidden="true"></i><span><b>Ready</b><small>Coping well. Getting things done.</small></span></button>
         <button type="button" class="stress-opt reacting" data-stress="reacting" aria-pressed="false"><i aria-hidden="true"></i><span><b>Reacting</b><small>A lot going on, but it will pass.</small></span></button>
-        <button type="button" class="stress-opt injured" data-stress="injured" aria-pressed="false"><i aria-hidden="true"></i><span><b>Injured</b><small>It isn't passing. Hard to stay in control.</small></span></button>
-        <button type="button" class="stress-opt ill" data-stress="ill" aria-pressed="false"><i aria-hidden="true"></i><span><b>Ill</b><small>I'm not okay, or it's lasted for weeks.</small></span></button>
+        <button type="button" class="stress-opt injured" data-stress="injured" aria-pressed="false"><i aria-hidden="true"></i><span><b>Hurting</b><small>It isn't passing. Hard to stay in control.</small></span></button>
+        <button type="button" class="stress-opt ill" data-stress="ill" aria-pressed="false"><i aria-hidden="true"></i><span><b>Not okay</b><small>I'm struggling, or it's lasted for weeks.</small></span></button>
       </div>
       <div id="stressResult" aria-live="polite"></div>
     </section>
@@ -920,6 +920,7 @@
   <div id="bPhase" aria-live="polite">Breathe in</div>
   <div id="bSecs"></div>
   <div id="bStats">0 breaths · 0:00</div>
+  <p style="max-width:320px;text-align:center;opacity:.75;font-size:.85rem;margin:6px 16px 0">Breath focus not feeling right? Keep your eyes open and notice your feet on the floor instead.</p>
   <button type="button" id="bDone">I'm done</button>
 </div>
 <dialog id="rateDialog" aria-labelledby="rateTitle">
@@ -993,7 +994,7 @@
     </section>
     <section class="set-sec">
       <h3>Privacy &amp; safety</h3>
-      <p>Quick exit leaves the app right away and opens an ordinary web page, in case someone checks your phone.</p>
+      <p>Quick exit leaves the app right away and opens an ordinary web page, in case someone checks your phone. It doesn't erase your browser history.</p>
       <label class="toggle-row"><input type="checkbox" id="setQexit"> <span>Show a Quick exit button on every screen</span></label>
       <label class="toggle-row"><input type="checkbox" id="setRel"> <span>Show the Relationship check in Tools</span></label>
     </section>
@@ -1167,7 +1168,7 @@
         <label><span class="field-label">If something new comes up, what will I do?</span><textarea id="caSurprise" rows="2" maxlength="2000"></textarea></label>
         <label><span class="field-label">If my biggest worry happens, how will I get through it?</span><textarea id="caWorst" rows="2" maxlength="2000"></textarea></label>
       </div></div>
-    <div class="ca-sec say-box"><h4>7. Rehearse, then relax</h4><p>Close your eyes and picture it going the way you planned. Then take a few slow breaths.</p><div class="row-btns" style="margin-top:8px"><button type="button" class="btn" id="caBreathe">🫁 Breathe with me</button></div></div>
+    <div class="ca-sec say-box"><h4>7. Rehearse, then relax</h4><p>Close your eyes, or soften your gaze if that feels better, and picture it going the way you planned. Then take a few slow breaths.</p><div class="row-btns" style="margin-top:8px"><button type="button" class="btn" id="caBreathe">🫁 Breathe with me</button></div></div>
     <p class="form-error hidden" id="caError">Write at least what's coming up.</p>
     <div class="dialog-actions"><button type="button" class="btn" id="caClose">Close</button><span></span><button type="submit" class="btn primary" id="caSave">Save to this device</button></div>
     <h3 class="guide-h" id="caPastH">My saved plans</h3>
@@ -1182,8 +1183,8 @@
     <p class="rel-note hidden" id="relNote">Your last stress check was <b id="relLevel"></b>. Big decisions go better from a calm, wise place. Reflecting is fine. Deciding can wait until things settle.</p>
     <div class="rel-opts" id="relOpts" role="group" aria-label="Lately, this relationship"></div>
     <div class="rel-next" id="relNext" aria-live="polite"></div>
-    <div class="rel-safety" id="relSafety"><h3>Safety first</h3><p>If you feel unsafe with someone, a domestic violence hotline can help you plan how to stay safe, including before leaving. It's free and confidential.</p><div class="crisis" id="relLines"></div></div>
-    <p class="tiny">If someone checks your phone, Quick exit leaves the app right away. You can show it on every screen, or hide this tool, in Settings.</p>
+    <div class="rel-safety" id="relSafety"><h3>Safety first</h3><p>If you feel unsafe with someone, a relationship safety hotline can help you plan how to stay safe, including before leaving. It's free and confidential, and you can call even if you're not sure it counts.</p><div class="crisis" id="relLines"></div></div>
+    <p class="tiny">If someone checks your phone, Quick exit leaves the app right away. It doesn't erase your browser history. You can show it on every screen, or hide this tool, in Settings.</p>
     <div class="dialog-actions"><span></span><button type="button" class="btn primary" id="relClose">Close</button></div>
   </form>
 </dialog>
@@ -1226,7 +1227,7 @@
   const emptyPlan = () => ({version:1, id:'', title:'My plan', icon:'🧭', meta:{name:'',focus:'',date:'',updated:''}, person:{name:'',phone:''}, people:[], crisis:{country:'',emergency:'',chat:'',lines:[]}, history:[], checkins:[], ratings:[], thoughts:[], stress:[], copes:[], feel:{acts:[],done:[],hard:null}, zones:Object.fromEntries(ZONES.map(z => [z.key,Object.fromEntries([...FIELDS.map(f=>[f[0],'']),['contacts','']])]))});
   const hasContent = p => ['name','focus','date'].some(k=>(p.meta[k]||'').trim()) || (p.people&&p.people.length)||(p.person&&p.person.name.trim()) || Object.values(p.zones).some(z=>Object.values(z).some(v=>v.trim()));
   const MAX_PEOPLE = 8;
-  const STRESS = {ready:{name:'Ready',zone:'green'},reacting:{name:'Reacting',zone:'yellow'},injured:{name:'Injured',zone:''},ill:{name:'Ill',zone:'red'}};
+  const STRESS = {ready:{name:'Ready',zone:'green'},reacting:{name:'Reacting',zone:'yellow'},injured:{name:'Hurting',zone:''},ill:{name:'Not okay',zone:'red'}};
   const PREF_KEY = 'pocket-safety-plan-prefs';
   let prefs = {view:'quick', pick:'all', setupDone:false, lock:null};
   try{ Object.assign(prefs, JSON.parse(localStorage.getItem(PREF_KEY)||'{}')); }catch(e){}
@@ -1287,7 +1288,7 @@
       const s2=(x,n)=>typeof x==='string'?x.slice(0,n):'',sy=c.say&&typeof c.say==='object'?c.say:{};
       return {at:c.at.slice(0,40),situation:s2(c.situation,2000),blocks:strArr(c.blocks,20),skills:strArr(c.skills,20),
         say:{what:s2(sy.what,500),feel:s2(sy.feel,500),ask:s2(sy.ask,500),why:s2(sy.why,500),give:s2(sy.give,500)},
-        act:s2(c.act,2000),best:s2(c.best,2000),surprise:s2(c.surprise,2000),worst:s2(c.worst,2000)};
+        act:s2(c.act,2000),best:s2(c.best,2000),surprise:s2(c.surprise,2000),worst:s2(c.worst,2000),...(c.debrief&&typeof c.debrief==='object'?{debrief:{at:s2(c.debrief.at,40),worked:s2(c.debrief.worked,2000),change:s2(c.debrief.change,2000),helped:strArr(c.debrief.helped,20)}}:{})};
     });
     if(source.feel&&typeof source.feel==='object'){
       const f=source.feel,h=f.hard;
@@ -1799,7 +1800,7 @@
       fn:'Pushes you to hide when you believe you\'ve fallen short of a standard, to protect your place with others.',
       body:'Hot face, looking down, slumped shoulders, wanting to shrink.',
       urge:'Hide, avoid people, cover up, or be hard on yourself.',
-      opp:'If it doesn\'t fit the facts: share it with someone you trust, keep your head up and make eye contact, and keep doing what you were doing. If you did act against your values, guilt and repair may fit better.'},
+      opp:'If it doesn\'t fit the facts: share it with someone you trust, lift your gaze or look around the room instead of down, and keep doing what you were doing. If you did act against your values, guilt and repair may fit better.'},
     {k:'Guilt',c:'#8a6a2a',f:['Regretful','Remorseful','Sorry','Responsible','Like I let someone down'],
       fn:'Signals that you acted against your own values, and motivates you to repair.',
       body:'Heavy or sick feeling in your stomach, restless, can\'t stop replaying it.',
@@ -1814,12 +1815,12 @@
       fn:'Builds attachment and bonding, and protects the people and communities you care about.',
       body:'Warmth in your chest, relaxed, drawn toward someone.',
       urge:'Get close, show affection, protect.',
-      opp:'If loving someone isn\'t good for you: step back, limit contact, and remind yourself why the relationship doesn\'t fit your life.'},
+      opp:'If loving someone isn\'t good for you: when it\'s safe to, step back, limit contact, and remind yourself why the relationship doesn\'t fit your life. If you feel unsafe with them, make a safety plan first. The Relationship check in Tools has support.'},
     {k:'Disgust',c:'#5d7a2a',f:['Grossed out','Repulsed','Revolted','Contempt','Disdain','Turned off'],
       fn:'Moves you away from things that feel toxic, contaminated or offensive.',
       body:'Nausea, wrinkled nose, pulling back.',
       urge:'Push away, reject or avoid.',
-      opp:'If it doesn\'t fit the facts: move toward it with curiosity, be kind, and try to understand.'},
+      opp:'If it doesn\'t fit the facts, and it\'s safe: move toward it with curiosity, be kind, and try to understand. Sometimes disgust is a real warning about a person or situation. Trust that.'},
     {k:'Envy',c:'#2f7a6b',f:['Wanting what they have','Left out','Inferior','Comparing myself','Resentful of their success'],
       fn:'Shows up when someone has something you want, and can motivate you to work toward it.',
       body:'Tight chest, stomach knot, restless.',
@@ -1972,7 +1973,7 @@
     if(avoidAll.length){card.append(node('h3',{},'Your plan says to avoid'));card.append(node('p',{},avoidAll.join(' · ')));}
     if(z==='red'||c.urges.includes('Hurt myself')||c.intensity>=9){
       card.append(node('h3',{},'Support is one tap away'));
-      if(c.urges.includes('Hurt myself')){const cs=crisisSummary();card.append(node('p',{},'You named an urge to hurt yourself. Please reach out now'+(cs.support?': '+cs.support:'')+', or call '+cs.emergency+' if you are in danger.'));}
+      if(c.urges.includes('Hurt myself')){const cs=crisisSummary();card.append(node('p',{},'Thank you for being honest with yourself about that urge. You deserve support right now. Please reach out'+(cs.support?': '+cs.support:'')+', or call '+cs.emergency+' if you are in danger.'));}
       card.append(crisisButtons());
     }
     learnResult(c,card);
@@ -2027,8 +2028,8 @@
     if(rs.length){
       const sc={ready:0,reacting:0,injured:0,ill:0};rs.forEach(t=>sc[t.level]++);
       const inj=rs.filter(t=>t.level==='injured'&&t.zone),iy=inj.filter(t=>t.zone==='yellow').length,ir=inj.filter(t=>t.zone==='red').length;
-      [['Stress checks',`Ready ${sc.ready} · Reacting ${sc.reacting} · Injured ${sc.injured} · Ill ${sc.ill}`],
-       ['When injured, I chose',inj.length?`Yellow plan ${iy} · Red plan ${ir}`:''],
+      [['Stress checks',`Ready ${sc.ready} · Reacting ${sc.reacting} · Hurting ${sc.injured} · Not okay ${sc.ill}`],
+       ['When hurting, I chose',inj.length?`Yellow plan ${iy} · Red plan ${ir}`:''],
        ['Stress check settings',multi()?countTop(rs.map(t=>t.plan).filter(Boolean)):'']
       ].filter(r=>r[1]).forEach(([k,v])=>{const d=node('div',{class:'stat'});d.append(node('span',{},k),node('b',{},v));pat.append(d);});
     }
@@ -2130,7 +2131,7 @@
     {name:'5-4-3-2-1 grounding',mod:'mind',lv:'hm',fams:['Fear','Sadness','Shame'],when:'When you feel swept up, spacey or far away.',
       steps:['Name 5 things you can see.','Name 4 things you can feel, like your feet on the floor or your back against the chair.','Name 3 things you can hear.','Name 2 things you can smell and 1 thing you can taste.','Go slowly. Say each one out loud or in your head.']},
     {name:'Mindful breathing',mod:'mind',lv:'ml',fams:[],when:'A short way to come back to the present.',
-      steps:['Breathe in, noticing the air coming in.','Breathe out, noticing the air leaving.','When your mind wanders, gently bring it back. Coming back is the practice.','Start with one minute.']},
+      steps:['Breathe in, noticing the air coming in.','Breathe out, noticing the air leaving.','When your mind wanders, gently bring it back. Coming back is the practice.','Start with one minute.','If focusing on your breath feels uncomfortable, notice your feet on the floor or the sounds around you instead.']},
     {name:'Thought defusion',mod:'mind',lv:'ml',fams:['Fear','Shame','Guilt','Jealousy','Envy'],when:'When a thought keeps grabbing hold of you.',
       steps:['Notice the thought and put it into words.','Add, "I\'m noticing the thought that…"','Picture the thought as a leaf floating down a stream, or a cloud passing by.','Let it come and go without arguing with it or obeying it.']},
     {name:'Nonjudgmental stance',mod:'mind',lv:'l',fams:['Shame','Anger','Guilt'],when:'When judgments of yourself or others are making things heavier.',
@@ -2176,7 +2177,7 @@
     {name:'Self-validation',mod:'er',lv:'ml',fams:['Shame','Sadness','Guilt','Fear'],when:'When you\'re being hard on yourself for how you feel.',
       steps:['Notice and name what you feel.','Tell yourself it makes sense, given what happened or what you\'ve been through.','Speak to yourself the way you would to a friend feeling the same thing.','Validating a feeling doesn\'t mean you have to act on it.']},
     {name:'PLEASE: care for my body',mod:'er',lv:'ml',fams:[],when:'Taking care of your body makes emotions easier to manage.',
-      steps:['PL: take care of physical illness and pain, and take medications as prescribed.','E: eat regular, balanced meals.','A: avoid mood-altering drugs and alcohol.','S: aim for balanced sleep.','E: move your body in a way that feels good.']},
+      steps:['PL: take care of physical illness and pain, and take medications as prescribed.','E: eat regularly, in a way that nourishes you.','A: avoid mood-altering drugs and alcohol.','S: aim for balanced sleep.','E: move your body in a way that feels good.']},
     {name:'Build positives',mod:'er',lv:'l',fams:['Sadness','Joy'],when:'To add more good moments to your days.',
       steps:['Do one pleasant thing today, even something small.','Pay attention while you do it, and let yourself enjoy it.','If worries pull you away, notice them and come back.','Over time, add things that matter to you in the long run too.']},
     {name:'Build mastery',mod:'er',lv:'l',fams:['Sadness','Shame'],when:'To build confidence, one small win at a time.',
@@ -2196,12 +2197,14 @@
       steps:['Get clear on what you need and why it matters to you.','Say it simply: "I\'m not okay with… What I need is…"','You don\'t have to over-explain.','Expect some discomfort at first. Holding a boundary gets easier with practice.']}
   ];
   const SKILL_BY=new Map(SKILLS.map(s=>[skillKey(s.name),s]));
+  const PLAIN={'DEAR MAN':'Ask for what I need (DEAR MAN)','GIVE':'Keep the relationship (GIVE)','FAST':'Keep my self-respect (FAST)','ACCEPTS':'Get through the moment (ACCEPTS)','IMPROVE the moment':'Make the moment better (IMPROVE)','PLEASE: care for my body':'Care for my body (PLEASE)','STOP':'Pause before reacting (STOP)','HALT check':'Check my basic needs (HALT)','TIPP':'Calm my body fast (TIPP)'};
+  const skillLabel=n=>PLAIN[n]||n;
   // ----- Library dialog
   let skillMod='all';
   function inPlan(name,zone){return lines(plan.zones[zone].safe).some(l=>skillKey(l)===skillKey(name));}
   function skillItem(s,stats,focus){
     const m=SKILL_MODS[s.mod],d=node('details',{class:'guide-item skill','data-name':s.name});d.style.setProperty('--c',m.c);
-    const sum=node('summary');sum.append(node('span',{class:'nm'},s.name));const b=badgeFor(stats.get(skillKey(s.name)));if(b)sum.append(b);
+    const sum=node('summary');sum.append(node('span',{class:'nm'},skillLabel(s.name)));const b=badgeFor(stats.get(skillKey(s.name)));if(b)sum.append(b);
     d.append(sum,node('p',{class:'skill-mod'},m.name),node('p',{},s.when));
     const ol=node('ol',{class:'skill-steps'});s.steps.forEach(t=>ol.append(node('li',{},t)));d.append(ol);
     if(s.note)d.append(node('p',{class:'skill-note'},s.note));
@@ -2234,7 +2237,7 @@
       b.addEventListener('click',()=>{skillMod=k;renderSkills();});f.append(b);
     });
     const box=$('#skillsBody');box.replaceChildren();
-    let list=SKILLS.filter(s=>(skillMod==='all'||skillMod==='helped'||s.mod===skillMod)&&(!q||(s.name+' '+s.when+' '+s.steps.join(' ')).toLowerCase().includes(q)));
+    let list=SKILLS.filter(s=>(skillMod==='all'||skillMod==='helped'||s.mod===skillMod)&&(!q||(s.name+' '+skillLabel(s.name)+' '+s.when+' '+s.steps.join(' ')).toLowerCase().includes(q)));
     if(skillMod==='helped')list=list.filter(s=>{const x=stats.get(skillKey(s.name));return x&&x.avg>0;}).sort((a,b)=>stats.get(skillKey(b.name)).avg-stats.get(skillKey(a.name)).avg);
     if(!list.length){box.append(node('p',{class:'skill-empty'},skillMod==='helped'?'Tap "Try it" on any skill and rate how you feel before and after. Skills that help will show up here.':'No skills match that search.'));return;}
     let lastMod='';
@@ -2282,7 +2285,7 @@
     wrap.append(node('h3',{},'More skills that may help'));
     list.forEach(s=>{
       const row=node('div',{class:'skill-row'}),nm=node('div',{class:'nm'});
-      const open=node('button',{type:'button'},s.name);open.addEventListener('click',()=>openSkills(s.name));
+      const open=node('button',{type:'button'},skillLabel(s.name));open.addEventListener('click',()=>openSkills(s.name));
       nm.append(open,node('small',{},s.when));row.append(nm);
       const b=badgeFor(stats.get(skillKey(s.name)));if(b)row.append(b);
       const t=node('button',{type:'button','aria-label':'Try '+s.name},'Try it');t.addEventListener('click',()=>startSkill(s.name,c.intensity));
@@ -2856,11 +2859,11 @@
   //  Shared across plans; saved on this device and in backups only.
   // =====================================================================
   const TL_PROMPTS=[
+    ['Does my reaction make sense?','Given what happened, or what I\'ve been through, which parts of how I feel make sense?'],
     ['Check the facts','What do I know for sure? What am I guessing or assuming?'],
     ['What would I tell a friend?','If someone I care about had this thought, what would I say to them?'],
     ['Drop the judgment','Can I say it again without words like “stupid,” “always” or “never”?'],
-    ['Does my reaction make sense?','Given what happened, which parts of how I feel make sense?'],
-    ['Is it a catastrophe?','Even if part of it is true, is it the end of the world, or something I can get through?']
+    ['What would help me get through this?','Even if part of it is true, what could help me cope with it?']
   ];
   let tlEmos=new Set();
   function paintTlEmos(){
@@ -2936,8 +2939,8 @@
   const BASICS=[
     ['safe','I\'m somewhere safe','Get somewhere safe, or reach someone from your list above.'],
     ['water','I\'ve had some water','Drink a glass of water.'],
-    ['food','I\'ve eaten in the last few hours','Eat something small, even a snack.'],
-    ['sleep','I slept okay last night','Go easy on yourself today. Rest counts.'],
+    ['food','I\'ve had something to eat','Have something small, even a snack.'],
+    ['sleep','I\'ve had some rest','Go easy on yourself today. Rest counts, even a short break.'],
     ['meds','I took my medication as prescribed (if I have any)','If it\'s time, take it as prescribed. Questions? Ask your pharmacist or prescriber.']
   ];
   let stressNow=null;
@@ -3025,7 +3028,7 @@
   // =====================================================================
   //  Cope ahead (with "What I'll say")
   // =====================================================================
-  const CA_BLOCKS=['Anxiety','Anger','Shame','Guilt','Frustration','Impatience','Putting it off','Shutting down','People-pleasing'];
+  const CA_BLOCKS=['Anxiety','Anger','Shame','Guilt','Frustration','Impatience','Putting it off','Shutting down','Going along to keep the peace'];
   const CA_SKILLS=['Slow breathing','Grounding','Stretch or move','Check the facts','Opposite action'];
   const SAY_STEPS=[['what','What happened','Just the facts, no blame','When…'],['feel','How I feel','Start with “I feel” or “I\'m worried”','I feel…'],['ask','What I\'m asking for','Be clear and specific','I\'m asking for…'],['why','Why it helps','What\'s good about it for them, or for us','That would help because…'],['give','Where I can bend','Optional. What I\'d accept instead','If that doesn\'t work, I could…']];
   let copeEdit=-1,copeDraft=null,caBlocks=new Set(),caSkills=new Set(),caExtra=[];
@@ -3072,8 +3075,21 @@
       const when=new Date(c.at);sm.append(node('small',{},isNaN(when)?c.at:shortDate(when)));d.append(sm);
       const dl=node('dl'),dr=sayDraft(c.say);
       [['Might get in the way',c.blocks.join(', ')],['Skills I\'ll use',c.skills.join(', ')],['What I\'ll say',dr],['How I want to act',c.act],['Best case',c.best],['If something new comes up',c.surprise],['If my biggest worry happens',c.worst]].forEach(([k,v])=>{if(v&&v.trim())dl.append(node('dt',{},k),node('dd',{},v));});
+      if(c.debrief){[['How it went · what worked',c.debrief.worked],['What I\'d change next time',c.debrief.change],['Skills that helped',c.debrief.helped.join(', ')]].forEach(([k,v])=>{if(v&&v.trim())dl.append(node('dt',{},k),node('dd',{},v));});}
       d.append(dl);
+      const db=node('div',{class:'say-box hidden'});
+      db.append(node('h4',{},'It happened. How did it go?'));
+      const w1=node('label',{style:'display:block;margin:0 0 8px'});w1.append(node('span',{class:'field-label'},'What worked, even a little?'));const t1=node('textarea',{rows:'2',maxlength:'2000'});w1.append(t1);
+      const w2=node('label',{style:'display:block;margin:0 0 8px'});w2.append(node('span',{class:'field-label'},'What would I change next time?'));const t2=node('textarea',{rows:'2',maxlength:'2000'});w2.append(t2);
+      const hs=new Set(),hc=node('div',{class:'chips'});
+      if(c.skills.length){db.append(w1,w2,node('span',{class:'field-label'},'Which skills helped?'));chipSet(hc,c.skills,hs);db.append(hc);}else db.append(w1,w2);
+      const sv=node('button',{type:'button',class:'btn primary',style:'margin-top:6px'},'Save how it went');
+      sv.addEventListener('click',()=>{plan.copes[i].debrief={at:new Date().toISOString(),worked:t1.value.trim(),change:t2.value.trim(),helped:[...hs]};store();renderCopeList();notify('Saved. You can use what you learned next time.');});
+      db.append(sv);d.append(db);
       const row=node('div',{class:'row-btns',style:'margin-top:8px'});
+      const hd=node('button',{type:'button',class:'btn'},c.debrief?'✎ Update how it went':'✓ It happened. How did it go?');
+      hd.addEventListener('click',()=>{if(c.debrief){t1.value=c.debrief.worked;t2.value=c.debrief.change;c.debrief.helped.forEach(x=>hs.add(x));chipSet(hc,c.skills,hs);}db.classList.toggle('hidden');if(!db.classList.contains('hidden'))t1.focus();});
+      row.append(hd);
       const ed=node('button',{type:'button',class:'btn'},'✎ Edit');ed.addEventListener('click',()=>{copeEdit=i;fillCope(plan.copes[i]);$('#copeDialog').scrollTop=0;$('#caSit').focus();});
       const del=node('button',{type:'button',class:'btn danger'},'Delete');
       del.addEventListener('click',()=>{if(del.dataset.armed!=='1'){del.dataset.armed='1';del.textContent='Tap again to delete';return;}plan.copes.splice(i,1);if(copeEdit===i){copeEdit=-1;copeDraft=null;fillCope(emptyCope());}else if(copeEdit>i)copeEdit--;store();renderCopeList();notify('Plan deleted.');});
@@ -3109,7 +3125,7 @@
   const REL=[
     {k:'hard',t:'Is hard, but worth working on',s:'It matters to me and I think it can get better.',next:[['Plan a conversation','Cope ahead',()=>openCope()],['Say what I need','What I\'ll say',()=>openCope({say:true})],['Untangle a thought about it','Thought log',()=>openThoughts()]]},
     {k:'interfering',t:'Gets in the way of my life',s:'It makes it harder to reach my goals, enjoy things, or be with other people I care about.',next:[['Get clear on what I want','Thought log',()=>openThoughts()],['Set a boundary','What I\'ll say',()=>openCope({say:true})],['Plan a hard conversation','Cope ahead',()=>openCope()]]},
-    {k:'harmful',t:'Is hurting me',s:'It\'s wearing down my safety, self-respect, or peace of mind.',next:[['Talk it through with someone I trust','My people',()=>{setView('quick');setTimeout(()=>$('#person').scrollIntoView({behavior:'smooth',block:'center'}),60);}],['Plan for safety first','Safety support below, or my care team',()=>$('#relSafety').scrollIntoView({behavior:'smooth',block:'center'})],['Plan ending it, if I decide to','Cope ahead, and practice it first',()=>openCope()]]}
+    {k:'harmful',t:'Is hurting me',s:'It\'s wearing down my safety, self-respect, or peace of mind.',next:[['Plan for safety first','A hotline can help you plan this safely, including before you leave',()=>$('#relSafety').scrollIntoView({behavior:'smooth',block:'center'})],['Talk it through with someone I trust','My people',()=>{setView('quick');setTimeout(()=>$('#person').scrollIntoView({behavior:'smooth',block:'center'}),60);}],['Plan ending it, if I decide to','Cope ahead, with my safety plan in place first',()=>openCope()]]}
   ];
   let relPick='';
   function quickExit(){
@@ -3128,7 +3144,7 @@
     const box=$('#relLines');box.replaceChildren();
     const us=(plan.crisis&&plan.crisis.country)==='US';
     if(us){
-      box.append(node('a',{class:'call988',href:'tel:18007997233'},'📞 Call the DV hotline'));
+      box.append(node('a',{class:'call988',href:'tel:18007997233'},'📞 Call a relationship safety hotline'));
       if(isPhone)box.append(node('a',{href:'sms:88788'+(/iPhone|iPad|iPod|Mac/i.test(navigator.userAgent)?'&':'?')+'body=START'},'💬 Text START to 88788'));
       else box.append(node('a',{href:'https://www.thehotline.org',target:'_blank',rel:'noopener noreferrer'},'💬 Chat online'));
     }else box.append(node('a',{class:'call988',href:FIND_HELPLINE,target:'_blank',rel:'noopener noreferrer'},'🌍 Find a local support line'));
